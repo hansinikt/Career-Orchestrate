@@ -1,0 +1,981 @@
+
+/* ==========================================
+   CAREER ORCHESTRATOR
+   LOGIN + DASHBOARD PREVIEW
+   ========================================== */
+
+html,
+body,
+body > div,
+#content {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.referencePage,
+.referencePage .sapMPageBgStandard {
+    background: #eeebfb !important;
+}
+
+.referencePage .sapMPageEnableScrolling {
+    height: 100%;
+}
+
+.referenceLayout {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 14px;
+    gap: 12px;
+    background: linear-gradient(135deg, #eeeaff, #f7f4ff);
+}
+
+/* ==========================================
+   LEFT LOGIN PANEL
+   ========================================== */
+
+.leftPanel {
+    width: 32%;
+    min-width: 340px;
+    max-width: 440px;
+    min-height: 820px;
+    box-sizing: border-box;
+    padding: 28px 30px 14px;
+    border-radius: 22px;
+    background:
+        radial-gradient(ellipse at 15% 80%, #d6c1ff 0%, transparent 45%),
+        linear-gradient(150deg, #ffffff 0%, #f4efff 100%);
+    box-shadow: 0 8px 30px rgba(75, 53, 135, 0.08);
+    overflow: hidden;
+}
+
+.leftBrand {
+    width: 100%;
+}
+
+.brandIdentity {
+    gap: 10px;
+}
+
+.brandIcon {
+    color: #6336ba !important;
+}
+
+.brandName {
+    color: #17132f !important;
+    font-size: 19px !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+}
+
+.brandHeadline {
+    color: #17132f !important;
+    font-size: 34px !important;
+    line-height: 1.12 !important;
+    font-weight: 800 !important;
+    letter-spacing: -1px;
+    white-space: normal !important;
+    margin-top: 35px;
+}
+
+.brandHeadline .sapMTitleStyleAuto {
+    white-space: normal;
+}
+
+.brandDescription {
+    color: #48435f !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    margin-top: 14px;
+    max-width: 350px;
+}
+
+/* MOUNTAIN LANDSCAPE */
+
+.mountainVisual {
+    position: relative;
+    min-height: 175px;
+    margin: 15px -20px 0;
+    padding: 15px 20px 0;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 70% 90%, #a57be9 0%, transparent 55%),
+        linear-gradient(180deg, transparent, #e3d4ff);
+}
+
+.mountainCaption {
+    color: #7550bb !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 2px;
+}
+
+.mountainDecor {
+    position: absolute;
+    bottom: -45px;
+    left: 0;
+    width: 100%;
+    height: 145px;
+    gap: 0;
+    align-items: end;
+}
+
+.mountain {
+    border-radius: 80% 80% 0 0;
+    transform: rotate(-8deg);
+}
+
+.mountainOne {
+    width: 42%;
+    height: 95px;
+    background: linear-gradient(145deg, #c8a8ff, #8e5cdb);
+}
+
+.mountainTwo {
+    width: 43%;
+    height: 130px;
+    margin-left: -10%;
+    background: linear-gradient(145deg, #a77be8, #7440c0);
+}
+
+.mountainThree {
+    width: 40%;
+    height: 85px;
+    margin-left: -8%;
+    background: linear-gradient(145deg, #dfcaff, #9a70e0);
+}
+
+/* ==========================================
+   LOGIN CARD
+   ========================================== */
+
+.authCard {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    margin-top: 10px;
+    border: 1px solid #f0ebfa;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(70, 48, 120, 0.08);
+}
+
+.authTabs {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    background: #f3effb;
+    gap: 5px;
+}
+
+.authTab {
+    flex: 1;
+}
+
+.authTab .sapMBtnInner {
+    height: 40px !important;
+    border-radius: 9px !important;
+    border: none !important;
+}
+
+.activeTab .sapMBtnInner {
+    background: linear-gradient(100deg, #6030ad, #432080) !important;
+    color: #ffffff !important;
+}
+
+.activeTab .sapMBtnContent {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+.authForm {
+    width: 100%;
+}
+
+.authInput {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.authInput .sapMInputBaseContentWrapper {
+    min-height: 43px;
+    border: 1px solid #e5e0ed !important;
+    border-radius: 9px !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.authInput .sapMInputBaseInner {
+    height: 41px !important;
+    padding-left: 12px !important;
+    font-size: 13px !important;
+}
+
+.authInput.sapMFocus .sapMInputBaseContentWrapper {
+    border-color: #8053c6 !important;
+    box-shadow: 0 0 0 2px rgba(128, 83, 198, 0.12) !important;
+}
+
+.forgotLink {
+    display: block;
+    text-align: right;
+    color: #7041b5 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    margin: 0 0 18px;
+}
+
+.loginButton {
+    width: 100%;
+    margin-top: 12px;
+}
+
+.loginButton .sapMBtnInner {
+    height: 46px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    background: linear-gradient(100deg, #b77ce9, #4b2195) !important;
+    box-shadow: 0 6px 16px rgba(88, 44, 151, 0.2);
+}
+
+.loginButton .sapMBtnContent {
+    color: #ffffff !important;
+    line-height: 44px !important;
+    font-weight: 700 !important;
+}
+
+.socialDivider {
+    margin: 22px 0 16px;
+    gap: 10px;
+}
+
+.socialDivider .sapMText {
+    color: #88839b !important;
+    font-size: 11px !important;
+}
+
+.dividerLine {
+    height: 1px;
+    flex: 1;
+    background: #e9e5ef;
+}
+
+.socialButtons {
+    gap: 10px;
+    padding: 0 5px;
+}
+
+.socialButton {
+    flex: 1;
+}
+
+.socialButton .sapMBtnInner {
+    height: 43px !important;
+    border: 1px solid #e9e5f0 !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    box-shadow: 0 3px 9px rgba(40, 30, 70, 0.05);
+}
+
+.socialButton .sapMBtnContent {
+    color: #37304d !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+}
+
+.signupHeading {
+    color: #21183c !important;
+    font-size: 23px !important;
+    margin-bottom: 15px;
+}
+
+.signupBackLink {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    color: #6336ad !important;
+}
+
+/* ==========================================
+   RIGHT DASHBOARD PREVIEW
+   ========================================== */
+
+.rightPanel {
+    flex: 1;
+    min-width: 0;
+    min-height: 820px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(75, 53, 135, 0.08);
+}
+
+/* SIDEBAR */
+
+.dashboardSidebar {
+    width: 205px;
+    min-width: 205px;
+    box-sizing: border-box;
+    padding: 25px 12px;
+    background: linear-gradient(180deg, #f5f0ff, #eee7fb);
+    border-right: 1px solid #eee8f7;
+}
+
+.sidebarBrand {
+    gap: 8px;
+    padding: 0 8px;
+    margin-bottom: 42px;
+}
+
+.sidebarLogoIcon {
+    color: #6538b7 !important;
+}
+
+.sidebarBrandName {
+    color: #1c1635 !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+}
+
+.sidebarNavigation {
+    gap: 9px;
+}
+
+.navItem {
+    min-height: 39px;
+    box-sizing: border-box;
+    padding: 8px 11px;
+    gap: 12px;
+    border-radius: 9px;
+}
+
+.navItem .sapMText {
+    color: #38334c !important;
+    font-size: 12px !important;
+}
+
+.navIcon {
+    color: #5e5872 !important;
+    font-size: 15px;
+}
+
+.navActive {
+    background: linear-gradient(100deg, #e5d5ff, #dfcafa);
+}
+
+.navActive .sapMText,
+.navActive .navIcon {
+    color: #55289d !important;
+    font-weight: 700 !important;
+}
+
+.sidebarBottom {
+    margin-top: 65px;
+    padding-top: 15px;
+    border-top: 1px solid #e5def0;
+    gap: 10px;
+}
+
+/* DASHBOARD CONTENT */
+
+.dashboardMain {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 24px 20px;
+    background: #ffffff;
+    gap: 18px;
+}
+
+/* TOP BAR */
+
+.dashboardTopbar {
+    width: 100%;
+    min-height: 42px;
+    gap: 12px;
+}
+
+.searchBox {
+    flex: 1;
+    max-width: 420px;
+    min-height: 38px;
+    box-sizing: border-box;
+    padding: 0 14px;
+    border: 1px solid #e9e5f0;
+    border-radius: 10px;
+    background: #f9f7fc;
+    gap: 10px;
+}
+
+.searchIcon {
+    color: #6c6382 !important;
+}
+
+.searchPlaceholder {
+    color: #8c879c !important;
+    font-size: 11px !important;
+}
+
+.topbarProfile {
+    gap: 10px;
+}
+
+.notificationIcon {
+    color: #35264f !important;
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.avatarIcon {
+    color: #ffffff !important;
+    background: #6737b3;
+    padding: 9px;
+    border-radius: 50%;
+}
+
+.previewUserName {
+    color: #27213a !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+.profileDropdownIcon {
+    color: #5b536c !important;
+    font-size: 11px;
+}
+
+/* HERO BANNER */
+
+.heroBanner {
+    width: 100%;
+    min-height: 255px;
+    box-sizing: border-box;
+    padding: 28px 35px;
+    border-radius: 18px;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 90% 100%, rgba(151, 87, 234, 0.8), transparent 45%),
+        radial-gradient(ellipse at 70% 10%, rgba(90, 59, 166, 0.5), transparent 50%),
+        linear-gradient(115deg, #17102e, #25154e 65%, #351c68);
+}
+
+.heroEyebrow {
+    color: #d9c7ff !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 2px;
+}
+
+.heroTitle {
+    color: #ffffff !important;
+    font-size: 31px !important;
+    line-height: 1.15 !important;
+    font-weight: 800 !important;
+    max-width: 440px;
+    white-space: normal !important;
+    margin-top: 10px;
+}
+
+.heroDescription {
+    color: #e4dff0 !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    max-width: 420px;
+    margin-top: 8px;
+}
+
+.exploreButton {
+    margin-top: 18px;
+}
+
+.exploreButton .sapMBtnInner {
+    height: 40px !important;
+    padding: 0 20px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    background: linear-gradient(100deg, #ffffff, #dfc2ff) !important;
+}
+
+.exploreButton .sapMBtnContent {
+    color: #38205e !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+}
+
+/* WELCOME ROW */
+
+.welcomeRow {
+    width: 100%;
+    gap: 10px;
+}
+
+.welcomeHeading {
+    color: #20183b !important;
+    font-size: 21px !important;
+    font-weight: 800 !important;
+}
+
+.welcomeSubtitle {
+    color: #79748d !important;
+    font-size: 12px !important;
+    margin-top: 4px;
+}
+
+.profileComplete {
+    padding: 9px 13px;
+    border-radius: 30px;
+    background: #eef8f1;
+    gap: 8px;
+}
+
+.profileComplete .sapUiIcon {
+    color: #249b5d !important;
+}
+
+.profileComplete .sapMText {
+    color: #36734e !important;
+    font-size: 10px !important;
+}
+
+.profileComplete .sapMTitle {
+    color: #236f48 !important;
+    font-size: 14px !important;
+}
+
+/* STATISTIC CARDS */
+
+.statisticsRow {
+    width: 100%;
+    gap: 12px;
+}
+
+.statCard {
+    flex: 1;
+    min-width: 0;
+    min-height: 145px;
+    box-sizing: border-box;
+    padding: 16px 14px;
+    border: 1px solid rgba(70, 50, 100, 0.05);
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(50, 30, 80, 0.04);
+}
+
+.statLavender {
+    background: linear-gradient(145deg, #f2e7ff, #eadbfb);
+}
+
+.statBlue {
+    background: linear-gradient(145deg, #e7f2ff, #dcecff);
+}
+
+.statPink {
+    background: linear-gradient(145deg, #ffedf5, #f8e1ed);
+}
+
+.statPeach {
+    background: linear-gradient(145deg, #fff5e9, #ffeddd);
+}
+
+.statIcon {
+    color: #6134a6 !important;
+    font-size: 21px;
+    margin-bottom: 7px;
+}
+
+.statValue {
+    color: #1e1934 !important;
+    font-size: 26px !important;
+    font-weight: 800 !important;
+}
+
+.statTitle {
+    color: #29213e !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    margin-top: 3px;
+}
+
+.statDescription {
+    color: #777087 !important;
+    font-size: 10px !important;
+    margin-top: 5px;
+}
+
+/* BOTTOM DASHBOARD CARDS */
+
+.dashboardBottom {
+    width: 100%;
+    gap: 14px;
+}
+
+.journeyCard,
+.aiInsightCard {
+    box-sizing: border-box;
+    padding: 17px;
+    border: 1px solid #ece8f2;
+    border-radius: 17px;
+    background: #ffffff;
+    box-shadow: 0 4px 14px rgba(50, 30, 80, 0.04);
+}
+
+.journeyCard {
+    flex: 1.4;
+    min-width: 0;
+}
+
+.aiInsightCard {
+    flex: 1;
+    min-width: 0;
+    background:
+        radial-gradient(circle at 100% 0%, #f3e2ff, transparent 40%),
+        #ffffff;
+}
+
+.bottomCardTitle {
+    color: #251d3d !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+}
+
+.journeyStages {
+    margin-top: 28px;
+    gap: 5px;
+}
+
+.journeyStage {
+    flex: 1;
+    min-width: 0;
+    align-items: center;
+    gap: 7px;
+}
+
+.journeyStage .sapMText {
+    color: #5d566f !important;
+    font-size: 9px !important;
+    text-align: center;
+    white-space: normal;
+}
+
+.stageComplete {
+    color: #ffffff !important;
+    background: #753bd0;
+    padding: 7px;
+    border-radius: 50%;
+}
+
+.stageCurrent {
+    color: #8a4be0 !important;
+    font-size: 25px;
+}
+
+.stagePending {
+    color: #d6d2df !important;
+    font-size: 25px;
+}
+
+.journeyProgressText {
+    margin-top: 25px;
+}
+
+.journeyProgressText .sapMText {
+    color: #726b81 !important;
+    font-size: 10px !important;
+}
+
+.journeyProgress .sapMPIBar {
+    background: linear-gradient(90deg, #6737c4, #a35bea) !important;
+    border-radius: 10px;
+}
+
+.journeyProgress .sapMPI {
+    border-radius: 10px;
+    height: 9px;
+}
+
+.aiIcon {
+    color: #8a4bd1 !important;
+    background: #f0e3ff;
+    padding: 7px;
+    border-radius: 8px;
+    margin-right: 8px;
+}
+
+.aiInsightDescription {
+    color: #4d465d !important;
+    font-size: 11px !important;
+    line-height: 1.7 !important;
+    margin-top: 20px;
+}
+
+.recommendationButton {
+    margin-top: 22px;
+}
+
+.recommendationButton .sapMBtnInner {
+    height: 36px !important;
+    border: 1px solid #b18ade !important;
+    border-radius: 9px !important;
+    background: transparent !important;
+}
+
+.recommendationButton .sapMBtnContent {
+    color: #6940a9 !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+}
+
+/* ==========================================
+   RESPONSIVE BEHAVIOUR
+   ========================================== */
+
+@media screen and (max-width: 1150px) {
+    .leftPanel {
+        min-width: 310px;
+        padding: 24px 22px;
+    }
+
+    .dashboardSidebar {
+        width: 165px;
+        min-width: 165px;
+    }
+
+    .dashboardMain {
+        padding: 18px 14px;
+    }
+
+    .brandHeadline {
+        font-size: 29px !important;
+    }
+
+    .heroTitle {
+        font-size: 26px !important;
+    }
+
+    .statCard {
+        padding: 12px 10px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .referenceLayout {
+        flex-direction: column;
+    }
+
+    .leftPanel,
+    .rightPanel {
+        width: 100% !important;
+        max-width: none;
+    }
+
+    .leftPanel {
+        min-height: auto;
+    }
+
+    .rightPanel {
+        min-height: 750px;
+    }
+
+    .dashboardSidebar {
+        display: none;
+    }
+
+    .statisticsRow {
+        flex-wrap: wrap;
+    }
+
+    .statCard {
+        min-width: 42%;
+    }
+
+    .dashboardBottom {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .referenceLayout {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .leftPanel {
+        padding: 22px 18px;
+    }
+
+    .brandHeadline {
+        font-size: 28px !important;
+    }
+
+    .authCard {
+        padding: 15px;
+    }
+
+    .rightPanel {
+        min-height: auto;
+    }
+
+    .dashboardMain {
+        padding: 14px 10px;
+    }
+
+    .heroBanner {
+        min-height: 230px;
+        padding: 22px;
+    }
+
+    .heroTitle {
+        font-size: 24px !important;
+    }
+
+    .topbarProfile {
+        gap: 5px;
+    }
+
+    .previewUserName {
+        display: none;
+    }
+
+    .statisticsRow {
+        gap: 8px;
+    }
+
+    .statCard {
+        min-width: 45%;
+    }
+
+    .welcomeHeading {
+        font-size: 17px !important;
+    }
+}
+
+/* ==========================================
+   LOGIN CARD - FINAL UI REFINEMENT
+   ========================================== */
+
+.authCard {
+    padding: 24px !important;
+    margin-top: 15px;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 8px 28px rgba(65, 40, 110, 0.10);
+}
+
+.authTabs {
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 22px;
+    border-radius: 11px;
+    background: #f1ebfa;
+}
+
+.authTab {
+    flex: 1;
+}
+
+.authTab .sapMBtnInner {
+    height: 42px !important;
+    border: none !important;
+    border-radius: 9px !important;
+    background: transparent !important;
+}
+
+.activeTab .sapMBtnInner {
+    background: #5930a0 !important;
+    box-shadow: 0 3px 9px rgba(70, 35, 130, 0.18);
+}
+
+.activeTab .sapMBtnContent {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+.authForm {
+    width: 100%;
+    gap: 10px;
+}
+
+.authInput {
+    margin-bottom: 7px;
+}
+
+.authInput .sapMInputBaseContentWrapper {
+    min-height: 48px !important;
+    border: 1px solid #ded8e9 !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+}
+
+.authInput .sapMInputBaseInner {
+    height: 46px !important;
+    padding-left: 14px !important;
+    color: #29213c !important;
+    font-size: 13px !important;
+}
+
+.authInput .sapMInputBaseInner::placeholder {
+    color: #9690a3;
+}
+
+.forgotLink {
+    align-self: flex-end;
+    margin: 3px 0 10px;
+    color: #693bb0 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+.loginButton {
+    margin-top: 8px;
+}
+
+.loginButton .sapMBtnInner {
+    height: 48px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    background: linear-gradient(100deg, #a66be2, #52259d) !important;
+    box-shadow: 0 5px 13px rgba(90, 43, 155, 0.18);
+}
+
+.loginButton .sapMBtnContent {
+    color: #ffffff !important;
+    line-height: 46px !important;
+    font-weight: 700 !important;
+}
+
+.socialDivider {
+    margin: 18px 0 12px;
+    gap: 10px;
+}
+
+.socialDivider .sapMText {
+    color: #858094 !important;
+    font-size: 11px !important;
+}
+
+.socialButton .sapMBtnInner {
+    height: 43px !important;
+    border: 1px solid #e6e0ed !important;
+    border-radius: 9px !important;
+    background: #ffffff !important;
+}
+
+.socialButton .sapMBtnContent {
+    color: #392c52 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+
+.signupHeading {
+    color: #241a3c !important;
+    font-size: 23px !important;
+    margin-bottom: 15px;
+}
+
+.signupBackLink {
+    text-align: center;
+    margin-top: 15px;
+    color: #693bb0 !important;
+}

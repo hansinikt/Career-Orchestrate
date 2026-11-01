@@ -1,0 +1,329 @@
+
+<mvc:View
+    controllerName="com.careerorchestrator.careerorchestrator.controller.CareerHome"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page id="loginPage" showHeader="false" class="referencePage">
+        <content>
+            <HBox id="referenceLayout" class="referenceLayout" width="100%">
+
+                <!-- LEFT LOGIN PANEL -->
+                <VBox id="leftPanel" class="leftPanel">
+
+                    <VBox id="leftBrand" class="leftBrand">
+                        <HBox id="brandIdentity" alignItems="Center">
+                            <core:Icon id="brandInfinityIcon" src="sap-icon://infinity" size="2.5rem" class="brandIcon"/>
+                            <Title id="brandName" text="Career&#10;Orchestrator" level="H2" class="brandName"/>
+                        </HBox>
+
+                        <Title
+                            id="brandHeadline"
+                            text="Orchestrate your next career chapter"
+                            level="H1"
+                            class="brandHeadline"/>
+
+                        <Text
+                            id="brandDescription"
+                            text="An AI-powered platform to discover opportunities, bridge skill gaps and transition with confidence."
+                            class="brandDescription"/>
+
+                        <VBox id="mountainVisual" class="mountainVisual">
+                            <Text id="mountainCaption" text="YOUR NEXT CHAPTER" class="mountainCaption"/>
+                            <HBox id="mountainDecor" class="mountainDecor" alignItems="End">
+                                <VBox id="mountainOne" class="mountain mountainOne"/>
+                                <VBox id="mountainTwo" class="mountain mountainTwo"/>
+                                <VBox id="mountainThree" class="mountain mountainThree"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <!-- AUTHENTICATION CARD -->
+                    <VBox id="authCard" class="authCard">
+
+                        <HBox id="authTabs" class="authTabs" alignItems="Center">
+                            <Button
+                                id="loginTab"
+                                text="Login"
+                                type="Emphasized"
+                                class="authTab activeTab"
+                                press=".onShowLogin"/>
+
+                            <Button
+                                id="signupTab"
+                                text="Sign Up"
+                                type="Transparent"
+                                class="authTab"
+                                press=".onShowSignup"/>
+                        </HBox>
+
+                        <!-- LOGIN -->
+                        <VBox id="loginSection" class="authForm">
+
+                            <Input id="emailInput" placeholder="Email address" type="Email" width="100%" class="authInput"/>
+                            <Input id="passwordInput" placeholder="Password" type="Password" width="100%" class="authInput"/>
+
+                            <Link id="forgotPasswordLink" text="Forgot password?" class="forgotLink"/>
+
+                            <Button
+                                id="signInButton"
+                                text="Log In  →"
+                                type="Emphasized"
+                                width="100%"
+                                class="loginButton"
+                                press=".onSignIn"/>
+
+                            <HBox id="socialDivider" class="socialDivider" alignItems="Center">
+                                <VBox id="dividerLeft" class="dividerLine"/>
+                                <Text id="dividerText" text="or continue with"/>
+                                <VBox id="dividerRight" class="dividerLine"/>
+                            </HBox>
+
+                            <HBox id="socialButtons" class="socialButtons" justifyContent="SpaceBetween">
+                                <Button id="googleButton" text="G" class="socialButton"/>
+                                <Button id="linkedinButton" text="in" class="socialButton"/>
+                                <Button id="githubButton" text="●" class="socialButton"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- SIGN UP -->
+                        <VBox id="signupSection" class="authForm" visible="false">
+
+                            <Title id="signupHeading" text="Create your account" level="H2" class="signupHeading"/>
+
+                            <Input id="nameInput" placeholder="Full name" width="100%" class="authInput"/>
+                            <Input id="signupEmailInput" placeholder="Email address" type="Email" width="100%" class="authInput"/>
+                            <Input id="signupPasswordInput" placeholder="Create password" type="Password" width="100%" class="authInput"/>
+                            <Input id="confirmPasswordInput" placeholder="Confirm password" type="Password" width="100%" class="authInput"/>
+
+                            <Button
+                                id="createAccountButton"
+                                text="Create Account"
+                                type="Emphasized"
+                                width="100%"
+                                class="loginButton"
+                                press=".onSignUp"/>
+
+                            <Link
+                                id="loginLink"
+                                text="Already have an account? Login"
+                                press=".onShowLogin"
+                                class="signupBackLink"/>
+                        </VBox>
+                    </VBox>
+                </VBox>
+
+                <!-- RIGHT DASHBOARD PREVIEW -->
+                <HBox id="rightPanel" class="rightPanel">
+
+                    <!-- SIDEBAR -->
+                    <VBox id="dashboardSidebar" class="dashboardSidebar">
+
+                        <HBox id="sidebarBrand" class="sidebarBrand" alignItems="Center">
+                            <core:Icon id="sidebarBrandIcon" src="sap-icon://infinity" size="1.8rem" class="sidebarLogoIcon"/>
+                            <Title id="sidebarBrandName" text="Career&#10;Orchestrator" level="H3" class="sidebarBrandName"/>
+                        </HBox>
+
+                        <VBox id="sidebarNavigation" class="sidebarNavigation">
+                            <HBox id="navOverview" class="navItem navActive" alignItems="Center">
+                                <core:Icon id="navOverviewIcon" src="sap-icon://home" class="navIcon"/>
+                                <Text id="navOverviewText" text="Overview"/>
+                            </HBox>
+
+                            <HBox id="navProfile" class="navItem" alignItems="Center">
+                                <core:Icon id="navProfileIcon" src="sap-icon://person-placeholder" class="navIcon"/>
+                                <Text id="navProfileText" text="My Profile"/>
+                            </HBox>
+
+                            <HBox id="navSkills" class="navItem" alignItems="Center">
+                                <core:Icon id="navSkillsIcon" src="sap-icon://product" class="navIcon"/>
+                                <Text id="navSkillsText" text="Skill Discovery"/>
+                            </HBox>
+
+                            <HBox id="navMarket" class="navItem" alignItems="Center">
+                                <core:Icon id="navMarketIcon" src="sap-icon://business-objects-experience" class="navIcon"/>
+                                <Text id="navMarketText" text="Market Exploration"/>
+                            </HBox>
+
+                            <HBox id="navLearning" class="navItem" alignItems="Center">
+                                <core:Icon id="navLearningIcon" src="sap-icon://education" class="navIcon"/>
+                                <Text id="navLearningText" text="Learning Pathway"/>
+                            </HBox>
+
+                            <HBox id="navMatching" class="navItem" alignItems="Center">
+                                <core:Icon id="navMatchingIcon" src="sap-icon://suitcase" class="navIcon"/>
+                                <Text id="navMatchingText" text="Opportunity Matching"/>
+                            </HBox>
+
+                            <HBox id="navFairness" class="navItem" alignItems="Center">
+                                <core:Icon id="navFairnessIcon" src="sap-icon://shield" class="navIcon"/>
+                                <Text id="navFairnessText" text="Fairness Review"/>
+                            </HBox>
+                        </VBox>
+
+                        <VBox id="sidebarBottom" class="sidebarBottom">
+                            <HBox id="navSettings" class="navItem" alignItems="Center">
+                                <core:Icon id="navSettingsIcon" src="sap-icon://action-settings" class="navIcon"/>
+                                <Text id="navSettingsText" text="Settings"/>
+                            </HBox>
+
+                            <HBox id="navHelp" class="navItem" alignItems="Center">
+                                <core:Icon id="navHelpIcon" src="sap-icon://sys-help" class="navIcon"/>
+                                <Text id="navHelpText" text="Help &amp; Support"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <!-- DASHBOARD CONTENT -->
+                    <VBox id="dashboardMain" class="dashboardMain">
+
+                        <!-- TOP BAR -->
+                        <HBox id="dashboardTopbar" class="dashboardTopbar" justifyContent="SpaceBetween" alignItems="Center">
+                            <HBox id="searchBox" class="searchBox" alignItems="Center">
+                                <core:Icon id="searchIcon" src="sap-icon://search" class="searchIcon"/>
+                                <Text id="searchPlaceholder" text="Search roles, skills or companies..." class="searchPlaceholder"/>
+                            </HBox>
+
+                            <HBox id="topbarProfile" alignItems="Center">
+                                <core:Icon id="notificationIcon" src="sap-icon://bell" class="notificationIcon"/>
+                                <core:Icon id="avatarIcon" src="sap-icon://person-placeholder" class="avatarIcon"/>
+
+                                <!-- DYNAMIC USERNAME -->
+                                <Text
+                                    id="previewUserName"
+                                    text="{user>/name}"
+                                    class="previewUserName"/>
+
+                                <core:Icon id="profileDropdownIcon" src="sap-icon://slim-arrow-down" class="profileDropdownIcon"/>
+                            </HBox>
+                        </HBox>
+
+                        <!-- HERO BANNER -->
+                        <VBox id="heroBanner" class="heroBanner" justifyContent="Center">
+                            <Text id="heroEyebrow" text="YOUR CAREER, REIMAGINED" class="heroEyebrow"/>
+                            <Title id="heroTitle" text="Turn your experience into what's next." level="H1" class="heroTitle"/>
+                            <Text
+                                id="heroDescription"
+                                text="Discover new career paths, build in-demand skills, and find opportunities that truly fit you."
+                                class="heroDescription"/>
+                            <Button id="exploreButton" text="Explore Opportunities   →" class="exploreButton"/>
+                        </VBox>
+
+                        <!-- WELCOME -->
+                        <HBox id="welcomeRow" class="welcomeRow" justifyContent="SpaceBetween" alignItems="Center">
+                            <VBox id="welcomeContent">
+
+                                <!-- DYNAMIC WELCOME HEADING -->
+                                <Title
+                                    id="welcomeHeading"
+                                    text="{= 'Welcome back, ' + ${user>/name} + '! 👋' }"
+                                    level="H2"
+                                    class="welcomeHeading"/>
+
+                                <Text id="welcomeSubtitle" text="Here's your career intelligence snapshot." class="welcomeSubtitle"/>
+                            </VBox>
+
+                            <HBox id="profileComplete" class="profileComplete" alignItems="Center">
+                                <core:Icon id="completeIcon" src="sap-icon://status-positive"/>
+                                <Text id="completeText" text="Profile Complete"/>
+                                <Title id="completePercent" text="85%" level="H3"/>
+                            </HBox>
+                        </HBox>
+
+                        <!-- STATISTIC CARDS -->
+                        <HBox id="statisticsRow" class="statisticsRow">
+
+                            <VBox id="skillStat" class="statCard statLavender">
+                                <core:Icon id="skillStatIcon" src="sap-icon://product" class="statIcon"/>
+                                <Title id="skillStatValue" text="12" level="H1" class="statValue"/>
+                                <Text id="skillStatTitle" text="Transferable Skills" class="statTitle"/>
+                                <Text id="skillStatDescription" text="Identified from your experience" class="statDescription"/>
+                            </VBox>
+
+                            <VBox id="careerStat" class="statCard statBlue">
+                                <core:Icon id="careerStatIcon" src="sap-icon://target" class="statIcon"/>
+                                <Title id="careerStatValue" text="08" level="H1" class="statValue"/>
+                                <Text id="careerStatTitle" text="Career Matches" class="statTitle"/>
+                                <Text id="careerStatDescription" text="Relevant roles for your profile" class="statDescription"/>
+                            </VBox>
+
+                            <VBox id="gapStat" class="statCard statPink">
+                                <core:Icon id="gapStatIcon" src="sap-icon://layers" class="statIcon"/>
+                                <Title id="gapStatValue" text="04" level="H1" class="statValue"/>
+                                <Text id="gapStatTitle" text="Skill Gaps" class="statTitle"/>
+                                <Text id="gapStatDescription" text="To focus on" class="statDescription"/>
+                            </VBox>
+
+                            <VBox id="demandStat" class="statCard statPeach">
+                                <core:Icon id="demandStatIcon" src="sap-icon://bar-chart" class="statIcon"/>
+                                <Title id="demandStatValue" text="High" level="H1" class="statValue"/>
+                                <Text id="demandStatTitle" text="Market Demand" class="statTitle"/>
+                                <Text id="demandStatDescription" text="In your target domains" class="statDescription"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- CAREER JOURNEY AND AI INSIGHT -->
+                        <HBox id="dashboardBottom" class="dashboardBottom">
+
+                            <VBox id="journeyCard" class="journeyCard">
+                                <Title id="journeyTitle" text="Your Career Transition Journey" level="H3" class="bottomCardTitle"/>
+
+                                <HBox id="journeyStages" class="journeyStages" justifyContent="SpaceBetween">
+                                    <VBox id="stageOne" class="journeyStage">
+                                        <core:Icon id="stageOneIcon" src="sap-icon://status-positive" class="stageComplete"/>
+                                        <Text id="stageOneText" text="Skill Discovery"/>
+                                    </VBox>
+
+                                    <VBox id="stageTwo" class="journeyStage">
+                                        <core:Icon id="stageTwoIcon" src="sap-icon://circle-task" class="stageCurrent"/>
+                                        <Text id="stageTwoText" text="Market Exploration"/>
+                                    </VBox>
+
+                                    <VBox id="stageThree" class="journeyStage">
+                                        <core:Icon id="stageThreeIcon" src="sap-icon://circle-task" class="stagePending"/>
+                                        <Text id="stageThreeText" text="Learning Pathway"/>
+                                    </VBox>
+
+                                    <VBox id="stageFour" class="journeyStage">
+                                        <core:Icon id="stageFourIcon" src="sap-icon://circle-task" class="stagePending"/>
+                                        <Text id="stageFourText" text="Opportunity Matching"/>
+                                    </VBox>
+                                </HBox>
+
+                                <HBox id="journeyProgressText" class="journeyProgressText" justifyContent="SpaceBetween">
+                                    <Text id="journeyProgressLabel" text="2 of 4 stages completed"/>
+                                    <Text id="journeyProgressPercent" text="50%"/>
+                                </HBox>
+
+                                <ProgressIndicator
+                                    id="journeyProgress"
+                                    percentValue="50"
+                                    displayValue=""
+                                    state="Information"
+                                    class="journeyProgress"/>
+                            </VBox>
+
+                            <VBox id="aiInsightCard" class="aiInsightCard">
+                                <HBox id="aiInsightHeading" alignItems="Center">
+                                    <core:Icon id="aiInsightIcon" src="sap-icon://lightbulb" class="aiIcon"/>
+                                    <Title id="aiInsightTitle" text="AI Insight for You" level="H3" class="bottomCardTitle"/>
+                                </HBox>
+
+                                <Text
+                                    id="aiInsightDescription"
+                                    text="Your marketing and analytical skills can open strong opportunities in Product Marketing and Growth Strategy."
+                                    class="aiInsightDescription"/>
+
+                                <Button
+                                    id="recommendationButton"
+                                    text="View Detailed Recommendations  →"
+                                    class="recommendationButton"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </HBox>
+        </content>
+    </Page>
+</mvc:View>
