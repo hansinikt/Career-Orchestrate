@@ -5,7 +5,7 @@
       "name": "Start career_orchestrator",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/career_orchestrator",
+      "cwd": "${workspaceFolder}/frontend",
       "runtimeExecutable": "npx",
       "windows": {
         "runtimeExecutable": "npx.cmd"
@@ -31,7 +31,7 @@
       "name": "Start career_orchestrator Local",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/career_orchestrator",
+      "cwd": "${workspaceFolder}/frontend",
       "runtimeExecutable": "npx",
       "windows": {
         "runtimeExecutable": "npx.cmd"
