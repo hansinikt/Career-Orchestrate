@@ -39,6 +39,7 @@ h4 { margin: 0; font-size: 1.05rem; font-weight: 700; }
 p { margin: 0; }
 a { color: var(--brand); text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--indigo); outline-offset: 2px; border-radius: 6px; }
+[tabindex="-1"]:focus, [tabindex="-1"]:focus-visible { outline: none; }
 .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 10px 14px; border-radius: 6px; z-index: 30; }
 .skip:focus { left: 8px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -394,3 +395,4 @@ footer p { max-width: 1200px; margin: 0 auto; }
   .brand b { font-size: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+.rbox small { line-height: 1.35; display: block; }
