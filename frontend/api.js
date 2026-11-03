@@ -41,6 +41,7 @@ export const api = {
   extract:           (id)          => call("POST", P(id) + "/extract"),            // ExtractResponse
   confirm:           (id, body)    => call("POST", P(id) + "/confirm", body),      // body: ConfirmRequest
   recommendations:   (id)          => call("GET", P(id) + "/recommendations"),
+  rolePath:          (id, roleId)  => call("GET", P(id) + `/paths/${encodeURIComponent(roleId)}`),     // RolePathResponse: courses for one job option, simplest first
   makePlan:          (id, body)    => call("POST", P(id) + "/plan", body),         // body: { role_id, weekly_hours? }
   getPlan:           (id)          => call("GET", P(id) + "/plan"),
   setMotivation:     (id, body)    => call("PUT", P(id) + "/motivation", body),    // body: { styles, check_in, paused }

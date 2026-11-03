@@ -34,5 +34,6 @@ export default async function jobs() {
     extra.hidden = !extra.hidden; btn.setAttribute("aria-expanded", String(!extra.hidden)); btn.textContent = extra.hidden ? t.moreCount(rest.length) : t.less; } });
   return h("div", { class: "page" }, crumb(t.crumb),
     h("div", { class: "head col" }, h("h1", { id: "page-title", tabindex: "-1", text: t.title }), h("p", { class: "lead", text: t.lead })),
-    list, extra, rest.length ? h("div", { style: "text-align:center;margin-top:26px" }, btn) : null);
+    list, extra, rest.length ? h("div", { style: "text-align:center;margin-top:26px" }, btn) : null,
+    h("p", { class: "small muted", style: "margin-top:26px", text: R.disclaimer }));   // the backend's own wording: scores are provisional, not a hiring probability
 }

@@ -1,0 +1,167 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "certificate": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Certificate"
+    },
+    "cost": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Cost"
+    },
+    "covers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Covers",
+      "type": "array"
+    },
+    "decided_by": {
+      "enum": [
+        "agent",
+        "rules"
+      ],
+      "title": "Decided By",
+      "type": "string"
+    },
+    "duration_text": {
+      "title": "Duration Text",
+      "type": "string"
+    },
+    "est_hours": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Est Hours"
+    },
+    "level": {
+      "anyOf": [
+        {
+          "enum": [
+            "beginner",
+            "intermediate",
+            "advanced"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Level"
+    },
+    "level_basis": {
+      "title": "Level Basis",
+      "type": "string"
+    },
+    "prerequisites": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Prerequisites"
+    },
+    "provider": {
+      "title": "Provider",
+      "type": "string"
+    },
+    "rating": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Rating"
+    },
+    "rating_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Rating Count"
+    },
+    "resource_id": {
+      "title": "Resource Id",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Url"
+    },
+    "verification_status": {
+      "enum": [
+        "verified",
+        "seed_unverified",
+        "sample_placeholder"
+      ],
+      "title": "Verification Status",
+      "type": "string"
+    },
+    "why": {
+      "title": "Why",
+      "type": "string"
+    }
+  },
+  "required": [
+    "resource_id",
+    "title",
+    "provider",
+    "url",
+    "level",
+    "level_basis",
+    "est_hours",
+    "duration_text",
+    "cost",
+    "rating",
+    "rating_count",
+    "certificate",
+    "prerequisites",
+    "covers",
+    "why",
+    "decided_by",
+    "verification_status"
+  ],
+  "title": "PathCourse",
+  "type": "object"
+}

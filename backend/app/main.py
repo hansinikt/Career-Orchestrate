@@ -10,12 +10,13 @@ from engine import core as E, extract_rules as X, readiness as R, motivation as 
 from contracts.v2 import models as C
 from .db import DB
 from . import orchestrator as O, agents as A, llm
-from engine import market as MK, missions as MS, chapters as CH, cv as CV
+from engine import market as MK, missions as MS, chapters as CH, cv as CV, paths as PT
 
 APP_VERSION, CONTRACT_VERSION = "0.2.0", "2.0"
 SK, ROLES, RES = E.load("v2"); ROLE = {r["role_id"]: r for r in ROLES}
 CURR = json.loads((E.DATA / "v2" / "curriculum.json").read_text())["curriculum"]
 PERSONAS = json.loads((E.DATA / "v2" / "personas.json").read_text())
+PATHS = json.loads((E.DATA / "v2" / "role_courses.json").read_text())
 FORBIDDEN = (E.FORBIDDEN_FEATURES - {"name"}) | {"dob", "date_of_birth", "birthdate", "sex", "caste", "religion"}
 ALLOW_UNVERIFIED = os.environ.get("ALLOW_UNVERIFIED_RESOURCES", "true").lower() == "true"
 ALLOW_SAMPLE = os.environ.get("ALLOW_SAMPLE_RESOURCES", "true").lower() == "true"
@@ -152,6 +153,19 @@ def recommendations(pid: str):
     db.log(iso(), "system", "recommendations_shown", pid, {"top": [r["role_id"] for r in recs[:3]]})
     O.record(pid, "inclusive_matching", "rules", f"{len(lv)} confirmed skills (no age, gender or years used)", f"{len(recs)} roles ranked; top {recs[0]['role_id']}", dedupe=True); return dict(profile_id=pid, recommendations=recs, goal=goal, disclaimer=DISCLAIMER)
 
+@app.get("/api/v1/profiles/{pid}/paths/{role_id}", response_model=C.RolePathResponse)
+def role_path(pid: str, role_id: str):
+    """Job options: the courses for one role, simplest first. Which courses and their order come from engine/paths.py; the agent only writes each reason."""
+    p = get_profile(pid); lv, _ = levels_and_evidence(confirmed_of(pid))
+    if role_id not in ROLE: raise Err(404, "NOT_FOUND", f"Role {role_id} not found")
+    path = PT.build_path(role_id, PATHS, lv)
+    why, mode = A.path_reasons(ROLE[role_id]["title"], path["courses"], path["requirements"])
+    courses = [dict(resource_id=c["course_id"], title=c["title"], provider=c["provider"], url=c["url"], level=c["level"] if c["level"] in PT.LEVEL_RANK else None, level_basis=c["level_basis"], est_hours=c["hours"],
+                    duration_text=c["duration_text"], cost=c["cost"], rating=c["rating"], rating_count=c["rating_count"], certificate=c["certificate"], prerequisites=c["prerequisites"],
+                    covers=c["covers"], why=why[c["course_id"]][0], decided_by=why[c["course_id"]][1], verification_status=c["verification_status"]) for c in path["courses"]]
+    O.record(pid, "learning_pathway", mode if courses else "rules", f"requirements for {role_id} checked against {len(PATHS['courses'])} catalogue courses", f"{len(courses)} courses shown, simplest first", dedupe=True)
+    return dict(profile_id=pid, role_id=role_id, role_title=ROLE[role_id]["title"], requirements=path["requirements"], courses=courses, mode=mode,
+                source_note=PATHS["note"] if courses else "No courses have been checked for this role yet.")
 def plan_payload(pid, p, role_id, weekly):
     lv, ev = levels_and_evidence(confirmed_of(pid)); rec = next(r for r in rank_for(p, lv, ev) if r["role_id"] == role_id)
     plan = E.build_plan(rec, lv, SK, RES, weekly, allow_unverified=ALLOW_UNVERIFIED, allow_sample=ALLOW_SAMPLE)

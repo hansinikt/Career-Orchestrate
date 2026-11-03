@@ -1,0 +1,1156 @@
+{
+ "dataset_version": "role-courses-1",
+ "note": "Course facts were read from the public course pages on 2026-11-03 and are NOT yet checked by a person. Requirement counts come from small samples of job postings (many expired). Ratings are shown only when the page showed one. Levels marked 'tagged' were not stated on the page.",
+ "requirements": {
+  "R001": [
+   {
+    "id": "onboarding",
+    "name": "Onboarding",
+    "evidence": "named in 5 of 5 HR Coordinator postings",
+    "keywords": [
+     "onboarding",
+     "smooth starts",
+     "employee lifecycle"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "payroll",
+    "name": "Payroll inputs",
+    "evidence": "named in 5 of 5 HR Coordinator postings",
+    "keywords": [
+     "payroll",
+     "compensation"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "benefits",
+    "name": "Benefits administration",
+    "evidence": "named in 4 of 5 HR Coordinator postings",
+    "keywords": [
+     "benefits"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "hris",
+    "name": "HR systems (HRIS)",
+    "evidence": "named in 4 of 5 HR Coordinator postings",
+    "keywords": [
+     "hris",
+     "employee central",
+     "employee data",
+     "hr technology",
+     "hr system"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "recruitment",
+    "name": "Recruitment support",
+    "evidence": "named in research report 2 (employer-posting summary, no count)",
+    "keywords": [
+     "recruit",
+     "talent acquisition"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "compliance",
+    "name": "Labour and legal compliance",
+    "evidence": "named in 2 of 5 HR Coordinator postings explicitly, in 4 of 5 in general terms",
+    "keywords": [
+     "compliance",
+     "legal",
+     "labour",
+     "labor",
+     "employment law"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "confidentiality",
+    "name": "Confidentiality",
+    "evidence": "named in 2 of 5 HR Coordinator postings",
+    "keywords": [
+     "confidential",
+     "ethics"
+    ],
+    "skill_id": "SK-CONF"
+   }
+  ],
+  "R002": [
+   {
+    "id": "stakeholder",
+    "name": "Stakeholder management",
+    "evidence": "named in 5 of 5 Project Coordinator postings",
+    "keywords": [
+     "stakeholder"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "risk",
+    "name": "Risk logs (RAID)",
+    "evidence": "named in 4 of 5 Project Coordinator postings",
+    "keywords": [
+     "risk"
+    ],
+    "skill_id": "SK-RISK"
+   },
+   {
+    "id": "msproject",
+    "name": "MS Project",
+    "evidence": "named in 4 of 5 Project Coordinator postings",
+    "keywords": [
+     "ms project",
+     "microsoft project"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "budget",
+    "name": "Budget tracking",
+    "evidence": "named in 4 of 5 Project Coordinator postings",
+    "keywords": [
+     "budget",
+     "cost management"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "scheduling",
+    "name": "Scheduling and planning",
+    "evidence": "named in 3 of 5 Project Coordinator postings",
+    "keywords": [
+     "schedul",
+     "project planning",
+     "critical path"
+    ],
+    "skill_id": "SK-SCHED"
+   },
+   {
+    "id": "jira",
+    "name": "Jira or similar tracking tool",
+    "evidence": "named in 3 of 5 Project Coordinator postings",
+    "keywords": [
+     "jira",
+     "issue tracking",
+     "sprint"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "excel",
+    "name": "Excel",
+    "evidence": "named in 4 of 5 Project Coordinator postings",
+    "keywords": [
+     "excel"
+    ],
+    "skill_id": "SK-EXCEL"
+   }
+  ],
+  "R006": [
+   {
+    "id": "lms",
+    "name": "LMS administration",
+    "evidence": "named in 6 of 6 L&D Coordinator postings",
+    "keywords": [
+     "lms",
+     "learning management",
+     "litmos",
+     "learning administration"
+    ],
+    "skill_id": "SK-LEARNADMIN"
+   },
+   {
+    "id": "content",
+    "name": "Creating training content",
+    "evidence": "named in 5 of 6 L&D Coordinator postings",
+    "keywords": [
+     "instructional design",
+     "training materials",
+     "content",
+     "storyboard",
+     "addie"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "reporting",
+    "name": "Reporting and dashboards",
+    "evidence": "named in 6 of 6 L&D Coordinator postings",
+    "keywords": [
+     "report",
+     "dashboard",
+     "evaluating training",
+     "analytics"
+    ],
+    "skill_id": "SK-REPORT"
+   },
+   {
+    "id": "coordination",
+    "name": "Training coordination and scheduling",
+    "evidence": "named in 3 of 6 L&D Coordinator postings",
+    "keywords": [
+     "classes",
+     "curricula",
+     "schedul",
+     "training programs",
+     "learning and development",
+     "assigning learning"
+    ],
+    "skill_id": "SK-TRAINCOORD"
+   },
+   {
+    "id": "needs",
+    "name": "Learning needs and L&D basics",
+    "evidence": "named in research report 2 (employer-posting summary, no count)",
+    "keywords": [
+     "learning and development",
+     "needs analysis",
+     "talent"
+    ],
+    "skill_id": null
+   }
+  ],
+  "R007": [
+   {
+    "id": "salesforce",
+    "name": "Salesforce",
+    "evidence": "named in 6 of 7 CRM postings",
+    "keywords": [
+     "salesforce"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "hubspot",
+    "name": "HubSpot",
+    "evidence": "named in 4 of 7 CRM postings",
+    "keywords": [
+     "hubspot"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "crm",
+    "name": "CRM concepts and sales process",
+    "evidence": "named in research report 2 (employer-posting summary, no count)",
+    "keywords": [
+     "crm",
+     "lead management",
+     "sales cloud",
+     "sales cycle"
+    ],
+    "skill_id": "SK-CRM"
+   },
+   {
+    "id": "excel",
+    "name": "Excel",
+    "evidence": "named in 4 of 7 CRM postings",
+    "keywords": [
+     "excel"
+    ],
+    "skill_id": "SK-EXCEL"
+   },
+   {
+    "id": "sql",
+    "name": "SQL",
+    "evidence": "named in research report 2 (employer-posting summary, no count)",
+    "keywords": [
+     "sql",
+     "mysql"
+    ],
+    "skill_id": "SK-SQL"
+   },
+   {
+    "id": "dashboards",
+    "name": "Dashboards and BI tools",
+    "evidence": "Power BI named in 2 of 7 CRM postings; Tableau in research report 2",
+    "keywords": [
+     "dashboard",
+     "power bi",
+     "tableau",
+     "reports and dashboards"
+    ],
+    "skill_id": "SK-DASH"
+   }
+  ],
+  "R005": [
+   {
+    "id": "excel",
+    "name": "Excel",
+    "evidence": "named in 8 of 8 Operations Analyst postings",
+    "keywords": [
+     "excel"
+    ],
+    "skill_id": "SK-EXCEL"
+   },
+   {
+    "id": "sql",
+    "name": "SQL",
+    "evidence": "named in 5 of 8 Operations Analyst postings",
+    "keywords": [
+     "sql",
+     "mysql"
+    ],
+    "skill_id": "SK-SQL"
+   },
+   {
+    "id": "bi",
+    "name": "Power BI or Tableau",
+    "evidence": "named in 3 to 4 of 8 Operations Analyst postings",
+    "keywords": [
+     "power bi",
+     "tableau",
+     "analytics cloud",
+     "business intelligence"
+    ],
+    "skill_id": null
+   },
+   {
+    "id": "analysis",
+    "name": "Data analysis",
+    "evidence": "named in about 2 of 8 Operations Analyst postings",
+    "keywords": [
+     "data analysis",
+     "analytics",
+     "business metrics"
+    ],
+    "skill_id": "SK-DATAANALYSIS"
+   },
+   {
+    "id": "process",
+    "name": "Process improvement",
+    "evidence": "named in 1 of 8 Operations Analyst postings; research report 2 lists Lean and Six Sigma as valued",
+    "keywords": [
+     "lean",
+     "six sigma",
+     "process improvement",
+     "procure-to-pay",
+     "order-to-cash",
+     "plan-to-produce"
+    ],
+    "skill_id": "SK-PROCIMPROVE"
+   }
+  ]
+ },
+ "courses": [
+  {
+   "course_id": "PC-AIHR-HRC",
+   "title": "HR Coordinator Certificate Program",
+   "provider": "AIHR",
+   "url": "https://www.aihr.com/courses/hr-coordinator-certification/",
+   "level": "beginner",
+   "level_basis": "tagged from page wording: for people new to HR",
+   "hours": 37,
+   "duration_text": "37 hours, 23 modules, final exam",
+   "cost": "$1,125 for 12 months of access",
+   "rating": 4.7,
+   "rating_count": 71,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Introduction to HR Coordination (4 h)",
+    "Policies & Processes for the Employee Lifecycle Model (10 h)",
+    "HR Coordinator Resource Pack: Talent Acquisition, Onboarding, Employee Lifecycle, Employee Relations, Offboarding (1 h)",
+    "Developing Digital Agility (3 h)",
+    "AI Tutorials for HR Operations (2 h)",
+    "HR Project Management Skills (8 h)",
+    "Learning Soft Skills (4 h)",
+    "HR Communications Toolkit (4 h)",
+    "Capstone Project (1 h)"
+   ],
+   "topics": [
+    "Payroll",
+    "Policy framework",
+    "Confidentiality, ethics and professionalism"
+   ],
+   "roles": [
+    "R001"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-COURSERA-HRCI",
+   "title": "HRCI Human Resource Associate Professional Certificate",
+   "provider": "Coursera (HRCI)",
+   "url": "https://www.coursera.org/professional-certificates/hrci-human-resource-associate",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 91,
+   "duration_text": "About 91 hours, about 5 months at 6 h a week",
+   "cost": "Enrolment free; certificate needs the paid certificate option",
+   "rating": 4.8,
+   "rating_count": 3483,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Talent Acquisition (15 h)",
+    "Learning and Development (16 h)",
+    "Compensation and Benefits (19 h)",
+    "Employee Relations (22 h)",
+    "Compliance and Risk Management (19 h)"
+   ],
+   "topics": [
+    "Recruitment",
+    "Training and Development",
+    "Compensation and Benefits",
+    "Compliance Management",
+    "Performance Management"
+   ],
+   "roles": [
+    "R001",
+    "R006"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-COURSERA-HRFUND",
+   "title": "HR Management Fundamentals: Recruitment to Development",
+   "provider": "Coursera (Starweaver)",
+   "url": "https://www.coursera.org/learn/hr-management-fundamentals-recruitment-to-development",
+   "level": "intermediate",
+   "level_basis": "stated on the page",
+   "hours": 4,
+   "duration_text": "About 4 hours",
+   "cost": "Enrolment free; certificate needs the paid certificate option",
+   "rating": 4.7,
+   "rating_count": 65,
+   "certificate": true,
+   "prerequisites": "Basic understanding of HR concepts and HR tools",
+   "units": [
+    "Strategic Workforce Planning",
+    "From Search to Selection: Mastering Recruitment",
+    "Smooth Starts: The Art of Onboarding",
+    "Performance Management",
+    "Engagement and Retention",
+    "Compliance and Legal Excellence: Building a Fair and Inclusive Workplace",
+    "Skills That Matter: Building Technical and Soft Skills",
+    "Leadership Development",
+    "Succession Planning"
+   ],
+   "topics": [
+    "HR technology tools for retention"
+   ],
+   "roles": [
+    "R001"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-COURSERA-HRPM",
+   "title": "Human Resource Management: HR for People Managers",
+   "provider": "Coursera (University of Minnesota)",
+   "url": "https://www.coursera.org/specializations/human-resource-management",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 92,
+   "duration_text": "About 92 hours, 5 courses",
+   "cost": "Page contradicts itself on free access; check the page",
+   "rating": 4.8,
+   "rating_count": 15700,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Preparing to Manage Human Resources (19 h)",
+    "Recruiting, Hiring, and Onboarding Employees (21 h)",
+    "Managing Employee Performance (15 h)",
+    "Managing Employee Compensation (16 h)",
+    "Human Resources Management Capstone (21 h)"
+   ],
+   "topics": [
+    "Recruitment",
+    "Compensation and Benefits",
+    "Workforce Planning",
+    "Performance Management"
+   ],
+   "roles": [
+    "R001"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-SAP-ECPTO",
+   "title": "SAP SuccessFactors Employee Central Core Project Team Orientation",
+   "provider": "SAP Learning",
+   "url": "https://learning.sap.com/courses/sap-successfactors-employee-central-core-project-team-orientation",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 1.05,
+   "duration_text": "1 hr 3 min, 8 units",
+   "cost": "Not stated on the page",
+   "rating": null,
+   "rating_count": null,
+   "certificate": null,
+   "prerequisites": null,
+   "units": [
+    "Introducing the Project Team Orientation (4 min)",
+    "Introducing SAP SuccessFactors Employee Central (5 min)",
+    "Setting Up Security (11 min)",
+    "Exploring Employee Central Data Structure (9 min)",
+    "Organizing Employee Data (15 min)",
+    "Managing Self-Service Transactions (11 min)",
+    "Introducing SAP Business AI in HR (5 min)",
+    "Planning Next Steps (3 min)"
+   ],
+   "topics": [],
+   "roles": [
+    "R001"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-GOOGLE-PM",
+   "title": "Google Project Management Professional Certificate",
+   "provider": "Coursera (Google)",
+   "url": "https://www.coursera.org/professional-certificates/google-project-management",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 142,
+   "duration_text": "About 142 hours, 7 courses, about 6 months at 10 h a week",
+   "cost": "Free to start; about $49 a month after a trial (US and Canada)",
+   "rating": 4.8,
+   "rating_count": 145749,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Foundations of Project Management (13 h)",
+    "Project Initiation (15 h)",
+    "Project Planning (23 h)",
+    "Project Execution (25 h)",
+    "Agile Project Management (20 h)",
+    "Capstone (40 h)",
+    "Accelerate Your Job Search with AI (6 h)"
+   ],
+   "topics": [
+    "Stakeholder Communications",
+    "Scope Management",
+    "Project Planning",
+    "Project Risk Management",
+    "Quality Management",
+    "Budgeting",
+    "Agile Project Management",
+    "Scrum"
+   ],
+   "roles": [
+    "R002"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-UVA-PROJ",
+   "title": "Fundamentals of Project Planning and Management",
+   "provider": "Coursera (University of Virginia)",
+   "url": "https://www.coursera.org/learn/uva-darden-projects101",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 9,
+   "duration_text": "9 hours, 4 modules",
+   "cost": "Included with Coursera Plus; certificate needs purchase",
+   "rating": 4.7,
+   "rating_count": 10443,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Welcome to the World of Projects (2 h)",
+    "The Ins & Outs of Project Planning (2 h)",
+    "It's a Risky World & Then the Unexpected Happened (2 h)",
+    "Ready, Set, Go: Project Execution (3 h)"
+   ],
+   "topics": [
+    "Project planning",
+    "Risk management",
+    "Project execution"
+   ],
+   "roles": [
+    "R002"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-EDUCBA-PMSTK",
+   "title": "Project Management & Stakeholder Leadership",
+   "provider": "Coursera (EDUCBA)",
+   "url": "https://www.coursera.org/specializations/project-management-stakeholder-leadership",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 27,
+   "duration_text": "27 hours, 3 courses",
+   "cost": "Page contradicts itself on free access; check the page",
+   "rating": null,
+   "rating_count": null,
+   "certificate": true,
+   "prerequisites": "Basic computer skills",
+   "units": [
+    "Project Planning and Scheduling Techniques (8 h)",
+    "MS Project for Planning and Performance Analysis (8 h)",
+    "Analyze and Manage Stakeholder Communications Effectively (11 h)"
+   ],
+   "topics": [
+    "Project planning, scheduling, and dependencies",
+    "Resource allocation",
+    "Cost management and project controls",
+    "Stakeholder analysis, engagement, and management",
+    "Microsoft Project"
+   ],
+   "roles": [
+    "R002"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-MS-PM",
+   "title": "Microsoft Project Management: Build Job-Ready Skills Professional Certificate",
+   "provider": "Coursera (Microsoft)",
+   "url": "https://www.coursera.org/specializations/microsoft-project-management",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 123,
+   "duration_text": "About 123 hours, 9 courses, about 4 months at 10 h a week",
+   "cost": "Free to start; certificate and Coursera Plus pricing apply",
+   "rating": 4.6,
+   "rating_count": 828,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Project Management Fundamentals (16 h)",
+    "Team Building and Leadership in Project Management (14 h)",
+    "Project Manager Engagement with Stakeholders (12 h)",
+    "Process Groups and Processes in Project Management (15 h)",
+    "PMP Formulas (16 h)",
+    "Project Management Principles (15 h)",
+    "Project Management Performance Domains (14 h)",
+    "Agile and Hybrid Approaches (13 h)",
+    "PMP Application Process and Practice Exam (8 h)"
+   ],
+   "topics": [
+    "Risk Management",
+    "Stakeholder Management",
+    "Excel Formulas",
+    "Project Schedules",
+    "Budgeting",
+    "Communication Planning",
+    "Scheduling"
+   ],
+   "roles": [
+    "R002"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-JIRA",
+   "title": "Getting Started with Jira Specialization",
+   "provider": "Coursera",
+   "url": "https://www.coursera.org/specializations/getting-started-with-jira",
+   "level": "intermediate",
+   "level_basis": "stated on the page",
+   "hours": 23,
+   "duration_text": "About 23 hours, 12 short courses",
+   "cost": "Page contradicts itself on free access; check the page",
+   "rating": 3.7,
+   "rating_count": 15,
+   "certificate": true,
+   "prerequisites": "Recommended experience listed, not specified",
+   "units": [
+    "Jira: Navigate, Track, and Organize (2 h)",
+    "Jira: Create, Track, and Workflow Issues (2 h)",
+    "Track, Export and Dashboard in Jira (2 h)",
+    "Plan, Estimate, and Break Down Sprints (3 h)",
+    "Jira for Effective Retrospective Actions (2 h)"
+   ],
+   "topics": [
+    "Issue Tracking",
+    "Sprint Planning",
+    "Workflow Management",
+    "Kanban Principles",
+    "Agile Methodology"
+   ],
+   "roles": [
+    "R002"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-UDEMY-INTROLD",
+   "title": "Introduction to Learning and Development",
+   "provider": "Udemy",
+   "url": "https://www.udemy.com/course/introduction-to-learning-and-development/",
+   "level": "beginner",
+   "level_basis": "tagged from page wording: no previous L&D knowledge needed",
+   "hours": 1.87,
+   "duration_text": "1 hr 52 min, 43 lectures",
+   "cost": "Price not shown on the page",
+   "rating": 4.5,
+   "rating_count": 4317,
+   "certificate": null,
+   "prerequisites": "A working understanding of HR and large organisations",
+   "units": [
+    "Welcome to Introduction to Learning and Development",
+    "Course structure and introductions",
+    "Your Personal Development Plan"
+   ],
+   "topics": [
+    "Learning and Development"
+   ],
+   "roles": [
+    "R006"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-ILLINOIS-ID",
+   "title": "Instructional Design Foundations and Applications",
+   "provider": "Coursera (University of Illinois)",
+   "url": "https://www.coursera.org/learn/instructional-design-foundations-applications",
+   "level": "intermediate",
+   "level_basis": "tagged from page wording: level not stated on the page",
+   "hours": 13,
+   "duration_text": "Module hours add up to 13",
+   "cost": "Free to enrol; certificate needs purchase",
+   "rating": 4.1,
+   "rating_count": 907,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Course Orientation (1 h)",
+    "Introduction to ISD (4 h)",
+    "Foundations and Tools of ISD (2 h)",
+    "Analysis Part 1 (5 h)",
+    "Analysis Part 2 (1 h)"
+   ],
+   "topics": [
+    "Instructional design"
+   ],
+   "roles": [
+    "R006"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-EDUCBA-LMS",
+   "title": "Learning Management System Training",
+   "provider": "Coursera (EDUCBA)",
+   "url": "https://www.coursera.org/learn/learning-management-system-training",
+   "level": "beginner",
+   "level_basis": "tagged from page wording: level not stated on the page",
+   "hours": 8,
+   "duration_text": "8 hours, 4 modules",
+   "cost": "Free to enrol; certificate needs purchase",
+   "rating": null,
+   "rating_count": null,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Getting Started with Litmos LMS (2 h)",
+    "User & Course Management Essentials (2 h)",
+    "Features, Dashboard & Reporting (2 h)",
+    "Applications, Optimization & Best Practices (2 h)"
+   ],
+   "topics": [
+    "LMS administration"
+   ],
+   "roles": [
+    "R006"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-SAP-LEARNADMIN",
+   "title": "SAP SuccessFactors Learning Administration",
+   "provider": "SAP Learning",
+   "url": "https://learning.sap.com/courses/sap-successfactors-learning-administration",
+   "level": "intermediate",
+   "level_basis": "stated on the page",
+   "hours": 11.83,
+   "duration_text": "11 hr 50 min, 18 units",
+   "cost": "Not stated on the page",
+   "rating": null,
+   "rating_count": null,
+   "certificate": true,
+   "prerequisites": "HR800 - SAP SuccessFactors Platform Administration. Optional assessment earns a badge.",
+   "units": [
+    "Getting Started with SAP SuccessFactors Learning (15 min)",
+    "Exploring the Learning Administrator Interface (48 min)",
+    "Reporting in SAP SuccessFactors Learning (18 min)",
+    "Working with Items (1 hr 10 min)",
+    "Working with Curricula (1 hr 35 min)",
+    "Working with Programs (36 min)",
+    "Assigning Learning to End-Users (21 min)",
+    "Creating, Managing, and Registering for Classes (47 min)",
+    "Managing Online Content (30 min)",
+    "Building Assessments (39 min)",
+    "Evaluating Training (28 min)"
+   ],
+   "topics": [],
+   "roles": [
+    "R006"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-LL-SFINTRO",
+   "title": "Salesforce Introduction",
+   "provider": "Coursera (LearnKartS)",
+   "url": "https://www.coursera.org/learn/salesforce-admin-certification",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 5,
+   "duration_text": "About 5 hours",
+   "cost": "Free to enrol; certificate needs purchase",
+   "rating": 3.8,
+   "rating_count": 48,
+   "certificate": true,
+   "prerequisites": "No prior Salesforce experience",
+   "units": [
+    "Introduction to Salesforce (2 h)",
+    "Sales Cloud Essentials (3 h)"
+   ],
+   "topics": [
+    "Salesforce",
+    "Customer Relationship Management"
+   ],
+   "roles": [
+    "R007"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-LL-SFADMIN",
+   "title": "Salesforce Admin Certification Preparation",
+   "provider": "Coursera (LearnKartS)",
+   "url": "https://www.coursera.org/specializations/salesforce-admin-certification-course",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 19,
+   "duration_text": "About 19 hours, 3 courses",
+   "cost": "Page contradicts itself on free access; check the page",
+   "rating": 3.8,
+   "rating_count": 70,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Salesforce Introduction (5 h)",
+    "Salesforce Reports and Dashboards (3 h)",
+    "Salesforce Admin Functions (11 h)"
+   ],
+   "topics": [
+    "Salesforce",
+    "Data Management",
+    "Dashboards",
+    "Report Writing",
+    "Data Import/Export",
+    "Customer Relationship Management"
+   ],
+   "roles": [
+    "R007"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-EDUCBA-SFFUND",
+   "title": "Apply Salesforce Administration Fundamentals for Beginners",
+   "provider": "Coursera (EDUCBA)",
+   "url": "https://www.coursera.org/learn/apply-salesforce-administration-fundamentals-for-beginners",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 20,
+   "duration_text": "About 20 hours, 9 modules",
+   "cost": "Free to enrol; included with Coursera Plus",
+   "rating": null,
+   "rating_count": null,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Salesforce Fundamentals (3 h)",
+    "User Interface & Personalization (2 h)",
+    "Activities & Data Customization (2 h)",
+    "Profile & Permission Security (2 h)",
+    "Roles, Hierarchy & Sharing (2 h)",
+    "Views, Validation & Advanced Fields (3 h)"
+   ],
+   "topics": [
+    "Salesforce"
+   ],
+   "roles": [
+    "R007"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-SAP-SALES",
+   "title": "Discover SAP Sales Cloud",
+   "provider": "SAP Learning",
+   "url": "https://learning.sap.com/courses/discover-sap-sales-cloud",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 5.82,
+   "duration_text": "5 hr 49 min, 13 units",
+   "cost": "Not stated on the page",
+   "rating": null,
+   "rating_count": null,
+   "certificate": null,
+   "prerequisites": "Basic knowledge of CRM processes",
+   "units": [
+    "Aligning SAP Sales Cloud with the CX Portfolio and the Sales Cycle (31 min)",
+    "Defining the Functional Features of Lead Management (33 min)",
+    "Defining the Characteristics of a Sales Opportunity (41 min)",
+    "Examining Quotation Management Features (33 min)",
+    "Exploring Activity Management (35 min)",
+    "Planning and Forecasting Sales (43 min)",
+    "Using Reports and Analytics in SAP Sales Cloud (12 min)"
+   ],
+   "topics": [],
+   "roles": [
+    "R007"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-UDEMY-SFADMIN",
+   "title": "Complete Salesforce Administrator Course: Beginner to Pro",
+   "provider": "Udemy",
+   "url": "https://www.udemy.com/course/the-salesforce-administrator-course-zero-to-hero-2021/",
+   "level": "beginner",
+   "level_basis": "tagged from page wording: no prior Salesforce knowledge needed",
+   "hours": 4.78,
+   "duration_text": "4 hr 47 min, 16 sections",
+   "cost": "Price not shown on the page",
+   "rating": 4.4,
+   "rating_count": 58,
+   "certificate": null,
+   "prerequisites": "No prior Salesforce knowledge",
+   "units": [
+    "Getting Started - CRM, Cloud Computing & Salesforce",
+    "The ABC of Salesforce - Setting up Salesforce",
+    "Salesforce Architecture",
+    "Your 1st Custom Object",
+    "Relationships in Salesforce",
+    "Salesforce Security - Permissions & Access Providers"
+   ],
+   "topics": [
+    "Salesforce"
+   ],
+   "roles": [
+    "R007"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-MQ-EXCEL",
+   "title": "Excel Skills for Business Specialization",
+   "provider": "Coursera (Macquarie University)",
+   "url": "https://www.coursera.org/specializations/excel",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 107,
+   "duration_text": "About 107 hours, 4 courses",
+   "cost": "Page contradicts itself on free access; check the page",
+   "rating": 4.9,
+   "rating_count": 64228,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Excel Skills for Business: Essentials (26 h)",
+    "Intermediate I (28 h)",
+    "Intermediate II (28 h)",
+    "Advanced (25 h)"
+   ],
+   "topics": [
+    "Excel"
+   ],
+   "roles": [
+    "R002",
+    "R005",
+    "R007"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-DUKE-XLSQL",
+   "title": "Excel to MySQL: Analytic Techniques for Business",
+   "provider": "Coursera (Duke University)",
+   "url": "https://www.coursera.org/specializations/excel-mysql",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 105,
+   "duration_text": "About 105 hours, about 6 months at 5 h a week",
+   "cost": "Free to start; certificate and Coursera Plus pricing apply",
+   "rating": 4.6,
+   "rating_count": 15351,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "Business Metrics for Data-Driven Companies (8 h)",
+    "Mastering Data Analysis in Excel (22 h)",
+    "Data Visualization and Communication with Tableau (25 h)",
+    "Managing Big Data with MySQL (27 h)",
+    "Capstone (23 h)"
+   ],
+   "topics": [
+    "Data Analysis",
+    "Data Visualization",
+    "Business Analytics",
+    "Dashboard Creation",
+    "SQL",
+    "Tableau Software",
+    "Microsoft Excel"
+   ],
+   "roles": [
+    "R005",
+    "R007"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-MS-SQLPBI",
+   "title": "Microsoft Data Analysis with SQL, Excel & Power BI Specialization",
+   "provider": "Coursera (Microsoft)",
+   "url": "https://www.coursera.org/specializations/microsoft-data-analysis-sql-excel-powerbi",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 107,
+   "duration_text": "About 107 hours, 5 courses",
+   "cost": "Page contradicts itself on free access; check the page",
+   "rating": 4.6,
+   "rating_count": 1529,
+   "certificate": true,
+   "prerequisites": null,
+   "units": [
+    "SQL Foundations (22 h)",
+    "Data Manipulation and Transactions in SQL Server (15 h)",
+    "Data Cleaning & Processing with Copilot in Excel (19 h)",
+    "Advanced Data Analysis & Visualization with Copilot in Excel (24 h)",
+    "Data Analysis and Visualization with Power BI (27 h)"
+   ],
+   "topics": [
+    "SQL",
+    "Power BI",
+    "Dashboard Creation",
+    "Data Visualization",
+    "Pivot Tables and Charts",
+    "Data Analysis",
+    "Business Intelligence"
+   ],
+   "roles": [
+    "R005"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-UCD-TABLEAU",
+   "title": "Data Visualization with Tableau Specialization",
+   "provider": "Coursera (UC Davis)",
+   "url": "https://www.coursera.org/specializations/data-visualization",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 50,
+   "duration_text": "About 50 hours, 5 courses",
+   "cost": "Page contradicts itself on free access; check the page",
+   "rating": 4.5,
+   "rating_count": 8360,
+   "certificate": true,
+   "prerequisites": "For newcomers; no Tableau experience",
+   "units": [
+    "Fundamentals of Visualization with Tableau (7 h)",
+    "Essential Design Principles for Tableau (13 h)",
+    "Visual Analytics with Tableau (9 h)",
+    "Creating Dashboards and Storytelling with Tableau (8 h)",
+    "Data Visualization with Tableau Project (13 h)"
+   ],
+   "topics": [
+    "Tableau Software",
+    "Dashboard",
+    "Data Analysis",
+    "Data Visualization"
+   ],
+   "roles": [
+    "R005",
+    "R007"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-SAP-SAC",
+   "title": "Exploring SAP Analytics Cloud",
+   "provider": "SAP Learning",
+   "url": "https://learning.sap.com/courses/exploring-sap-analytics-cloud",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 4.95,
+   "duration_text": "4 hr 57 min, 8 units",
+   "cost": "Not stated on the page",
+   "rating": null,
+   "rating_count": null,
+   "certificate": null,
+   "prerequisites": null,
+   "units": [
+    "Getting Started with SAP Analytics Cloud (42 min)",
+    "Establishing Data Sources and Connections (23 min)",
+    "Using Modeling (19 min)",
+    "Using Basic and Advanced Stories (1 hr 13 min)",
+    "Using Planning (59 min)",
+    "Using Basic Augmented Analytics (18 min)",
+    "Using Collaboration Features (43 min)"
+   ],
+   "topics": [],
+   "roles": [
+    "R005"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  },
+  {
+   "course_id": "PC-SAP-ERP",
+   "title": "Executing Basic ERP Processes with SAP S/4HANA",
+   "provider": "SAP Learning",
+   "url": "https://learning.sap.com/learning-journeys/executing-basic-erp-processes-with-sap-s-4hana",
+   "level": "beginner",
+   "level_basis": "stated on the page",
+   "hours": 4.28,
+   "duration_text": "4 hr 17 min, 4 units",
+   "cost": "Not stated on the page",
+   "rating": null,
+   "rating_count": null,
+   "certificate": null,
+   "prerequisites": null,
+   "units": [
+    "Exploring the Intelligent Enterprise with SAP Business Technology (14 min)",
+    "Using Procure-to-Pay Processing (1 hr 11 min)",
+    "Using Plan-to-Produce Processing (57 min)",
+    "Using Order-to-Cash Processing (1 hr 55 min)"
+   ],
+   "topics": [],
+   "roles": [
+    "R005"
+   ],
+   "read_on": "2026-11-03",
+   "verification_status": "seed_unverified"
+  }
+ ]
+}

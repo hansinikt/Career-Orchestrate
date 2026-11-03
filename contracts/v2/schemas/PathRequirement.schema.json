@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "courses_covering": {
+      "title": "Courses Covering",
+      "type": "integer"
+    },
+    "evidence": {
+      "title": "Evidence",
+      "type": "string"
+    },
+    "have": {
+      "title": "Have",
+      "type": "boolean"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "evidence",
+    "have",
+    "courses_covering"
+  ],
+  "title": "PathRequirement",
+  "type": "object"
+}

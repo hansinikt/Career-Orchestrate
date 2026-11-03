@@ -76,10 +76,10 @@ export function roadmapItems(courses, missionList, questionList, planInfo) {
     { key: "certs", kind: "cert", title: T.nav.certs, sub: T.road.fallback.certs, text: T.road.text.certs, href: "#/certs" },
   ];
 }
-// Courses for one job option, simplest first. The Course Scout (back end) chooses and orders them; this screen only draws what it gets.
-// Shape of each item: { resource_id, title, provider, level: "beginner"|"intermediate"|"advanced"|null, duration_text, cost, rating, rating_count,
-//   certificate: true|false|null, prerequisites, url, why, covers: [skill names], verified: boolean }
-// TODO(backend): GET /profiles/{id}/paths/{role_id}. Until it exists the list is empty and the role page shows the "being prepared" state.
+// Courses for one job option, simplest first. The back end (engine/paths.py) chooses and orders them; this only reshapes them for the screen.
 export async function roleCourses(roleId) {
-  return [];
+  if (!S.profileId) return [];
+  const r = await api.rolePath(S.profileId, roleId);
+  return r.courses.map((c) => ({ resource_id: c.resource_id, title: c.title, provider: c.provider, level: c.level, duration_text: c.duration_text, hours: c.est_hours, cost: c.cost,
+    rating: c.rating, rating_count: c.rating_count, certificate: c.certificate, prerequisites: c.prerequisites, url: c.url, why: c.why, covers: c.covers, verified: c.verification_status === "verified" }));
 }

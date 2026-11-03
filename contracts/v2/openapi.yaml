@@ -1098,6 +1098,135 @@ components:
       - institution
       title: ParsedEducation
       type: object
+    PathCourse:
+      additionalProperties: false
+      properties:
+        certificate:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Certificate
+        cost:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cost
+        covers:
+          items:
+            type: string
+          title: Covers
+          type: array
+        decided_by:
+          enum:
+          - agent
+          - rules
+          title: Decided By
+          type: string
+        duration_text:
+          title: Duration Text
+          type: string
+        est_hours:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Est Hours
+        level:
+          anyOf:
+          - enum:
+            - beginner
+            - intermediate
+            - advanced
+            type: string
+          - type: 'null'
+          title: Level
+        level_basis:
+          title: Level Basis
+          type: string
+        prerequisites:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prerequisites
+        provider:
+          title: Provider
+          type: string
+        rating:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Rating
+        rating_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Rating Count
+        resource_id:
+          title: Resource Id
+          type: string
+        title:
+          title: Title
+          type: string
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Url
+        verification_status:
+          enum:
+          - verified
+          - seed_unverified
+          - sample_placeholder
+          title: Verification Status
+          type: string
+        why:
+          title: Why
+          type: string
+      required:
+      - resource_id
+      - title
+      - provider
+      - url
+      - level
+      - level_basis
+      - est_hours
+      - duration_text
+      - cost
+      - rating
+      - rating_count
+      - certificate
+      - prerequisites
+      - covers
+      - why
+      - decided_by
+      - verification_status
+      title: PathCourse
+      type: object
+    PathRequirement:
+      additionalProperties: false
+      properties:
+        courses_covering:
+          title: Courses Covering
+          type: integer
+        evidence:
+          title: Evidence
+          type: string
+        have:
+          title: Have
+          type: boolean
+        id:
+          title: Id
+          type: string
+        name:
+          title: Name
+          type: string
+      required:
+      - id
+      - name
+      - evidence
+      - have
+      - courses_covering
+      title: PathRequirement
+      type: object
     PlanRequest:
       additionalProperties: false
       properties:
@@ -1633,6 +1762,47 @@ components:
       - reviewer
       - decision
       title: ReviewRequest
+      type: object
+    RolePathResponse:
+      additionalProperties: false
+      properties:
+        courses:
+          items:
+            $ref: '#/components/schemas/PathCourse'
+          title: Courses
+          type: array
+        mode:
+          enum:
+          - agent
+          - rules
+          title: Mode
+          type: string
+        profile_id:
+          title: Profile Id
+          type: string
+        requirements:
+          items:
+            $ref: '#/components/schemas/PathRequirement'
+          title: Requirements
+          type: array
+        role_id:
+          title: Role Id
+          type: string
+        role_title:
+          title: Role Title
+          type: string
+        source_note:
+          title: Source Note
+          type: string
+      required:
+      - profile_id
+      - role_id
+      - role_title
+      - requirements
+      - courses
+      - mode
+      - source_note
+      title: RolePathResponse
       type: object
     RoleRecommendation:
       additionalProperties: false
@@ -2549,6 +2719,38 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Set Motivation
+  /api/v1/profiles/{pid}/paths/{role_id}:
+    get:
+      description: 'Job options: the courses for one role, simplest first. Which courses
+        and their order come from engine/paths.py; the agent only writes each reason.'
+      operationId: role_path_api_v1_profiles__pid__paths__role_id__get
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      - in: path
+        name: role_id
+        required: true
+        schema:
+          title: Role Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RolePathResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Role Path
   /api/v1/profiles/{pid}/plan:
     get:
       operationId: read_plan_api_v1_profiles__pid__plan_get

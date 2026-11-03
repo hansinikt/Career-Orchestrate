@@ -143,6 +143,39 @@ class Resource(S):
     verification_status: Literal["verified", "seed_unverified", "sample_placeholder"]
     last_verified: Optional[str]
     note: str
+# ---------- job options: courses for one role (additive in v3) ----------
+class PathRequirement(S):
+    id: str
+    name: str
+    evidence: str
+    have: bool
+    courses_covering: int
+class PathCourse(S):
+    resource_id: str
+    title: str
+    provider: str
+    url: Optional[str]
+    level: Optional[Literal["beginner", "intermediate", "advanced"]]
+    level_basis: str
+    est_hours: Optional[float]
+    duration_text: str
+    cost: Optional[str]
+    rating: Optional[float]
+    rating_count: Optional[int]
+    certificate: Optional[bool]
+    prerequisites: Optional[str]
+    covers: list[str]
+    why: str
+    decided_by: Literal["agent", "rules"]
+    verification_status: Literal["verified", "seed_unverified", "sample_placeholder"]
+class RolePathResponse(S):
+    profile_id: str
+    role_id: str
+    role_title: str
+    requirements: list[PathRequirement]
+    courses: list[PathCourse]
+    mode: Literal["agent", "rules"]
+    source_note: str
 class PlanRequest(S):
     role_id: str
     weekly_hours: Optional[int] = Field(default=None, ge=1, le=40)

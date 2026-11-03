@@ -11,7 +11,7 @@ export default function landing() {
     return h("article", { class: "card feat" }, ill(kind, 60), h("h3", { text: title }), h("p", { text }), h("div", { style: "margin-top:10px" }, btn), tryBox);
   };
   const hero = h("section", { class: "hero" }, h("div", { class: "inner" },
-    h("div", null, h("span", { class: "st amber", text: t.badge }), h("h1", { id: "page-title", tabindex: "-1" }, t.title[0], h("br"), t.title[1]), h("p", { class: "lead", text: t.lead }),
+    h("div", null, h("h1", { id: "page-title", tabindex: "-1" }, t.title[0], h("br"), t.title[1]), h("p", { class: "lead", text: t.lead }),
       h("div", { class: "row" }, h("a", { class: "btn lg", href: "#/signin", text: t.start }), h("a", { class: "btn ghost lg", href: "#/signin", text: t.demo }))),
     h("div", { class: "demo-card", "aria-hidden": "true" },
       h("div", { class: "row between" }, h("b", { text: t.cardMission }), h("span", { class: "st amber", text: t.cardDue })),

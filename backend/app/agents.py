@@ -102,3 +102,27 @@ def cv_parse(text: str, sk: dict):
         elif x not in tl: tl.append(x)
     out["skills"] = list(dict.fromkeys(sk_ok + rules["skills"])); out["tools"] = tl[:20]
     return out, "llm+rules", ignored
+
+
+# ---- Job options: the model may only write the one-sentence reason for each course. Which courses show, and their order, is decided in engine/paths.py. ----
+PATH_SYSTEM = ("You explain, in plain words for a clerical worker, why each listed course is on the path to a job role. "
+               "Use ONLY facts in the course record and the requirements list. Never change the order, never add or remove a course, never invent numbers, prices or ratings. "
+               "Each reason is at most 25 words. "
+               'Return JSON only: {"reasons":[{"resource_id":"...","reason":"..."}]}')
+def path_reasons(role_title: str, courses: list, requirements: list):
+    """-> (reasons by resource_id, mode). Falls back to a rule sentence for any course whose reason fails a check."""
+    from engine import paths as PT
+    payload = dict(role=role_title, requirements=[r["name"] for r in requirements if not r["have"]],
+                   courses=[dict(resource_id=c["course_id"], title=c["title"], provider=c["provider"], covers=c["covers"], level=c["level"], hours=c["hours"], prerequisites=c["prerequisites"]) for c in courses])
+    data, _ = llm.ask_json("path", PATH_SYSTEM, json.dumps(payload, ensure_ascii=False, sort_keys=True)) if courses else (None, None)
+    got = {}
+    if isinstance(data, dict) and isinstance(data.get("reasons"), list):
+        for x in data["reasons"]:
+            if isinstance(x, dict): got[x.get("resource_id")] = x.get("reason")
+    out, used = {}, False
+    for c in courses:
+        r = got.get(c["course_id"]); src = json.dumps(payload, ensure_ascii=False)
+        if isinstance(r, str) and 0 < len(r) <= 240 and not E.ungrounded_numbers(r, [src]) and not any(b in r.lower() for b in BANNED):
+            out[c["course_id"]] = (r.strip(), "agent"); used = True
+        else: out[c["course_id"]] = (PT.default_reason(c), "rules")
+    return out, ("agent" if used else "rules")

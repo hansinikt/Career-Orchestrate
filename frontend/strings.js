@@ -135,7 +135,7 @@ export const T = {
     waitTitle: "Courses for this role are being prepared", waitText: "The Course Scout lists them here, simplest first, once they are ready.",
     choose: "Choose this path", chooseHelp: "You decide. Your plan is built only after you choose.", notFound: "We could not find that role.", 
     hours: "Time", open: "Open the course page", why: "Why this course", covers: "Covers", step: (n) => `Step ${n}`,
-    rating: (r, n) => n ? `Rated ${r} from ${n} reviews` : `Rated ${r}`, noRating: "No rating shown", cost: (c) => `Cost: ${c}`, costNone: "Cost: not stated", cert: { yes: "Certificate", no: "No certificate", unknown: "Certificate: not stated" },
+    rating: (r, n) => n ? `Rated ${r} from ${Number(n).toLocaleString("en-US")} reviews` : `Rated ${r}`, noRating: "No rating shown", cost: (c) => `Cost: ${c}`, costNone: "Cost: not stated", cert: { yes: "Certificate", no: "No certificate", unknown: "Certificate: not stated" },
     prereq: (p) => `Needs first: ${p}`, unverified: "Not checked by a person yet",
   },
   s4: {
@@ -246,7 +246,6 @@ export const T = {
   search: { placeholder: "Search the app", none: "Nothing found", pages: "Pages", label: "Search" },
   menu: { profile: "My profile", schedule: "My schedule", certs: "My certifications", encourage: "Encouragement settings", email: "Email preferences", fairness: "Fairness check (adviser)", advert: "Job advert check (adviser)", logout: "Log out" },
   land: {
-    badge: "SAP Hackfest 2026 · Inclusive Workforce",
     title: ["Skills first.", "You decide."],
     lead: "Career Orchestrator reads what you really do at work, finds the skills behind it, and builds a roadmap to your next role. Six agents do the heavy lifting. You make every decision.",
     start: "Start now", demo: "Watch the demo",
