@@ -10,7 +10,7 @@ from engine import core as E, extract_rules as X, readiness as R, motivation as 
 from contracts.v2 import models as C
 from .db import DB
 from . import orchestrator as O, agents as A, llm
-from engine import market as MK, missions as MS, chapters as CH, cv as CV, motivation as MOT
+from engine import market as MK, missions as MS, chapters as CH, cv as CV
 
 APP_VERSION, CONTRACT_VERSION = "0.2.0", "2.0"
 SK, ROLES, RES = E.load("v2"); ROLE = {r["role_id"]: r for r in ROLES}
@@ -29,6 +29,7 @@ _hits = {}
 async def _guard(request: Request, call_next):
     if int(request.headers.get("content-length") or 0) > MAX_BODY:
         return JSONResponse(status_code=413, content={"error": {"code": "VALIDATION_ERROR", "message": "Request is too large.", "details": None}})
+    if len(_hits) > 1000: _hits.clear()   # shortcut: forgets all counters at once, fine for a demo; use a TTL cache if exposed
     if request.method == "POST" and request.url.path.endswith(("/extract", "/scout", "/cv/parse", "/decline")):   # these may call the language model
         k = (request.client.host if request.client else "?"); t = time.time(); _hits[k] = [x for x in _hits.get(k, []) if t - x < 60]
         if len(_hits[k]) >= int(os.environ.get("RATE_LIMIT_PER_MIN", "40")): return JSONResponse(status_code=429, content={"error": {"code": "INTERNAL", "message": "Too many requests. Wait a minute and try again.", "details": None}})
@@ -250,6 +251,7 @@ def scout_approve(pid: str, body: C.ScoutApproveRequest):
         st, r = by_order.get(ch.order), res.get(ch.resource_id)
         if st is None: raise Err(422, "VALIDATION_ERROR", f"Unknown step {ch.order}")
         if r is None or st["skill_id"] not in r["skill_ids"]: raise Err(422, "VALIDATION_ERROR", f"Course {ch.resource_id} does not cover {st['skill_name']}")
+        if not A._eligible(r, ALLOW_UNVERIFIED, ALLOW_SAMPLE): raise Err(422, "VALIDATION_ERROR", f"Course {ch.resource_id} is not allowed by the course policy")
         st["resource"] = as_resource(r); st["status"] = "resource_found"
     plan["unresolved_skill_ids"] = [s["skill_id"] for s in plan["steps"] if s["status"] != "resource_found"]
     plan["includes_unverified_resources"] = any(s["resource"] and s["resource"]["verification_status"] != "verified" for s in plan["steps"])

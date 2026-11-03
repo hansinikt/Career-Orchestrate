@@ -132,3 +132,17 @@ def test_scout_skips_courses_the_person_already_did(monkeypatch):
     pid, plan, st = journey_with_course(monkeypatch); title = st["resource"]["title"]
     c.put(f"/api/v1/profiles/{pid}/background", json=dict(certifications=[dict(name=title.upper())]))
     s = c.post(f"/api/v1/profiles/{pid}/scout").json(); assert all(cand["title"] != title for x in s["steps"] for cand in x["candidates"])
+
+# ---- audit fixes: course policy on approve, one cap on live model calls ----
+def test_scout_approve_refuses_course_the_policy_disallows(monkeypatch):
+    pid, plan, st = journey_with_course(monkeypatch); sid = st["skill_id"]; rid = st["resource"]["resource_id"]
+    monkeypatch.setattr(M, "ALLOW_UNVERIFIED", False); monkeypatch.setattr(M, "ALLOW_SAMPLE", False)
+    bad = next(r for r in RES if sid in r["skill_ids"] and r["verification_status"] != "verified")
+    r = c.post(f"/api/v1/profiles/{pid}/scout/approve", json=dict(choices=[dict(order=st["order"], resource_id=bad["resource_id"])]))
+    assert r.status_code == 422 and "policy" in r.json()["error"]["message"]
+def test_live_model_calls_share_one_cap_and_pause_after_failure(monkeypatch):
+    n = []; monkeypatch.setattr(llm, "live_ready", lambda: True); monkeypatch.setattr(llm, "_calls", []); monkeypatch.setattr(llm, "_down_until", 0.0)
+    monkeypatch.setattr(llm, "_gemini", lambda s, u: n.append(1) or {"ok": 1}); monkeypatch.setenv("RATE_LIMIT_PER_MIN", "2")
+    got = [llm.ask_json("t", "s", f"u{i}")[0] for i in range(4)]; assert len(n) == 2 and got == [{"ok": 1}, {"ok": 1}, None, None]
+    monkeypatch.setattr(llm, "_calls", []); monkeypatch.setattr(llm, "_gemini", lambda s, u: 1 / 0)
+    assert llm.ask_json("t", "s", "x")[0] is None and llm._down_until > 0 and llm.ask_json("t", "s", "y")[0] is None
