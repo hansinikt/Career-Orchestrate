@@ -59,11 +59,14 @@ export async function reopenMission(id) { await api.reopenMission(S.profileId, i
 export async function declineMission(id) { const r = await api.declineMission(S.profileId, id); return r.message; }   // the encouragement text, or null when messages are paused
 export function addCertificate(c) { U.x.certs.push(Object.assign({ id: "c" + Date.now(), added: new Date().toISOString().slice(0, 10) }, c)); saveExtras(); }
 export function removeCertificate(id) { U.x.certs = U.x.certs.filter((c) => c.id !== id); saveExtras(); }
-// Plain text CVs (.txt, .md) are read in the browser, then sent as text to POST /cv/parse. PDF and Word return null (not supported yet).
+// CVs: .txt and .md are read in the browser. PDF and Word (.docx) are sent to POST /cv/file, which returns their text. The text is then read by POST /cv/parse.
+// Returns the text, or null for a file type we do not accept. Throws an ApiError with a plain message when the server cannot read the file.
 export async function readCvText(file) {
-  const ok = /\.(txt|md)$/i.test(file.name) || file.type === "text/plain";
-  if (!ok) return null;
-  return (await file.text()).slice(0, 20000);
+  if (/\.(txt|md)$/i.test(file.name) || file.type === "text/plain") return (await file.text()).slice(0, 20000);
+  if (!/\.(pdf|docx?)$/i.test(file.name)) return null;
+  if (file.size > 2000000) throw new ApiError("VALIDATION_ERROR", T.wiz.s1.cvTooBig, null, 422);
+  const buf = new Uint8Array(await file.arrayBuffer()); let bin = ""; for (let i = 0; i < buf.length; i += 8192) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 8192));
+  return (await api.cvFile(file.name, btoa(bin))).text;
 }
 // What the roadmap boxes and dashboard tiles say under the heading. Fallbacks when the backend has nothing yet.
 export function roadmapItems(courses, missionList, questionList, planInfo) {

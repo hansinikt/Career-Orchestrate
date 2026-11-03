@@ -10,7 +10,7 @@ from engine import core as E, extract_rules as X, readiness as R, motivation as 
 from contracts.v2 import models as C
 from .db import DB
 from . import orchestrator as O, agents as A, llm
-from engine import market as MK, missions as MS, chapters as CH, cv as CV, paths as PT
+from engine import market as MK, missions as MS, chapters as CH, cv as CV, paths as PT, cvfile as CF
 
 APP_VERSION, CONTRACT_VERSION = "0.2.0", "2.0"
 SK, ROLES, RES = E.load("v2"); ROLE = {r["role_id"]: r for r in ROLES}
@@ -31,7 +31,7 @@ async def _guard(request: Request, call_next):
     if int(request.headers.get("content-length") or 0) > MAX_BODY:
         return JSONResponse(status_code=413, content={"error": {"code": "VALIDATION_ERROR", "message": "Request is too large.", "details": None}})
     if len(_hits) > 1000: _hits.clear()   # shortcut: forgets all counters at once, fine for a demo; use a TTL cache if exposed
-    if request.method == "POST" and request.url.path.endswith(("/extract", "/scout", "/cv/parse", "/decline")):   # these may call the language model
+    if request.method == "POST" and request.url.path.endswith(("/extract", "/scout", "/cv/parse", "/cv/file", "/decline")):   # these may call the language model
         k = (request.client.host if request.client else "?"); t = time.time(); _hits[k] = [x for x in _hits.get(k, []) if t - x < 60]
         if len(_hits[k]) >= int(os.environ.get("RATE_LIMIT_PER_MIN", "40")): return JSONResponse(status_code=429, content={"error": {"code": "INTERNAL", "message": "Too many requests. Wait a minute and try again.", "details": None}})
         _hits[k].append(t)
@@ -343,6 +343,13 @@ def put_background(pid: str, body: C.Background):
     get_profile(pid); db.run("INSERT OR REPLACE INTO background VALUES (?,?,?)", (pid, body.model_dump_json(), iso())); db.log(iso(), "worker", "background_saved", pid, {"education": len(body.education), "certifications": len(body.certifications)}); return body
 @app.get("/api/v1/profiles/{pid}/background", response_model=C.Background)
 def read_background(pid: str): get_profile(pid); return get_background(pid)
+@app.post("/api/v1/cv/file", response_model=C.CVFileText)
+def cv_file(body: C.CVFileRequest):
+    """PDF or Word (.docx) CV to plain text. The text is shown to the person, who then reads it with POST /cv/parse. Nothing is stored."""
+    try: raw = base64.b64decode(body.content_base64, validate=True)
+    except (binascii.Error, ValueError): raise Err(422, "VALIDATION_ERROR", "The file could not be read. Try uploading it again.")
+    try: return CF.extract_text(raw)
+    except CF.CVFileError as e: raise Err(422, "VALIDATION_ERROR", str(e))
 @app.post("/api/v1/cv/parse", response_model=C.CVParseResponse)
 def cv_parse(body: C.CVParseRequest):
     out, mode, ignored = A.cv_parse(body.text, SK)

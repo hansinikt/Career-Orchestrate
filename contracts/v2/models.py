@@ -386,6 +386,13 @@ class Background(S):
     learning_formats: list[Literal["video", "reading", "hands_on", "live"]] = Field(default_factory=list, max_length=4)
 class CVParseRequest(S):
     text: str = Field(min_length=40, max_length=20000, description="Plain text of the CV")
+class CVFileRequest(S):
+    file_name: str = Field(min_length=1, max_length=200)
+    content_base64: str = Field(min_length=8, max_length=2_800_000, description="PDF or Word (.docx) file, at most 2 MB before encoding")
+class CVFileText(S):
+    text: str
+    truncated: bool
+    pages: int
 class ParsedCert(S):
     name: str
     issuer: Optional[str]

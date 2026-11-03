@@ -130,7 +130,8 @@ export default async function wizard(arg) {
     const file = h("input", { type: "file", id: "cv-file", accept: ".txt,.md,.pdf,.doc,.docx", "aria-label": W.s1.cvBtn, style: "max-width:260px" });
     file.addEventListener("change", async () => {
       const f = file.files[0]; if (!f) return;
-      const text = await readCvText(f);
+      cvMsg.textContent = W.s1.cvReading;
+      let text; try { text = await readCvText(f); } catch (e) { cvMsg.textContent = e && e.code === "VALIDATION_ERROR" ? e.message : W.s1.cvFail; return; }
       if (text === null) { cvMsg.textContent = W.s1.cvOther; return; }
       paste.value = text; read(text);
     });

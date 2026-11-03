@@ -63,6 +63,7 @@ export const api = {
   chapters:          (id, order)   => call("GET", P(id) + `/steps/${order}/chapters`),                      // { chapters, percent, source: "chapters"|"manual", next_message }
   tickChapter:       (id, order, chapter_id, done) => call("POST", P(id) + `/steps/${order}/chapters`, { chapter_id, done }),
   parseCv:           (text)        => call("POST", "/cv/parse", { text }),
+  cvFile:            (name, b64)   => call("POST", "/cv/file", { file_name: name, content_base64: b64 }),   // PDF or Word (.docx) to { text, truncated, pages }
   putBackground:     (id, body)    => call("PUT", P(id) + "/background", body),
   getBackground:     (id)          => call("GET", P(id) + "/background"),
   getCv:             (id)          => call("GET", P(id) + "/cv"),                                              // { file_name, text, sections }
