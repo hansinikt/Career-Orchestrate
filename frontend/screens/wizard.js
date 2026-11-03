@@ -4,7 +4,7 @@ import { api } from "../api.js";
 import { T } from "../strings.js";
 import { S } from "../state.js";
 import { U, saveExtras } from "../store.js";
-import { readCv } from "../slots.js";
+import { readCvText } from "../slots.js";
 import { h, go, field, choice, seg, toggle, levelWord, pills } from "../ui.js";
 import { ill } from "../art.js";
 
@@ -38,6 +38,22 @@ export function firstProblem() {
   if (S.styles.length < 1) return { step: 8, msg: T.wiz.s8.needStyle };
   if (!S.consent) return { step: 9, msg: T.wiz.s9.needConsent };
   return null;
+}
+// The body for PUT /profiles/{id}/background: education, certificates, languages, tools, barriers, situation, learning formats.
+const EDU = { "School": "school", "Diploma or certificate": "diploma", "Bachelor's degree": "bachelor", "Master's degree or higher": "master", "Other": "other" };
+const FORMATS = { "Videos": "video", "Reading": "reading", "Hands-on practice": "hands_on", "Live sessions": "live" };
+const cut = (v, n) => String(v || "").trim().slice(0, n);
+export function backgroundBody() {
+  const X = U.x, body = { education: [], certifications: [], languages: [], tools: [], barriers: [], learning_formats: [] };
+  if (EDU[X.edu]) { const e = { level: EDU[X.edu] }; if (cut(X.field, 80)) e.field = cut(X.field, 80); body.education.push(e); }
+  for (const c of X.certsHeld) { if (cut(c.name, 100)) { const it = { name: cut(c.name, 100) }; if (cut(c.issuer, 80)) it.issuer = cut(c.issuer, 80); body.certifications.push(it); } }
+  body.certifications = body.certifications.slice(0, 10);
+  body.languages = X.langs.map((v) => cut(v, 60)).filter(Boolean).slice(0, 8);
+  body.tools = X.tools.map((v) => cut(v, 60)).filter(Boolean).slice(0, 20);
+  body.barriers = X.barriers.slice(0, 3);
+  body.learning_formats = X.formats.map((f) => FORMATS[f]).filter(Boolean);
+  if (X.situation) body.situation = X.situation;
+  return body;
 }
 // Weekly free/busy grid. Click a block to cycle: not set, free, busy. Also used on the Profile page.
 export function scheduleGrid(onChange) {
@@ -90,11 +106,33 @@ export default async function wizard(arg) {
   }
   function s1() {
     const cvMsg = h("p", { class: "small", role: "status" });
+    const paste = h("textarea", { id: "cv-paste", maxlength: "20000", placeholder: W.s1.cvPastePh, "aria-label": W.s1.cvPaste, style: "min-height:110px" });
+    const readBtn = h("button", { class: "btn ghost small", type: "button", text: W.s1.cvReadBtn });
+    const read = async (text) => {
+      if (text.trim().length < 40) { cvMsg.textContent = W.s1.cvShort; return; }
+      cvMsg.textContent = W.s1.cvReading; readBtn.disabled = true;
+      try { applyCv(await api.parseCv(text)); } catch (e) { cvMsg.textContent = W.s1.cvFail; } finally { readBtn.disabled = false; }
+    };
+    const applyCv = (r) => {
+      if (r.current_role && !F.role.trim()) F.role = r.current_role;
+      if (r.work_examples.length) F.examples = r.work_examples.slice(0, 5).map((x) => x.slice(0, 1000));
+      if (r.skills.length) F.skills = r.skills.slice(0, 30).map((n) => ({ name: n.slice(0, 80), level: 2 }));
+      if (r.tools.length) X.tools = r.tools.slice(0, 20);
+      if (r.certifications.length) X.certsHeld = r.certifications.slice(0, 10).map((c) => ({ name: c.name, issuer: c.issuer || "" }));
+      if (r.languages.length) X.langs = r.languages.slice(0, 8);
+      const ed = r.education.find((e) => e.level);
+      if (ed) { X.edu = Object.keys(EDU).find((k) => EDU[k] === ed.level) || X.edu; if (ed.field) X.field = ed.field; }
+      saveExtras();
+      const found = (r.work_examples.length || r.skills.length) ? "" : W.s1.cvNothing;
+      msg = found || W.s1.cvDone(r.ignored_lines ? W.s1.cvIgnored(r.ignored_lines) : ""); warn = !!found; draw();
+    };
+    readBtn.addEventListener("click", () => read(paste.value));
     const file = h("input", { type: "file", id: "cv-file", accept: ".txt,.md,.pdf,.doc,.docx", "aria-label": W.s1.cvBtn, style: "max-width:260px" });
     file.addEventListener("change", async () => {
       const f = file.files[0]; if (!f) return;
-      const lines = await readCv(f);
-      if (lines && lines.length) { F.examples = lines; cvMsg.textContent = W.s1.cvRead(lines.length); draw(); } else cvMsg.textContent = W.s1.cvOther;
+      const text = await readCvText(f);
+      if (text === null) { cvMsg.textContent = W.s1.cvOther; return; }
+      paste.value = text; read(text);
     });
     const sel = h("select", { id: "demo-sel", "aria-label": W.s1.demoBtn }, L.personas.map((p) => h("option", { value: p.persona_id, text: `${p.display_name}, ${p.current_role}` })));
     const an = L.personas.find((p) => p.display_name === "Anitha Raman"); if (an) sel.value = an.persona_id;
@@ -103,7 +141,7 @@ export default async function wizard(arg) {
       const ta = h("textarea", { id: `f-ex-${i}`, class: "ex", maxlength: "1000", "aria-label": W.s1.example(i + 1), value: val, oninput: (e) => { F.examples[i] = e.target.value; cnt.textContent = `${e.target.value.length} / 1000`; } });
       return h("div", { class: "field" }, h("div", { class: "row between" }, h("label", { for: ta.id, text: W.s1.example(i + 1) }), F.examples.length > 1 ? h("button", { class: "linkbtn", type: "button", text: W.s1.remove, onclick: () => { F.examples.splice(i, 1); draw(); } }) : null), ta, cnt);
     });
-    return [h("div", { class: "cv-box" }, ill("cv", 64), h("div", { style: "flex:1;min-width:240px" }, h("b", { text: W.s1.cvTitle }), h("p", { class: "small muted", text: W.s1.cvHelp }), h("div", { style: "margin-top:10px" }, file), cvMsg)),
+    return [h("div", { class: "cv-box" }, ill("cv", 64), h("div", { style: "flex:1;min-width:240px" }, h("b", { text: W.s1.cvTitle }), h("p", { class: "small muted", text: W.s1.cvHelp }), h("div", { style: "margin-top:10px" }, file), h("div", { class: "field", style: "margin-top:12px" }, h("label", { for: "cv-paste", text: W.s1.cvPaste }), paste, h("div", { style: "margin-top:8px" }, readBtn)), cvMsg)),
       h("div", { class: "row", style: "margin-top:12px" }, h("div", { style: "min-width:240px;flex:1" }, sel), h("button", { class: "btn ghost small", type: "button", text: W.s1.demoBtn, onclick: () => fill(L.personas.find((p) => p.persona_id === sel.value)) })),
       h("div", { class: "cols2", style: "margin-top:20px" }, field(W.s1.role, h("input", { type: "text", id: "f-role", maxlength: "80", value: F.role, oninput: bind("role") })), field(W.s1.industry, h("input", { type: "text", id: "f-ind", maxlength: "60", value: X.industry, oninput: (e) => { X.industry = e.target.value; saveExtras(); } }))),
       h("div", { style: "margin-top:20px" }, h("h3", { style: "font-size:1.15rem", text: W.s1.examplesTitle }), h("p", { class: "hint", text: W.s1.examplesHelp })), examples,
@@ -114,7 +152,7 @@ export default async function wizard(arg) {
       h("div", { style: "flex:2;min-width:180px" }, h("input", { type: "text", list: "skill-names", maxlength: "80", "aria-label": `${W.s2.skill} ${i + 1}`, value: s.name, oninput: (e) => { s.name = e.target.value; } })),
       h("div", { style: "flex:1;min-width:150px" }, h("select", { "aria-label": `${W.s2.level} ${i + 1}`, value: String(s.level), onchange: (e) => { s.level = Number(e.target.value); } }, LEVELS.map((l) => h("option", { value: String(l), text: levelWord(l) })))),
       h("button", { class: "linkbtn", type: "button", text: W.s2.remove, onclick: () => { F.skills.splice(i, 1); draw(); } })));
-    return [h("h3", { style: "font-size:1.15rem", text: W.s2.skillsTitle }), rows, h("datalist", { id: "skill-names" }, L.skills.map((s) => h("option", { value: s.name }))),
+    return [h("h3", { style: "font-size:1.15rem", text: W.s2.skillsTitle }), h("ul", { class: "hint", style: "margin:4px 0 12px;padding-left:20px" }, W.s2.levelHelp.map((x) => h("li", { text: x }))), F.skills.length ? h("p", { class: "hint", text: W.s2.fromCv }) : null, rows, h("datalist", { id: "skill-names" }, L.skills.map((s) => h("option", { value: s.name }))),
       F.skills.length < 30 ? h("button", { class: "btn ghost small", type: "button", text: W.s2.add, onclick: () => { F.skills.push({ name: "", level: 2 }); focusLast = "input[list]"; draw(); } }) : null,
       h("div", { style: "margin-top:26px" }, h("h3", { style: "font-size:1.15rem", text: W.s2.toolsTitle }), h("p", { class: "hint", text: W.s2.toolsHelp }), chips(X.tools, W.s2.toolPh, W.s2.addTool, W.s2.toolsTitle))];
   }
@@ -138,8 +176,10 @@ export default async function wizard(arg) {
       h("div", { class: "field" }, h("p", { class: "lbl", text: W.s5.direction }), seg("dir", W.s5.dirOpts, X.direction, (v) => { X.direction = v; saveExtras(); }))];
   }
   function s6() {
-    return [h("div", { class: "field" }, h("p", { class: "lbl", text: W.s6.why }), pills("why", W.s6.whyOpts, X.why, (o, on) => { X.why = on ? [...X.why, o] : X.why.filter((x) => x !== o); saveExtras(); })),
-      field(W.s6.limits, h("textarea", { id: "f-limits", maxlength: "500", placeholder: W.s6.limitsPh, value: X.limits, oninput: (e) => { X.limits = e.target.value; saveExtras(); } }))];
+    const barriers = h("div", { class: "choices", role: "group", "aria-label": W.s6.barriers }, W.s6.barrierOpts.map(([k, label]) =>
+      choice("checkbox", "barrier", label, "", X.barriers.includes(k), (e) => { X.barriers = e.target.checked ? [...X.barriers, k] : X.barriers.filter((x) => x !== k); saveExtras(); draw(); }, !X.barriers.includes(k) && X.barriers.length >= 3)));
+    return [h("div", { class: "field" }, h("p", { class: "lbl", text: W.s6.why }), seg("situation", W.s6.whyOpts, X.situation, (v) => { X.situation = v; saveExtras(); })),
+      h("div", { class: "field" }, h("p", { class: "lbl", text: W.s6.barriers }), h("p", { class: "hint", text: W.s6.barriersHelp }), barriers)];
   }
   function s7() {
     const hours = h("input", { type: "number", id: "f-hours", min: "1", max: "40", inputmode: "numeric", value: F.hours, oninput: bind("hours"), style: "max-width:140px" });

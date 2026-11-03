@@ -4,7 +4,7 @@ import { T } from "../strings.js";
 import { S, setProfileId, resetJourney } from "../state.js";
 import { h, go, errorPanel, handleError } from "../ui.js";
 import { logo } from "../art.js";
-import { buildBody, firstProblem } from "./wizard.js";
+import { buildBody, backgroundBody, firstProblem } from "./wizard.js";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // rows: [[agent, what]]. tasks: [{ rows: [index...], fn }]. A short minimum per task keeps the screen readable.
@@ -43,6 +43,7 @@ export async function building1() {
         if (S.profileId) { try { await api.deleteProfile(S.profileId); } catch (e) { /* old profile already gone */ } }
         resetJourney();
         const profile = await api.createProfile(buildBody()); setProfileId(profile.profile_id);
+        await api.putBackground(S.profileId, backgroundBody());
       } },
       { rows: [1], fn: async () => { S.extract = await api.extract(S.profileId); } },
     ],
