@@ -1,0 +1,71 @@
+{
+ "additionalProperties": false,
+ "properties": {
+  "skill_id": {
+   "title": "Skill Id",
+   "type": "string"
+  },
+  "name": {
+   "title": "Name",
+   "type": "string"
+  },
+  "origin": {
+   "enum": [
+    "explicit",
+    "inferred",
+    "user_added"
+   ],
+   "title": "Origin",
+   "type": "string"
+  },
+  "status": {
+   "enum": [
+    "pending",
+    "confirmed",
+    "rejected"
+   ],
+   "title": "Status",
+   "type": "string"
+  },
+  "level": {
+   "description": "0 none,1 foundational,2 working,3 advanced/owned",
+   "maximum": 3,
+   "minimum": 0,
+   "title": "Level",
+   "type": "integer"
+  },
+  "evidence_ids": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Evidence Ids",
+   "type": "array"
+  },
+  "confidence": {
+   "enum": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "title": "Confidence",
+   "type": "string"
+  },
+  "rationale": {
+   "maxLength": 240,
+   "title": "Rationale",
+   "type": "string"
+  }
+ },
+ "required": [
+  "skill_id",
+  "name",
+  "origin",
+  "status",
+  "level",
+  "evidence_ids",
+  "confidence",
+  "rationale"
+ ],
+ "title": "NormalizedSkill",
+ "type": "object"
+}

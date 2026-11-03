@@ -1,0 +1,42 @@
+sequenceDiagram
+  autonumber
+  actor U as User
+  participant FE as Frontend
+  participant API as Backend API
+  participant O as Orchestrator
+  participant SD as Skills Discovery
+  participant LLM as LLM adapter
+  participant IM as Matching/Learning (deterministic)
+  participant BA as Bias Audit
+  U->>FE: enter work description + consent
+  FE->>API: POST /profiles
+  API-->>FE: 201 CareerProfile
+  FE->>API: POST /workflows {profile_id}
+  API-->>FE: 202 WorkflowState (extract_skills RUNNING)
+  API->>O: run stage graph (background task)
+  O->>SD: extract(profile)
+  SD->>LLM: structured call (cached by input hash)
+  LLM-->>SD: JSON per schema
+  SD-->>O: SkillExtractionResult (ungrounded items dropped)
+  par background
+    O->>BA: baseline + age-cue variants
+    BA->>LLM: variant extractions (cached)
+  and human gate
+    FE->>API: GET /workflows/{id} (poll 1.5s)
+    API-->>FE: AWAITING_USER confirm_skills
+    U->>FE: confirm / reject / add skills
+    FE->>API: POST /skills/confirmation
+  end
+  O->>IM: match_roles(confirmed skills)
+  IM-->>O: RoleRecommendation[]
+  FE->>API: GET /results (recommendations)
+  U->>FE: choose target role
+  FE->>API: POST /role-selection
+  par
+    O->>IM: learning_plan
+  and
+    O->>SD: employer_readiness (LLM, grounded)
+  end
+  O-->>API: COMPLETED (or WITH_WARNINGS)
+  FE->>API: GET /results
+  API-->>FE: WorkflowResults

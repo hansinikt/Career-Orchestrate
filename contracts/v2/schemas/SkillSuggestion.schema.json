@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "quote": {
+          "description": "Verbatim substring of one of the worker's work examples",
+          "title": "Quote",
+          "type": "string"
+        },
+        "work_example_index": {
+          "minimum": 0,
+          "title": "Work Example Index",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "quote",
+        "work_example_index"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "explanation": {
+      "title": "Explanation",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "signal": {
+      "enum": [
+        "declared_only",
+        "mentioned",
+        "performed"
+      ],
+      "title": "Signal",
+      "type": "string"
+    },
+    "skill_id": {
+      "title": "Skill Id",
+      "type": "string"
+    },
+    "source": {
+      "enum": [
+        "declared",
+        "declared_alias",
+        "extracted",
+        "user_added"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "suggested_level": {
+      "maximum": 3,
+      "minimum": 1,
+      "title": "Suggested Level",
+      "type": "integer"
+    },
+    "suggestion_id": {
+      "title": "Suggestion Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "suggestion_id",
+    "skill_id",
+    "name",
+    "suggested_level",
+    "source",
+    "signal",
+    "evidence",
+    "explanation"
+  ],
+  "title": "SkillSuggestion",
+  "type": "object"
+}

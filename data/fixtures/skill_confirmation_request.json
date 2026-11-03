@@ -1,0 +1,76 @@
+{
+ "decisions": [
+  {
+   "skill_id": "SK-REPORT",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-SPREADSHEET",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-SCHEDULING",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-VENDOR",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-RECORDS",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-MINUTES",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-BUDGET",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-ERPBASIC",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-DATAQUALITY",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-TEAMCOORD",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-STAKEHOLDER",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-BUSWRITING",
+   "action": "confirm",
+   "level": null
+  },
+  {
+   "skill_id": "SK-PROCESSIMPROVE",
+   "action": "reject",
+   "level": null
+  }
+ ],
+ "added_skills": [
+  {
+   "skill_id": "SK-PROCESSDOC",
+   "level": 2,
+   "note": "I maintain a checklist for month-end report steps"
+  }
+ ]
+}

@@ -1,0 +1,51 @@
+{
+ "catalog_version": "seed-0.1",
+ "note": "Titles taken from the SAP Hackfest participant handbook 'Learning Assets' slide. URLs/durations NOT captured yet: D3/D4 must capture while logged in, then set verification_status=verified.",
+ "resources": [
+  {
+   "resource_id": "RES-001",
+   "title": "Exploring SAP Analytics Cloud",
+   "provider": "SAP Learning Hub (student edition)",
+   "url": null,
+   "skill_ids": [
+    "SK-BI"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "cost": "unknown",
+   "verification_status": "seed_unverified",
+   "last_verified": null
+  },
+  {
+   "resource_id": "RES-002",
+   "title": "SAP Analytics Cloud: Story Design",
+   "provider": "SAP Learning Hub (student edition)",
+   "url": null,
+   "skill_ids": [
+    "SK-BI"
+   ],
+   "level_from": 1,
+   "level_to": 2,
+   "est_hours": null,
+   "cost": "unknown",
+   "verification_status": "seed_unverified",
+   "last_verified": null
+  },
+  {
+   "resource_id": "RES-003",
+   "title": "Applying AI-powered Visualizations and Augmented Analytics to Business Data in SAP Analytics Cloud",
+   "provider": "SAP Learning Hub (student edition)",
+   "url": null,
+   "skill_ids": [
+    "SK-BI"
+   ],
+   "level_from": 1,
+   "level_to": 2,
+   "est_hours": null,
+   "cost": "unknown",
+   "verification_status": "seed_unverified",
+   "last_verified": null
+  }
+ ]
+}

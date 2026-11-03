@@ -1,0 +1,2 @@
+# Legacy v1 files
+Version 1 of the PRD described a larger asynchronous design. Version 2 (docs/PRD_v2.*) replaces it. The v1 files remain only for history and because `engine/core.py` and `tests/test_all.py` still use the v1 seed. Do not build on: contracts/models.py, contracts/openapi.*, contracts/schemas/, mock_api/, data/fixtures/, data/skills.json, data/roles.json, data/resources.json, docs/prd/, docs/PRD.*.

@@ -1,0 +1,9 @@
+experience_id,user_id,job_title,start_date,end_date,responsibilities
+E001,U001,Administrative Coordinator,2011-07,Present,"Coordinated calendars, maintained records, prepared reports, supported cross-team communication"
+E002,U002,Office Administrator,2018-03,Present,"Managed schedules, meeting logistics, documentation, and office workflows"
+E003,U003,Operations Assistant,2021-01,Present,"Maintained operational spreadsheets, checked data quality, and prepared weekly summaries"
+E004,U004,Customer Support Executive,2020-06,Present,"Resolved customer queries, documented cases, and tracked service metrics"
+E005,U005,Administrative Assistant,2016-04,Present,"Managed records, supported procurement, and coordinated internal requests"
+E006,U006,Team Administrator,2014-09,Present,"Organized training sessions, maintained attendance, and coordinated team communications"
+E007,U007,Sales Operations Associate,2019-02,Present,"Updated CRM records, prepared sales reports, and coordinated with sales teams"
+E008,U008,Records Officer,2017-05,Present,"Maintained controlled records, checked document completeness, and supported audits"

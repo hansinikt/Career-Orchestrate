@@ -1,0 +1,191 @@
+{
+  "$defs": {
+    "DeclaredSkill": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "description": "1 Beginner, 2 Intermediate, 3 Advanced (the worker's own statement)",
+          "maximum": 3,
+          "minimum": 1,
+          "title": "Level",
+          "type": "integer"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "level"
+      ],
+      "title": "DeclaredSkill",
+      "type": "object"
+    },
+    "MotivationPrefs": {
+      "additionalProperties": false,
+      "properties": {
+        "check_in": {
+          "default": "weekly",
+          "enum": [
+            "daily",
+            "weekly",
+            "off"
+          ],
+          "title": "Check In",
+          "type": "string"
+        },
+        "paused": {
+          "default": false,
+          "title": "Paused",
+          "type": "boolean"
+        },
+        "styles": {
+          "description": "1 or 2 styles the worker chose; first is primary",
+          "items": {
+            "enum": [
+              "progress",
+              "goals",
+              "encouragement",
+              "accountability",
+              "challenge"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "title": "Styles",
+          "type": "array"
+        }
+      },
+      "required": [
+        "styles"
+      ],
+      "title": "MotivationPrefs",
+      "type": "object"
+    },
+    "Preferences": {
+      "additionalProperties": false,
+      "properties": {
+        "interests": {
+          "description": "Ordered, most wanted first",
+          "items": {
+            "enum": [
+              "people",
+              "data",
+              "operations",
+              "planning",
+              "compliance"
+            ],
+            "type": "string"
+          },
+          "maxItems": 3,
+          "title": "Interests",
+          "type": "array"
+        },
+        "weekly_hours": {
+          "anyOf": [
+            {
+              "maximum": 40,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Weekly Hours"
+        }
+      },
+      "title": "Preferences",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "current_role": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Current Role"
+    },
+    "declared_skills": {
+      "items": {
+        "$ref": "#/$defs/DeclaredSkill"
+      },
+      "title": "Declared Skills",
+      "type": "array"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "motivation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MotivationPrefs"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "preferences": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Preferences"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "stated_goal_role_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stated Goal Role Id"
+    },
+    "work_examples": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Work Examples",
+      "type": "array"
+    }
+  },
+  "required": [
+    "profile_id",
+    "display_name",
+    "current_role",
+    "work_examples",
+    "declared_skills",
+    "stated_goal_role_id",
+    "preferences",
+    "motivation",
+    "created_at"
+  ],
+  "title": "Profile",
+  "type": "object"
+}

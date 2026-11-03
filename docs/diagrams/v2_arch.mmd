@@ -1,0 +1,20 @@
+flowchart LR
+  U["Worker / adviser<br/>(browser)"] --> FE
+  subgraph FEB["FRONTEND (Dev 1)"]
+    FE["Screens 1-7<br/>no business logic"] --> API_C["api client<br/>ONE file, base URL from config"]
+  end
+  API_C -- "HTTPS JSON /api/v1<br/>contract: contracts/v2/models.py" --> ROUTES
+  subgraph BEB["BACKEND (Dev 2) - one Python process, FastAPI"]
+    ROUTES["Routes<br/>validate, store, wire"] --> ENG["engine/ (Dev 3)<br/>pure functions"]
+    ROUTES --> REPO["db.py<br/>sqlite3"]
+    ENG --- X1["extract_rules"]
+    ENG --- X2["core: match, gaps, plan, audit maths"]
+    ENG --- X3["motivation"]
+    ENG --- X4["readiness"]
+  end
+  REPO --> DB[("SQLite app.db<br/>USER DATA ONLY")]
+  ENG --> CAT[("Catalog JSON in Git<br/>skills, roles, courses, aliases<br/>edited by humans only")]
+  ROUTES -. "optional, P1" .-> LLM["LLMClient adapter<br/>replay | SAP Gen AI Hub | other"]
+  LLM -. "only if tested" .-> SAP["SAP AI Launchpad<br/>Generative AI Hub"]
+  classDef opt fill:#fff4e0,stroke:#c28a2c,stroke-dasharray: 4 3
+  class LLM,SAP opt

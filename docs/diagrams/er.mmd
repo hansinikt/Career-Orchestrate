@@ -1,0 +1,39 @@
+erDiagram
+  profiles ||--o{ workflows : has
+  workflows ||--o{ stage_results : produces
+  profiles ||--o{ audits : audited_by
+  workflows ||--o{ events : logs
+  llm_cache {
+    text cache_key PK
+    text stage
+    text response_json
+    text model
+    text created_at
+  }
+  profiles { text profile_id PK
+    text payload_json
+    text created_at
+    text expires_at }
+  workflows { text workflow_id PK
+    text profile_id FK
+    text status
+    text current_stage
+    text selected_roles_json
+    text mode }
+  stage_results { text workflow_id FK
+    text stage
+    text status
+    int attempts
+    text input_hash
+    text output_json
+    text error_json }
+  audits { text audit_id PK
+    text profile_id FK
+    text result_json
+    text reviewer_json }
+  events { int id PK
+    text workflow_id FK
+    text ts
+    text level
+    text event
+    text detail_json }

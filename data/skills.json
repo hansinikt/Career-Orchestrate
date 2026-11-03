@@ -1,0 +1,369 @@
+{
+ "taxonomy_version": "seed-0.1",
+ "skills": [
+  {
+   "skill_id": "SK-SPREADSHEET",
+   "name": "Spreadsheet analysis",
+   "category": "data",
+   "aliases": [
+    "excel",
+    "pivot table",
+    "pivot tables",
+    "vlookup",
+    "google sheets",
+    "spreadsheet"
+   ],
+   "hours_per_level": 15,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-REPORT",
+   "name": "Report preparation",
+   "category": "data",
+   "aliases": [
+    "mis report",
+    "monthly report",
+    "weekly report",
+    "management report",
+    "reports"
+   ],
+   "hours_per_level": 10,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-DATAQUALITY",
+   "name": "Data validation and quality checks",
+   "category": "data",
+   "aliases": [
+    "data cleaning",
+    "reconcile",
+    "reconciliation",
+    "cross-check",
+    "validate data"
+   ],
+   "hours_per_level": 15,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-BI",
+   "name": "Dashboarding and BI tools",
+   "category": "data",
+   "aliases": [
+    "power bi",
+    "tableau",
+    "sap analytics cloud",
+    "dashboard",
+    "dashboards"
+   ],
+   "hours_per_level": 25,
+   "prerequisites": [
+    "SK-SPREADSHEET"
+   ],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-SQL",
+   "name": "Basic SQL querying",
+   "category": "data",
+   "aliases": [
+    "sql",
+    "database query",
+    "queries"
+   ],
+   "hours_per_level": 25,
+   "prerequisites": [
+    "SK-SPREADSHEET"
+   ],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-SCHEDULING",
+   "name": "Scheduling and calendar coordination",
+   "category": "operations",
+   "aliases": [
+    "schedule",
+    "calendar",
+    "rota",
+    "appointments",
+    "itinerary"
+   ],
+   "hours_per_level": 10,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-TEAMCOORD",
+   "name": "Team and task coordination",
+   "category": "operations",
+   "aliases": [
+    "coordinate team",
+    "task allocation",
+    "follow up",
+    "follow-up",
+    "delegation"
+   ],
+   "hours_per_level": 15,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-PROCESSDOC",
+   "name": "Process documentation",
+   "category": "operations",
+   "aliases": [
+    "sop",
+    "standard operating procedure",
+    "process notes",
+    "checklist"
+   ],
+   "hours_per_level": 12,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-PROCESSIMPROVE",
+   "name": "Process improvement",
+   "category": "operations",
+   "aliases": [
+    "streamline",
+    "automate manual",
+    "reduce errors",
+    "improve workflow"
+   ],
+   "hours_per_level": 20,
+   "prerequisites": [
+    "SK-PROCESSDOC"
+   ],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-STAKEHOLDER",
+   "name": "Stakeholder communication",
+   "category": "communication",
+   "aliases": [
+    "liaise",
+    "coordinate with departments",
+    "client communication",
+    "point of contact"
+   ],
+   "hours_per_level": 12,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-BUSWRITING",
+   "name": "Business writing",
+   "category": "communication",
+   "aliases": [
+    "email drafting",
+    "correspondence",
+    "letters",
+    "drafting"
+   ],
+   "hours_per_level": 10,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-MINUTES",
+   "name": "Meeting coordination and minutes",
+   "category": "communication",
+   "aliases": [
+    "minutes of meeting",
+    "mom",
+    "meeting notes",
+    "agenda"
+   ],
+   "hours_per_level": 8,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-VENDOR",
+   "name": "Vendor coordination",
+   "category": "operations",
+   "aliases": [
+    "vendor",
+    "suppliers",
+    "vendor follow-up",
+    "service providers"
+   ],
+   "hours_per_level": 15,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-PROCUREMENT",
+   "name": "Procurement basics",
+   "category": "operations",
+   "aliases": [
+    "purchase order",
+    "purchase requisition",
+    "quotation",
+    "rfq"
+   ],
+   "hours_per_level": 20,
+   "prerequisites": [
+    "SK-VENDOR"
+   ],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-BUDGET",
+   "name": "Budget and expense tracking",
+   "category": "finance",
+   "aliases": [
+    "expense tracking",
+    "budget",
+    "petty cash",
+    "expense reports"
+   ],
+   "hours_per_level": 15,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-RECORDS",
+   "name": "Records management",
+   "category": "operations",
+   "aliases": [
+    "filing",
+    "document control",
+    "record keeping",
+    "records",
+    "archive"
+   ],
+   "hours_per_level": 10,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-HRADMIN",
+   "name": "HR policy and administration",
+   "category": "people",
+   "aliases": [
+    "attendance",
+    "leave records",
+    "onboarding paperwork",
+    "hr policy"
+   ],
+   "hours_per_level": 20,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-HRIS",
+   "name": "HR information system usage",
+   "category": "people",
+   "aliases": [
+    "successfactors",
+    "hris",
+    "hr software"
+   ],
+   "hours_per_level": 20,
+   "prerequisites": [
+    "SK-HRADMIN"
+   ],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-CONFIDENTIALITY",
+   "name": "Confidentiality and privacy handling",
+   "category": "people",
+   "aliases": [
+    "confidential",
+    "sensitive information",
+    "data privacy"
+   ],
+   "hours_per_level": 8,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-PROJECTPLAN",
+   "name": "Project planning",
+   "category": "operations",
+   "aliases": [
+    "project plan",
+    "timeline",
+    "milestones",
+    "gantt"
+   ],
+   "hours_per_level": 20,
+   "prerequisites": [
+    "SK-SCHEDULING"
+   ],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-RISK",
+   "name": "Risk and issue tracking",
+   "category": "operations",
+   "aliases": [
+    "risk log",
+    "issue log",
+    "escalation"
+   ],
+   "hours_per_level": 10,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-ERPBASIC",
+   "name": "ERP transaction basics",
+   "category": "data",
+   "aliases": [
+    "sap",
+    "erp",
+    "erp data entry",
+    "s/4hana"
+   ],
+   "hours_per_level": 20,
+   "prerequisites": [],
+   "onet_ref": null,
+   "esco_ref": null
+  },
+  {
+   "skill_id": "SK-MASTERDATA",
+   "name": "Master data management",
+   "category": "data",
+   "aliases": [
+    "master data",
+    "vendor master",
+    "material master",
+    "data maintenance"
+   ],
+   "hours_per_level": 20,
+   "prerequisites": [
+    "SK-ERPBASIC",
+    "SK-DATAQUALITY"
+   ],
+   "onet_ref": null,
+   "esco_ref": null
+  }
+ ]
+}

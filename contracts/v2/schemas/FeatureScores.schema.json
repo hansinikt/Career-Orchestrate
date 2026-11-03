@@ -1,0 +1,32 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "learnability": {
+      "title": "Learnability",
+      "type": "number"
+    },
+    "preference_fit": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "null when the worker gave no interests (feature dropped, weights renormalised)",
+      "title": "Preference Fit"
+    },
+    "skill_coverage": {
+      "title": "Skill Coverage",
+      "type": "number"
+    }
+  },
+  "required": [
+    "skill_coverage",
+    "preference_fit",
+    "learnability"
+  ],
+  "title": "FeatureScores",
+  "type": "object"
+}

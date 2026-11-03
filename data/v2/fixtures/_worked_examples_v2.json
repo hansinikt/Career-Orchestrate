@@ -1,0 +1,826 @@
+{
+ "all_personas": {
+  "U001": {
+   "name": "Anitha Raman",
+   "stated_target": "HR Coordinator",
+   "target_rank": 1,
+   "target_band": "bridgeable",
+   "target_score": 0.6368,
+   "target_gap_hours": 48.0,
+   "target_blocking": [
+    "SK-CONF"
+   ],
+   "top3": [
+    [
+     "R001",
+     "HR Coordinator",
+     0.6368,
+     "bridgeable"
+    ],
+    [
+     "R004",
+     "Business Analyst",
+     0.3705,
+     "stretch"
+    ],
+    [
+     "R006",
+     "Learning and Development Coordinator",
+     0.3431,
+     "stretch"
+    ]
+   ]
+  },
+  "U002": {
+   "name": "Priya Sharma",
+   "stated_target": "Project Coordinator",
+   "target_rank": 1,
+   "target_band": "bridgeable",
+   "target_score": 0.6515,
+   "target_gap_hours": 42.0,
+   "target_blocking": [
+    "SK-REPORT"
+   ],
+   "top3": [
+    [
+     "R002",
+     "Project Coordinator",
+     0.6515,
+     "bridgeable"
+    ],
+    [
+     "R006",
+     "Learning and Development Coordinator",
+     0.598,
+     "bridgeable"
+    ],
+    [
+     "R001",
+     "HR Coordinator",
+     0.3485,
+     "stretch"
+    ]
+   ]
+  },
+  "U003": {
+   "name": "Rahul Kumar",
+   "stated_target": "Data Analyst",
+   "target_rank": 3,
+   "target_band": "stretch",
+   "target_score": 0.3527,
+   "target_gap_hours": 70.0,
+   "target_blocking": [
+    "SK-SQL",
+    "SK-STATS"
+   ],
+   "top3": [
+    [
+     "R005",
+     "Operations Analyst",
+     0.6441,
+     "bridgeable"
+    ],
+    [
+     "R007",
+     "CRM Analyst",
+     0.476,
+     "stretch"
+    ],
+    [
+     "R003",
+     "Data Analyst",
+     0.3527,
+     "stretch"
+    ]
+   ]
+  },
+  "U004": {
+   "name": "Sneha Reddy",
+   "stated_target": "Business Analyst",
+   "target_rank": 2,
+   "target_band": "stretch",
+   "target_score": 0.4172,
+   "target_gap_hours": 75.0,
+   "target_blocking": [
+    "SK-PROCANALYSIS",
+    "SK-REQ"
+   ],
+   "top3": [
+    [
+     "R002",
+     "Project Coordinator",
+     0.4393,
+     "stretch"
+    ],
+    [
+     "R004",
+     "Business Analyst",
+     0.4172,
+     "stretch"
+    ],
+    [
+     "R006",
+     "Learning and Development Coordinator",
+     0.3431,
+     "stretch"
+    ]
+   ]
+  },
+  "U005": {
+   "name": "Kiran Patel",
+   "stated_target": "Operations Analyst",
+   "target_rank": 4,
+   "target_band": "stretch",
+   "target_score": 0.2294,
+   "target_gap_hours": 84.0,
+   "target_blocking": [
+    "SK-REPORT",
+    "SK-PROCIMPROVE",
+    "SK-DATAANALYSIS",
+    "SK-PROBLEM"
+   ],
+   "top3": [
+    [
+     "R001",
+     "HR Coordinator",
+     0.4246,
+     "stretch"
+    ],
+    [
+     "R007",
+     "CRM Analyst",
+     0.249,
+     "stretch"
+    ],
+    [
+     "R003",
+     "Data Analyst",
+     0.2392,
+     "stretch"
+    ]
+   ]
+  },
+  "U006": {
+   "name": "Meera Nair",
+   "stated_target": "Learning and Development Coordinator",
+   "target_rank": 1,
+   "target_band": "strong_fit",
+   "target_score": 0.8529,
+   "target_gap_hours": 12.0,
+   "target_blocking": [],
+   "top3": [
+    [
+     "R006",
+     "Learning and Development Coordinator",
+     0.8529,
+     "strong_fit"
+    ],
+    [
+     "R002",
+     "Project Coordinator",
+     0.4393,
+     "stretch"
+    ],
+    [
+     "R001",
+     "HR Coordinator",
+     0.3485,
+     "stretch"
+    ]
+   ]
+  },
+  "U007": {
+   "name": "Arjun Das",
+   "stated_target": "CRM Analyst",
+   "target_rank": 1,
+   "target_band": "bridgeable",
+   "target_score": 0.6883,
+   "target_gap_hours": 27.0,
+   "target_blocking": [
+    "SK-DATAQUALITY"
+   ],
+   "top3": [
+    [
+     "R007",
+     "CRM Analyst",
+     0.6883,
+     "bridgeable"
+    ],
+    [
+     "R005",
+     "Operations Analyst",
+     0.4441,
+     "stretch"
+    ],
+    [
+     "R002",
+     "Project Coordinator",
+     0.2417,
+     "stretch"
+    ]
+   ]
+  },
+  "U008": {
+   "name": "Fatima Khan",
+   "stated_target": "Compliance Coordinator",
+   "target_rank": 1,
+   "target_band": "strong_fit",
+   "target_score": 0.8235,
+   "target_gap_hours": 24.0,
+   "target_blocking": [],
+   "top3": [
+    [
+     "R008",
+     "Compliance Coordinator",
+     0.8235,
+     "strong_fit"
+    ],
+    [
+     "R006",
+     "Learning and Development Coordinator",
+     0.0882,
+     "stretch"
+    ],
+    [
+     "R007",
+     "CRM Analyst",
+     0.0221,
+     "stretch"
+    ]
+   ]
+  }
+ },
+ "anitha": {
+  "levels_before": {
+   "SK-EXCEL": 2,
+   "SK-COMM": 3,
+   "SK-RECORDS": 3
+  },
+  "levels_after": {
+   "SK-EXCEL": 2,
+   "SK-COMM": 3,
+   "SK-RECORDS": 3,
+   "SK-SCHED": 2,
+   "SK-REPORT": 2
+  },
+  "ranking_confirmed_only": [
+   [
+    1,
+    "R001",
+    "HR Coordinator",
+    0.6368,
+    "bridgeable",
+    {
+     "skill_coverage": 0.6522,
+     "preference_fit": null,
+     "learnability": 0.6
+    },
+    48.0,
+    [
+     "SK-CONF"
+    ]
+   ],
+   [
+    2,
+    "R004",
+    "Business Analyst",
+    0.3705,
+    "stretch",
+    {
+     "skill_coverage": 0.3478,
+     "preference_fit": null,
+     "learnability": 0.425
+    },
+    69.0,
+    [
+     "SK-PROCANALYSIS",
+     "SK-DOC",
+     "SK-REQ"
+    ]
+   ],
+   [
+    3,
+    "R006",
+    "Learning and Development Coordinator",
+    0.3431,
+    "stretch",
+    {
+     "skill_coverage": 0.2778,
+     "preference_fit": null,
+     "learnability": 0.5
+    },
+    60.0,
+    [
+     "SK-TRAINCOORD",
+     "SK-SCHED"
+    ]
+   ],
+   [
+    4,
+    "R007",
+    "CRM Analyst",
+    0.249,
+    "stretch",
+    {
+     "skill_coverage": 0.2174,
+     "preference_fit": null,
+     "learnability": 0.325
+    },
+    81.0,
+    [
+     "SK-CRM",
+     "SK-DATAQUALITY",
+     "SK-REPORT"
+    ]
+   ],
+   [
+    5,
+    "R003",
+    "Data Analyst",
+    0.2392,
+    "stretch",
+    {
+     "skill_coverage": 0.2174,
+     "preference_fit": null,
+     "learnability": 0.2917
+    },
+    85.0,
+    [
+     "SK-SQL",
+     "SK-DATACLEAN",
+     "SK-STATS"
+    ]
+   ],
+   [
+    6,
+    "R008",
+    "Compliance Coordinator",
+    0.2353,
+    "stretch",
+    {
+     "skill_coverage": 0.1667,
+     "preference_fit": null,
+     "learnability": 0.4
+    },
+    72.0,
+    [
+     "SK-DOCCONTROL",
+     "SK-DETAIL",
+     "SK-COMPDOC"
+    ]
+   ],
+   [
+    7,
+    "R005",
+    "Operations Analyst",
+    0.2294,
+    "stretch",
+    {
+     "skill_coverage": 0.2,
+     "preference_fit": null,
+     "learnability": 0.3
+    },
+    84.0,
+    [
+     "SK-REPORT",
+     "SK-PROCIMPROVE",
+     "SK-DATAANALYSIS",
+     "SK-PROBLEM"
+    ]
+   ],
+   [
+    8,
+    "R002",
+    "Project Coordinator",
+    0.227,
+    "stretch",
+    {
+     "skill_coverage": 0.2174,
+     "preference_fit": null,
+     "learnability": 0.25
+    },
+    90.0,
+    [
+     "SK-SCHED",
+     "SK-DOC",
+     "SK-REPORT"
+    ]
+   ]
+  ],
+  "ranking_after_inferred": [
+   [
+    1,
+    "R001",
+    "HR Coordinator",
+    0.7877,
+    "bridgeable",
+    {
+     "skill_coverage": 0.7826,
+     "preference_fit": null,
+     "learnability": 0.8
+    },
+    24.0,
+    [
+     "SK-CONF"
+    ]
+   ],
+   [
+    2,
+    "R002",
+    "Project Coordinator",
+    0.6662,
+    "bridgeable",
+    {
+     "skill_coverage": 0.6522,
+     "preference_fit": null,
+     "learnability": 0.7
+    },
+    36.0,
+    [
+     "SK-DOC"
+    ]
+   ],
+   [
+    3,
+    "R006",
+    "Learning and Development Coordinator",
+    0.598,
+    "bridgeable",
+    {
+     "skill_coverage": 0.5556,
+     "preference_fit": null,
+     "learnability": 0.7
+    },
+    36.0,
+    [
+     "SK-TRAINCOORD"
+    ]
+   ],
+   [
+    4,
+    "R007",
+    "CRM Analyst",
+    0.476,
+    "stretch",
+    {
+     "skill_coverage": 0.4348,
+     "preference_fit": null,
+     "learnability": 0.575
+    },
+    51.0,
+    [
+     "SK-CRM",
+     "SK-DATAQUALITY"
+    ]
+   ],
+   [
+    5,
+    "R005",
+    "Operations Analyst",
+    0.4441,
+    "stretch",
+    {
+     "skill_coverage": 0.4,
+     "preference_fit": null,
+     "learnability": 0.55
+    },
+    54.0,
+    [
+     "SK-PROCIMPROVE",
+     "SK-DATAANALYSIS",
+     "SK-PROBLEM"
+    ]
+   ],
+   [
+    6,
+    "R004",
+    "Business Analyst",
+    0.3705,
+    "stretch",
+    {
+     "skill_coverage": 0.3478,
+     "preference_fit": null,
+     "learnability": 0.425
+    },
+    69.0,
+    [
+     "SK-PROCANALYSIS",
+     "SK-DOC",
+     "SK-REQ"
+    ]
+   ],
+   [
+    7,
+    "R003",
+    "Data Analyst",
+    0.2392,
+    "stretch",
+    {
+     "skill_coverage": 0.2174,
+     "preference_fit": null,
+     "learnability": 0.2917
+    },
+    85.0,
+    [
+     "SK-SQL",
+     "SK-DATACLEAN",
+     "SK-STATS"
+    ]
+   ],
+   [
+    8,
+    "R008",
+    "Compliance Coordinator",
+    0.2353,
+    "stretch",
+    {
+     "skill_coverage": 0.1667,
+     "preference_fit": null,
+     "learnability": 0.4
+    },
+    72.0,
+    [
+     "SK-DOCCONTROL",
+     "SK-DETAIL",
+     "SK-COMPDOC"
+    ]
+   ]
+  ],
+  "ranking_with_prefs": [
+   [
+    1,
+    "R001",
+    "HR Coordinator",
+    0.8196,
+    "bridgeable",
+    {
+     "skill_coverage": 0.7826,
+     "preference_fit": 1.0,
+     "learnability": 0.8
+    },
+    24.0,
+    [
+     "SK-CONF"
+    ]
+   ],
+   [
+    2,
+    "R002",
+    "Project Coordinator",
+    0.6163,
+    "bridgeable",
+    {
+     "skill_coverage": 0.6522,
+     "preference_fit": 0.3333,
+     "learnability": 0.7
+    },
+    36.0,
+    [
+     "SK-DOC"
+    ]
+   ],
+   [
+    3,
+    "R006",
+    "Learning and Development Coordinator",
+    0.6083,
+    "bridgeable",
+    {
+     "skill_coverage": 0.5556,
+     "preference_fit": 0.6667,
+     "learnability": 0.7
+    },
+    36.0,
+    [
+     "SK-TRAINCOORD"
+    ]
+   ],
+   [
+    4,
+    "R007",
+    "CRM Analyst",
+    0.5046,
+    "stretch",
+    {
+     "skill_coverage": 0.4348,
+     "preference_fit": 0.6667,
+     "learnability": 0.575
+    },
+    51.0,
+    [
+     "SK-CRM",
+     "SK-DATAQUALITY"
+    ]
+   ],
+   [
+    5,
+    "R005",
+    "Operations Analyst",
+    0.4275,
+    "stretch",
+    {
+     "skill_coverage": 0.4,
+     "preference_fit": 0.3333,
+     "learnability": 0.55
+    },
+    54.0,
+    [
+     "SK-PROCIMPROVE",
+     "SK-DATAANALYSIS",
+     "SK-PROBLEM"
+    ]
+   ],
+   [
+    6,
+    "R004",
+    "Business Analyst",
+    0.3149,
+    "stretch",
+    {
+     "skill_coverage": 0.3478,
+     "preference_fit": 0.0,
+     "learnability": 0.425
+    },
+    69.0,
+    [
+     "SK-PROCANALYSIS",
+     "SK-DOC",
+     "SK-REQ"
+    ]
+   ],
+   [
+    7,
+    "R008",
+    "Compliance Coordinator",
+    0.25,
+    "stretch",
+    {
+     "skill_coverage": 0.1667,
+     "preference_fit": 0.3333,
+     "learnability": 0.4
+    },
+    72.0,
+    [
+     "SK-DOCCONTROL",
+     "SK-DETAIL",
+     "SK-COMPDOC"
+    ]
+   ],
+   [
+    8,
+    "R003",
+    "Data Analyst",
+    0.2034,
+    "stretch",
+    {
+     "skill_coverage": 0.2174,
+     "preference_fit": 0.0,
+     "learnability": 0.2917
+    },
+    85.0,
+    [
+     "SK-SQL",
+     "SK-DATACLEAN",
+     "SK-STATS"
+    ]
+   ]
+  ],
+  "R001_detail": {
+   "matched": [
+    {
+     "skill_id": "SK-EXCEL",
+     "name": "Excel",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": []
+    },
+    {
+     "skill_id": "SK-COMM",
+     "name": "Communication",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": []
+    },
+    {
+     "skill_id": "SK-RECORDS",
+     "name": "Record management",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": []
+    },
+    {
+     "skill_id": "SK-SCHED",
+     "name": "Scheduling",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": []
+    }
+   ],
+   "gaps": [
+    {
+     "skill_id": "SK-CONF",
+     "name": "Confidentiality",
+     "required_level": 2,
+     "user_level": 0,
+     "gap_levels": 2,
+     "mandatory": true,
+     "importance": 5,
+     "est_hours": 24.0,
+     "priority": 15.0
+    }
+   ],
+   "explanation": "HR Coordinator: skill coverage 78%. Strongest matches: Excel, Communication, Record management. Biggest gaps: Confidentiality (~24 h estimated). Band: bridgeable. Weights are provisional."
+  },
+  "plan_strict": {
+   "total": 24.0,
+   "weeks": 4,
+   "unresolved": [
+    "SK-CONF"
+   ],
+   "steps": [
+    [
+     1,
+     "Confidentiality",
+     "no_verified_resource",
+     null,
+     24.0
+    ]
+   ]
+  },
+  "plan_demo_with_samples": {
+   "total": 24.0,
+   "weeks": 4,
+   "unresolved": [
+    "SK-CONF"
+   ],
+   "steps": [
+    [
+     1,
+     "Confidentiality",
+     "no_verified_resource",
+     null,
+     24.0
+    ]
+   ]
+  },
+  "weight_sensitivity_top3": {
+   "default": [
+    "R001",
+    "R002",
+    "R006"
+   ],
+   "cov_heavy": [
+    "R001",
+    "R002",
+    "R006"
+   ],
+   "learn_heavy": [
+    "R001",
+    "R006",
+    "R002"
+   ],
+   "equal": [
+    "R001",
+    "R006",
+    "R002"
+   ]
+  }
+ },
+ "audit": {
+  "clean": {
+   "skills_jaccard": 1.0,
+   "top3_overlap": 3,
+   "kendall_tau": 1.0,
+   "max_abs_score_delta": 0.0,
+   "plan_hours_delta": 0.0,
+   "lexicon_hits": 0
+  },
+  "canary": {
+   "skills_jaccard": 0.0,
+   "top3_overlap": 3,
+   "kendall_tau": 0.7143,
+   "max_abs_score_delta": 0.227,
+   "plan_hours_delta": 27.0,
+   "lexicon_hits": 2
+  },
+  "canary_flags": [
+   "skills_jaccard",
+   "kendall_tau",
+   "max_abs_score_delta",
+   "plan_hours_delta",
+   "lexicon_hits"
+  ],
+  "thresholds": {
+   "skills_jaccard_min": 0.9,
+   "top3_overlap_min": 3,
+   "kendall_tau_min": 0.9,
+   "max_abs_score_delta_max": 0.03,
+   "plan_hours_delta_max": 10.0,
+   "lexicon_hits_max": 0
+  }
+ }
+}

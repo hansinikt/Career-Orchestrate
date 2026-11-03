@@ -1,0 +1,11 @@
+flowchart TD
+  S1["1 Welcome and consent<br/>+ choose motivation style"] --> S2["2 Your work<br/>work examples + skills you know"]
+  S2 --> E1{{"POST /extract"}} --> S3["3 Skill evidence review<br/>accept / edit / reject EVERY suggestion"]
+  S3 --> G1{{"GATE 1: POST /confirm<br/>human decides"}} --> S4["4 Role matches<br/>your goal + ranked roles + reasons"]
+  S4 --> G2{{"GATE 2: worker picks a role<br/>POST /plan"}} --> S5["5 Learning plan<br/>steps, courses, hours, weeks"]
+  S5 --> S6["6 My progress<br/>percent, next step, motivation message"]
+  S6 -->|"update a step"| S6
+  S4 -.-> S7["7 Fairness check (adviser)<br/>POST /audit, review sign-off"]
+  S8["Role openness check<br/>paste a job ad"] -.-> R{{"POST /readiness/check"}}
+  classDef gate fill:#e6f3ec,stroke:#3f7d5a
+  class G1,G2 gate

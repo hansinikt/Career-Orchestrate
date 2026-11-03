@@ -1,0 +1,198 @@
+{
+ "$defs": {
+  "Consent": {
+   "additionalProperties": false,
+   "properties": {
+    "given": {
+     "title": "Given",
+     "type": "boolean"
+    },
+    "version": {
+     "default": "2026-10-v1",
+     "title": "Version",
+     "type": "string"
+    },
+    "at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "At"
+    }
+   },
+   "required": [
+    "given"
+   ],
+   "title": "Consent",
+   "type": "object"
+  },
+  "Preferences": {
+   "additionalProperties": false,
+   "properties": {
+    "interest_tags": {
+     "description": "Ordered, most preferred first (max 3)",
+     "items": {
+      "type": "string"
+     },
+     "maxItems": 3,
+     "title": "Interest Tags",
+     "type": "array"
+    },
+    "work_mode": {
+     "anyOf": [
+      {
+       "enum": [
+        "onsite",
+        "hybrid",
+        "remote"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Work Mode"
+    },
+    "weekly_learning_hours": {
+     "anyOf": [
+      {
+       "maximum": 40,
+       "minimum": 1,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Weekly Learning Hours"
+    }
+   },
+   "title": "Preferences",
+   "type": "object"
+  },
+  "WorkEntry": {
+   "additionalProperties": false,
+   "properties": {
+    "title": {
+     "maxLength": 120,
+     "title": "Title",
+     "type": "string"
+    },
+    "organisation": {
+     "anyOf": [
+      {
+       "maxLength": 120,
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Organisation"
+    },
+    "description": {
+     "description": "Free text: what the person actually did",
+     "maxLength": 2500,
+     "title": "Description",
+     "type": "string"
+    }
+   },
+   "required": [
+    "title",
+    "description"
+   ],
+   "title": "WorkEntry",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "consent": {
+   "$ref": "#/$defs/Consent"
+  },
+  "language": {
+   "const": "en",
+   "default": "en",
+   "title": "Language",
+   "type": "string"
+  },
+  "display_name": {
+   "anyOf": [
+    {
+     "maxLength": 80,
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Display Name"
+  },
+  "summary_text": {
+   "anyOf": [
+    {
+     "maxLength": 1500,
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Summary Text"
+  },
+  "work_entries": {
+   "items": {
+    "$ref": "#/$defs/WorkEntry"
+   },
+   "maxItems": 10,
+   "minItems": 1,
+   "title": "Work Entries",
+   "type": "array"
+  },
+  "preferences": {
+   "$ref": "#/$defs/Preferences",
+   "default": {
+    "interest_tags": [],
+    "work_mode": null,
+    "weekly_learning_hours": null
+   }
+  },
+  "profile_id": {
+   "title": "Profile Id",
+   "type": "string"
+  },
+  "created_at": {
+   "title": "Created At",
+   "type": "string"
+  },
+  "updated_at": {
+   "title": "Updated At",
+   "type": "string"
+  },
+  "is_synthetic": {
+   "default": false,
+   "title": "Is Synthetic",
+   "type": "boolean"
+  }
+ },
+ "required": [
+  "consent",
+  "work_entries",
+  "profile_id",
+  "created_at",
+  "updated_at"
+ ],
+ "title": "CareerProfile",
+ "type": "object"
+}

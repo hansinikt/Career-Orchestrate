@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "enum": [
+        "accept",
+        "edit",
+        "reject"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "level": {
+      "anyOf": [
+        {
+          "maximum": 3,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Required when action is edit",
+      "title": "Level"
+    },
+    "suggestion_id": {
+      "title": "Suggestion Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "suggestion_id",
+    "action"
+  ],
+  "title": "Decision",
+  "type": "object"
+}

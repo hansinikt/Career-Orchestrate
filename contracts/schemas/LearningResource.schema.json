@@ -1,0 +1,98 @@
+{
+ "additionalProperties": false,
+ "properties": {
+  "resource_id": {
+   "title": "Resource Id",
+   "type": "string"
+  },
+  "title": {
+   "title": "Title",
+   "type": "string"
+  },
+  "provider": {
+   "title": "Provider",
+   "type": "string"
+  },
+  "url": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "title": "Url"
+  },
+  "skill_ids": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Skill Ids",
+   "type": "array"
+  },
+  "level_from": {
+   "title": "Level From",
+   "type": "integer"
+  },
+  "level_to": {
+   "title": "Level To",
+   "type": "integer"
+  },
+  "est_hours": {
+   "anyOf": [
+    {
+     "type": "number"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "title": "Est Hours"
+  },
+  "cost": {
+   "enum": [
+    "free",
+    "paid",
+    "unknown"
+   ],
+   "title": "Cost",
+   "type": "string"
+  },
+  "verification_status": {
+   "enum": [
+    "verified",
+    "seed_unverified",
+    "broken"
+   ],
+   "title": "Verification Status",
+   "type": "string"
+  },
+  "last_verified": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Last Verified"
+  }
+ },
+ "required": [
+  "resource_id",
+  "title",
+  "provider",
+  "url",
+  "skill_ids",
+  "level_from",
+  "level_to",
+  "est_hours",
+  "cost",
+  "verification_status"
+ ],
+ "title": "LearningResource",
+ "type": "object"
+}

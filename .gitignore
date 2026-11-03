@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+dist/
+data/runtime/
+*.db
+*.sqlite
+.pytest_cache/
+.DS_Store
+*.log
+# restricted / raw third-party datasets: keep out of Git, document in data/PROVENANCE.md
+data/raw/

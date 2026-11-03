@@ -1,0 +1,170 @@
+{
+ "$defs": {
+  "MarketSignal": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "enum": [
+      "demand_note",
+      "salary_range",
+      "vacancy_count"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "text": {
+     "title": "Text",
+     "type": "string"
+    },
+    "source_url": {
+     "title": "Source Url",
+     "type": "string"
+    },
+    "as_of": {
+     "title": "As Of",
+     "type": "string"
+    }
+   },
+   "required": [
+    "kind",
+    "text",
+    "source_url",
+    "as_of"
+   ],
+   "title": "MarketSignal",
+   "type": "object"
+  },
+  "Requirement": {
+   "additionalProperties": false,
+   "properties": {
+    "skill_id": {
+     "title": "Skill Id",
+     "type": "string"
+    },
+    "importance": {
+     "maximum": 5,
+     "minimum": 1,
+     "title": "Importance",
+     "type": "integer"
+    },
+    "required_level": {
+     "maximum": 3,
+     "minimum": 1,
+     "title": "Required Level",
+     "type": "integer"
+    },
+    "mandatory": {
+     "title": "Mandatory",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "skill_id",
+    "importance",
+    "required_level",
+    "mandatory"
+   ],
+   "title": "Requirement",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "role_id": {
+   "title": "Role Id",
+   "type": "string"
+  },
+  "title": {
+   "title": "Title",
+   "type": "string"
+  },
+  "summary": {
+   "title": "Summary",
+   "type": "string"
+  },
+  "tags": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Tags",
+   "type": "array"
+  },
+  "requirements": {
+   "items": {
+    "$ref": "#/$defs/Requirement"
+   },
+   "title": "Requirements",
+   "type": "array"
+  },
+  "requires_degree": {
+   "anyOf": [
+    {
+     "type": "boolean"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Requires Degree"
+  },
+  "max_experience_years": {
+   "anyOf": [
+    {
+     "type": "integer"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Max Experience Years"
+  },
+  "onet_soc": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Onet Soc"
+  },
+  "provenance": {
+   "enum": [
+    "team_curated_unverified",
+    "team_curated_onet_checked"
+   ],
+   "title": "Provenance",
+   "type": "string"
+  },
+  "market_signals": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/MarketSignal"
+   },
+   "title": "Market Signals",
+   "type": "array"
+  },
+  "proof_templates": {
+   "default": [],
+   "items": {
+    "type": "string"
+   },
+   "title": "Proof Templates",
+   "type": "array"
+  }
+ },
+ "required": [
+  "role_id",
+  "title",
+  "summary",
+  "tags",
+  "requirements",
+  "provenance"
+ ],
+ "title": "RoleProfile",
+ "type": "object"
+}

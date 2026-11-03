@@ -1,0 +1,70 @@
+{
+  "$defs": {
+    "ReadinessFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "matched_text": {
+          "title": "Matched Text",
+          "type": "string"
+        },
+        "rule_id": {
+          "title": "Rule Id",
+          "type": "string"
+        },
+        "suggestion": {
+          "title": "Suggestion",
+          "type": "string"
+        },
+        "why": {
+          "title": "Why",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule_id",
+        "matched_text",
+        "why",
+        "suggestion"
+      ],
+      "title": "ReadinessFlag",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "flags": {
+      "items": {
+        "$ref": "#/$defs/ReadinessFlag"
+      },
+      "title": "Flags",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "skills_first": {
+      "title": "Skills First",
+      "type": "boolean"
+    },
+    "status": {
+      "enum": [
+        "flagged",
+        "no_flags"
+      ],
+      "title": "Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "status",
+    "flags",
+    "skills_first",
+    "limitations"
+  ],
+  "title": "ReadinessResult",
+  "type": "object"
+}

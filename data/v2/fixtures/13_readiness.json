@@ -1,0 +1,28 @@
+{
+  "status": "flagged",
+  "flags": [
+    {
+      "rule_id": "experience_cap",
+      "matched_text": "Up to 3 years",
+      "why": "Caps experience, which can screen out experienced workers",
+      "suggestion": "Describe the skills needed instead of limiting years"
+    },
+    {
+      "rule_id": "fresher_wording",
+      "matched_text": "Freshers",
+      "why": "Targets new graduates",
+      "suggestion": "Say 'entry-level role' and list the skills required"
+    },
+    {
+      "rule_id": "age_coded_wording",
+      "matched_text": "Energetic",
+      "why": "Age-coded wording",
+      "suggestion": "Describe the behaviour or skill you need"
+    }
+  ],
+  "skills_first": false,
+  "limitations": [
+    "Keyword rules only: a clean result does not prove a role is fair.",
+    "A person decides what to change."
+  ]
+}

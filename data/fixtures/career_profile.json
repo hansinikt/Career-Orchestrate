@@ -1,0 +1,30 @@
+{
+ "consent": {
+  "given": true,
+  "version": "2026-10-v1",
+  "at": "2026-11-01T09:00:00+05:30"
+ },
+ "language": "en",
+ "display_name": "Anitha R. (synthetic persona)",
+ "summary_text": "Fifteen years of administrative experience in a distribution business. I want to move toward data or operations work.",
+ "work_entries": [
+  {
+   "title": "Administrative Coordinator",
+   "organisation": "Regional distribution firm (fictional)",
+   "description": "I prepare the monthly MIS report for the operations head using Excel pivot tables and cross-check figures against the dispatch register before sending. I schedule meetings and site visits for a team of 12 and send follow-up emails to vendors for pending deliveries. I keep the filing system and digital records for purchase and dispatch documents. I write minutes of meeting after weekly reviews and track action items. I track monthly petty cash and expense statements for the department. I have entered purchase entries in the company ERP system."
+  }
+ ],
+ "preferences": {
+  "interest_tags": [
+   "data",
+   "operations",
+   "planning"
+  ],
+  "work_mode": "hybrid",
+  "weekly_learning_hours": 6
+ },
+ "profile_id": "prof_anitha_demo",
+ "created_at": "2026-11-01T09:00:00+05:30",
+ "updated_at": "2026-11-01T09:00:00+05:30",
+ "is_synthetic": true
+}

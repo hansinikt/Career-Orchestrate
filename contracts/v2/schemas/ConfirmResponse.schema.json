@@ -1,0 +1,98 @@
+{
+  "$defs": {
+    "ConfirmedSkill": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "level": {
+          "maximum": 3,
+          "minimum": 1,
+          "title": "Level",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "skill_id": {
+          "title": "Skill Id",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "declared",
+            "declared_alias",
+            "extracted",
+            "user_added"
+          ],
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "skill_id",
+        "name",
+        "level",
+        "source",
+        "evidence"
+      ],
+      "title": "ConfirmedSkill",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "quote": {
+          "description": "Verbatim substring of one of the worker's work examples",
+          "title": "Quote",
+          "type": "string"
+        },
+        "work_example_index": {
+          "minimum": 0,
+          "title": "Work Example Index",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "quote",
+        "work_example_index"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "confirmed_skills": {
+      "items": {
+        "$ref": "#/$defs/ConfirmedSkill"
+      },
+      "title": "Confirmed Skills",
+      "type": "array"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "rejected_skill_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Rejected Skill Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "profile_id",
+    "confirmed_skills",
+    "rejected_skill_ids"
+  ],
+  "title": "ConfirmResponse",
+  "type": "object"
+}

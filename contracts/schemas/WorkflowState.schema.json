@@ -1,0 +1,247 @@
+{
+ "$defs": {
+  "APIError": {
+   "additionalProperties": false,
+   "properties": {
+    "code": {
+     "enum": [
+      "VALIDATION_ERROR",
+      "CONSENT_REQUIRED",
+      "NOT_FOUND",
+      "CONFLICT_STATE",
+      "STAGE_FAILED",
+      "LLM_UNAVAILABLE",
+      "LLM_SCHEMA_VIOLATION",
+      "TIMEOUT",
+      "RATE_LIMITED",
+      "INTERNAL_ERROR"
+     ],
+     "title": "Code",
+     "type": "string"
+    },
+    "message": {
+     "title": "Message",
+     "type": "string"
+    },
+    "retryable": {
+     "title": "Retryable",
+     "type": "boolean"
+    },
+    "details": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Details"
+    },
+    "request_id": {
+     "title": "Request Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "code",
+    "message",
+    "retryable",
+    "request_id"
+   ],
+   "title": "APIError",
+   "type": "object"
+  },
+  "StageState": {
+   "additionalProperties": false,
+   "properties": {
+    "name": {
+     "enum": [
+      "extract_skills",
+      "confirm_skills",
+      "match_roles",
+      "select_role",
+      "learning_plan",
+      "employer_readiness",
+      "bias_audit",
+      "compose_result"
+     ],
+     "title": "Name",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "llm",
+      "deterministic",
+      "human"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "status": {
+     "enum": [
+      "PENDING",
+      "RUNNING",
+      "SUCCEEDED",
+      "FAILED",
+      "SKIPPED",
+      "AWAITING_USER"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "attempts": {
+     "default": 0,
+     "title": "Attempts",
+     "type": "integer"
+    },
+    "cache_hit": {
+     "default": false,
+     "title": "Cache Hit",
+     "type": "boolean"
+    },
+    "started_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Started At"
+    },
+    "finished_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Finished At"
+    },
+    "error": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/APIError"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "name",
+    "kind",
+    "status"
+   ],
+   "title": "StageState",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "workflow_id": {
+   "title": "Workflow Id",
+   "type": "string"
+  },
+  "profile_id": {
+   "title": "Profile Id",
+   "type": "string"
+  },
+  "status": {
+   "enum": [
+    "QUEUED",
+    "RUNNING",
+    "AWAITING_USER",
+    "COMPLETED",
+    "COMPLETED_WITH_WARNINGS",
+    "FAILED",
+    "CANCELLED"
+   ],
+   "title": "Status",
+   "type": "string"
+  },
+  "current_stage": {
+   "anyOf": [
+    {
+     "enum": [
+      "extract_skills",
+      "confirm_skills",
+      "match_roles",
+      "select_role",
+      "learning_plan",
+      "employer_readiness",
+      "bias_audit",
+      "compose_result"
+     ],
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "title": "Current Stage"
+  },
+  "stages": {
+   "items": {
+    "$ref": "#/$defs/StageState"
+   },
+   "title": "Stages",
+   "type": "array"
+  },
+  "selected_role_ids": {
+   "default": [],
+   "items": {
+    "type": "string"
+   },
+   "title": "Selected Role Ids",
+   "type": "array"
+  },
+  "warnings": {
+   "default": [],
+   "items": {
+    "type": "string"
+   },
+   "title": "Warnings",
+   "type": "array"
+  },
+  "mode": {
+   "enum": [
+    "live",
+    "replay",
+    "mock"
+   ],
+   "title": "Mode",
+   "type": "string"
+  },
+  "created_at": {
+   "title": "Created At",
+   "type": "string"
+  },
+  "updated_at": {
+   "title": "Updated At",
+   "type": "string"
+  }
+ },
+ "required": [
+  "workflow_id",
+  "profile_id",
+  "status",
+  "current_stage",
+  "stages",
+  "mode",
+  "created_at",
+  "updated_at"
+ ],
+ "title": "WorkflowState",
+ "type": "object"
+}

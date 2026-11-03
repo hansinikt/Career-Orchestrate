@@ -1,0 +1,96 @@
+{
+ "role_id": "R-001",
+ "relevant_achievements": [
+  {
+   "text": "Prepared the monthly MIS report for the operations head using Excel pivot tables and cross-checked figures against the dispatch register before sending.",
+   "evidence_ids": [
+    "EV-1",
+    "EV-2"
+   ],
+   "needs_user_input": []
+  },
+  {
+   "text": "Tracked monthly petty cash and department expense statements; add the approximate monthly value handled: [add number].",
+   "evidence_ids": [
+    "EV-7"
+   ],
+   "needs_user_input": [
+    "monthly value handled"
+   ]
+  },
+  {
+   "text": "Scheduled meetings and site visits for a team of 12.",
+   "evidence_ids": [
+    "EV-3"
+   ],
+   "needs_user_input": []
+  }
+ ],
+ "transferable_experience": [
+  {
+   "skill_id": "SK-REPORT",
+   "role_requirement": "Recurring management reporting (required level 3)",
+   "evidence_ids": [
+    "EV-1"
+   ]
+  },
+  {
+   "skill_id": "SK-SPREADSHEET",
+   "role_requirement": "Spreadsheet analysis (required level 3)",
+   "evidence_ids": [
+    "EV-1"
+   ]
+  },
+  {
+   "skill_id": "SK-DATAQUALITY",
+   "role_requirement": "Data validation (required level 2)",
+   "evidence_ids": [
+    "EV-2"
+   ]
+  }
+ ],
+ "resume_improvements": [
+  {
+   "type": "reword",
+   "suggestion": "Lead with the outcome: 'Produce the monthly MIS report for the operations head' rather than listing 'administrative duties'.",
+   "evidence_ids": [
+    "EV-1"
+   ]
+  },
+  {
+   "type": "quantify_prompt",
+   "suggestion": "How many report lines or departments does the MIS report cover? Add the number only if you know it.",
+   "evidence_ids": [
+    "EV-1"
+   ]
+  }
+ ],
+ "portfolio_suggestions": [
+  {
+   "title": "Report-to-dashboard rebuild",
+   "description": "Rebuild one anonymised monthly report as a dashboard and document the data checks you apply.",
+   "skill_ids": [
+    "SK-BI",
+    "SK-DATAQUALITY"
+   ]
+  }
+ ],
+ "interview_prep": [
+  {
+   "question": "Tell me about a time you found an error in a report before it went out.",
+   "star_hint": "Use your dispatch-register cross-check as the Situation/Action; state the result you actually observed.",
+   "evidence_ids": [
+    "EV-2"
+   ]
+  }
+ ],
+ "remaining_prep": [
+  "Dashboard/BI tool skills (gap: 2 levels)",
+  "Basic SQL (gap: 1 level) - no verified learning resource yet"
+ ],
+ "openness_flags": [],
+ "grounding_report": {
+  "dropped_claims": 0,
+  "flagged_numbers": []
+ }
+}

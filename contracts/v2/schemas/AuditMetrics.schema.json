@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "kendall_tau": {
+      "title": "Kendall Tau",
+      "type": "number"
+    },
+    "lexicon_hits": {
+      "title": "Lexicon Hits",
+      "type": "integer"
+    },
+    "max_abs_score_delta": {
+      "title": "Max Abs Score Delta",
+      "type": "number"
+    },
+    "plan_hours_delta": {
+      "title": "Plan Hours Delta",
+      "type": "number"
+    },
+    "skills_jaccard": {
+      "title": "Skills Jaccard",
+      "type": "number"
+    },
+    "top3_overlap": {
+      "title": "Top3 Overlap",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "skills_jaccard",
+    "top3_overlap",
+    "kendall_tau",
+    "max_abs_score_delta",
+    "plan_hours_delta",
+    "lexicon_hits"
+  ],
+  "title": "AuditMetrics",
+  "type": "object"
+}

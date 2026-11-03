@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "enum": [
+        "acknowledged",
+        "override",
+        "escalate"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "note": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Note"
+    },
+    "reviewer": {
+      "maxLength": 60,
+      "minLength": 1,
+      "title": "Reviewer",
+      "type": "string"
+    }
+  },
+  "required": [
+    "reviewer",
+    "decision"
+  ],
+  "title": "ReviewRequest",
+  "type": "object"
+}

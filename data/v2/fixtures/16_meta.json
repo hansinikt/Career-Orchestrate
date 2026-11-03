@@ -1,0 +1,26 @@
+{
+  "app_version": "0.2.0",
+  "contract_version": "2.0",
+  "mode": "replay",
+  "extraction_mode": "rules",
+  "weights": {
+    "skill_coverage": 0.6,
+    "preference_fit": 0.15,
+    "learnability": 0.25
+  },
+  "weights_are_provisional": true,
+  "catalog": {
+    "skills": 25,
+    "roles": 8,
+    "resources": 9
+  },
+  "resource_policy": {
+    "allow_unverified": true,
+    "allow_sample": true
+  },
+  "disclaimers": [
+    "Scores are provisional and explain skill coverage. They are not a hiring probability or a guarantee of employment.",
+    "Demo data is synthetic and illustrative.",
+    "Fairness checks do not prove a system is free of bias."
+  ]
+}

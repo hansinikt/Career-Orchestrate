@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "title": "Decision",
+      "type": "string"
+    },
+    "note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Note"
+    },
+    "reviewed_at": {
+      "title": "Reviewed At",
+      "type": "string"
+    },
+    "reviewer": {
+      "title": "Reviewer",
+      "type": "string"
+    }
+  },
+  "required": [
+    "reviewer",
+    "decision",
+    "note",
+    "reviewed_at"
+  ],
+  "title": "AuditReview",
+  "type": "object"
+}

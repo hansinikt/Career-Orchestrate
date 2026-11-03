@@ -1,0 +1,698 @@
+{
+  "profile_id": "prof_97d4982679",
+  "recommendations": [
+    {
+      "rank": 1,
+      "role_id": "R001",
+      "title": "HR Coordinator",
+      "score": 0.7877,
+      "band": "bridgeable",
+      "feature_scores": {
+        "skill_coverage": 0.7826,
+        "preference_fit": null,
+        "learnability": 0.8
+      },
+      "weights_used": {
+        "skill_coverage": 0.7059,
+        "learnability": 0.2941
+      },
+      "blocking_gaps": [
+        "SK-CONF"
+      ],
+      "matched": [
+        {
+          "skill_id": "SK-EXCEL",
+          "name": "Excel",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": []
+        },
+        {
+          "skill_id": "SK-COMM",
+          "name": "Communication",
+          "user_level": 3,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "supported cross-team communication"
+          ]
+        },
+        {
+          "skill_id": "SK-RECORDS",
+          "name": "Record management",
+          "user_level": 3,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "maintained records"
+          ]
+        },
+        {
+          "skill_id": "SK-SCHED",
+          "name": "Scheduling",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "Coordinated calendars"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "skill_id": "SK-CONF",
+          "name": "Confidentiality",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 24.0,
+          "priority": 15.0
+        }
+      ],
+      "est_gap_hours": 24.0,
+      "openness_flags": [],
+      "explanation": "HR Coordinator: skill coverage 78%. Strongest matches: Excel, Communication, Record management. Biggest gaps: Confidentiality (~24 h estimated). Band: bridgeable. Weights are provisional.",
+      "provisional_weights": true
+    },
+    {
+      "rank": 2,
+      "role_id": "R002",
+      "title": "Project Coordinator",
+      "score": 0.6662,
+      "band": "bridgeable",
+      "feature_scores": {
+        "skill_coverage": 0.6522,
+        "preference_fit": null,
+        "learnability": 0.7
+      },
+      "weights_used": {
+        "skill_coverage": 0.7059,
+        "learnability": 0.2941
+      },
+      "blocking_gaps": [
+        "SK-DOC"
+      ],
+      "matched": [
+        {
+          "skill_id": "SK-SCHED",
+          "name": "Scheduling",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "Coordinated calendars"
+          ]
+        },
+        {
+          "skill_id": "SK-COMM",
+          "name": "Communication",
+          "user_level": 3,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "supported cross-team communication"
+          ]
+        },
+        {
+          "skill_id": "SK-REPORT",
+          "name": "Reporting",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "prepared reports"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "skill_id": "SK-DOC",
+          "name": "Documentation",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 24.0,
+          "priority": 15.0
+        },
+        {
+          "skill_id": "SK-RISK",
+          "name": "Risk tracking",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": false,
+          "importance": 3,
+          "est_hours": 12.0,
+          "priority": 3.0
+        }
+      ],
+      "est_gap_hours": 36.0,
+      "openness_flags": [],
+      "explanation": "Project Coordinator: skill coverage 65%. Strongest matches: Scheduling, Communication, Reporting. Biggest gaps: Documentation, Risk tracking (~36 h estimated). Band: bridgeable. Weights are provisional.",
+      "provisional_weights": true
+    },
+    {
+      "rank": 3,
+      "role_id": "R006",
+      "title": "Learning and Development Coordinator",
+      "score": 0.598,
+      "band": "bridgeable",
+      "feature_scores": {
+        "skill_coverage": 0.5556,
+        "preference_fit": null,
+        "learnability": 0.7
+      },
+      "weights_used": {
+        "skill_coverage": 0.7059,
+        "learnability": 0.2941
+      },
+      "blocking_gaps": [
+        "SK-TRAINCOORD"
+      ],
+      "matched": [
+        {
+          "skill_id": "SK-SCHED",
+          "name": "Scheduling",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "Coordinated calendars"
+          ]
+        },
+        {
+          "skill_id": "SK-COMM",
+          "name": "Communication",
+          "user_level": 3,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "supported cross-team communication"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "skill_id": "SK-TRAINCOORD",
+          "name": "Training coordination",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 24.0,
+          "priority": 15.0
+        },
+        {
+          "skill_id": "SK-LEARNADMIN",
+          "name": "Learning administration",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": false,
+          "importance": 3,
+          "est_hours": 12.0,
+          "priority": 3.0
+        }
+      ],
+      "est_gap_hours": 36.0,
+      "openness_flags": [],
+      "explanation": "Learning and Development Coordinator: skill coverage 56%. Strongest matches: Scheduling, Communication. Biggest gaps: Training coordination, Learning administration (~36 h estimated). Band: bridgeable. Weights are provisional.",
+      "provisional_weights": true
+    },
+    {
+      "rank": 4,
+      "role_id": "R007",
+      "title": "CRM Analyst",
+      "score": 0.476,
+      "band": "stretch",
+      "feature_scores": {
+        "skill_coverage": 0.4348,
+        "preference_fit": null,
+        "learnability": 0.575
+      },
+      "weights_used": {
+        "skill_coverage": 0.7059,
+        "learnability": 0.2941
+      },
+      "blocking_gaps": [
+        "SK-CRM",
+        "SK-DATAQUALITY"
+      ],
+      "matched": [
+        {
+          "skill_id": "SK-EXCEL",
+          "name": "Excel",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": []
+        },
+        {
+          "skill_id": "SK-REPORT",
+          "name": "Reporting",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "prepared reports"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "skill_id": "SK-CRM",
+          "name": "CRM tools",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 24.0,
+          "priority": 15.0
+        },
+        {
+          "skill_id": "SK-DATAQUALITY",
+          "name": "Data quality",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 12.0,
+          "priority": 7.5
+        },
+        {
+          "skill_id": "SK-DASH",
+          "name": "Dashboard basics",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": false,
+          "importance": 3,
+          "est_hours": 15.0,
+          "priority": 3.0
+        }
+      ],
+      "est_gap_hours": 51.0,
+      "openness_flags": [],
+      "explanation": "CRM Analyst: skill coverage 43%. Strongest matches: Excel, Reporting. Biggest gaps: CRM tools, Data quality (~51 h estimated). Band: stretch. Weights are provisional.",
+      "provisional_weights": true
+    },
+    {
+      "rank": 5,
+      "role_id": "R005",
+      "title": "Operations Analyst",
+      "score": 0.4441,
+      "band": "stretch",
+      "feature_scores": {
+        "skill_coverage": 0.4,
+        "preference_fit": null,
+        "learnability": 0.55
+      },
+      "weights_used": {
+        "skill_coverage": 0.7059,
+        "learnability": 0.2941
+      },
+      "blocking_gaps": [
+        "SK-PROCIMPROVE",
+        "SK-DATAANALYSIS",
+        "SK-PROBLEM"
+      ],
+      "matched": [
+        {
+          "skill_id": "SK-EXCEL",
+          "name": "Excel",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": []
+        },
+        {
+          "skill_id": "SK-REPORT",
+          "name": "Reporting",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "prepared reports"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "skill_id": "SK-PROBLEM",
+          "name": "Problem solving",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 24.0,
+          "priority": 15.0
+        },
+        {
+          "skill_id": "SK-PROCIMPROVE",
+          "name": "Process improvement",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 15.0,
+          "priority": 7.5
+        },
+        {
+          "skill_id": "SK-DATAANALYSIS",
+          "name": "Data analysis",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 15.0,
+          "priority": 7.5
+        }
+      ],
+      "est_gap_hours": 54.0,
+      "openness_flags": [],
+      "explanation": "Operations Analyst: skill coverage 40%. Strongest matches: Excel, Reporting. Biggest gaps: Problem solving, Process improvement (~54 h estimated). Band: stretch. Weights are provisional.",
+      "provisional_weights": true
+    },
+    {
+      "rank": 6,
+      "role_id": "R004",
+      "title": "Business Analyst",
+      "score": 0.3705,
+      "band": "stretch",
+      "feature_scores": {
+        "skill_coverage": 0.3478,
+        "preference_fit": null,
+        "learnability": 0.425
+      },
+      "weights_used": {
+        "skill_coverage": 0.7059,
+        "learnability": 0.2941
+      },
+      "blocking_gaps": [
+        "SK-PROCANALYSIS",
+        "SK-DOC",
+        "SK-REQ"
+      ],
+      "matched": [
+        {
+          "skill_id": "SK-COMM",
+          "name": "Communication",
+          "user_level": 3,
+          "required_level": 3,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "supported cross-team communication"
+          ]
+        },
+        {
+          "skill_id": "SK-EXCEL",
+          "name": "Excel",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": []
+        }
+      ],
+      "gaps": [
+        {
+          "skill_id": "SK-PROCANALYSIS",
+          "name": "Process analysis",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 30.0,
+          "priority": 15.0
+        },
+        {
+          "skill_id": "SK-DOC",
+          "name": "Documentation",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 24.0,
+          "priority": 15.0
+        },
+        {
+          "skill_id": "SK-REQ",
+          "name": "Requirements gathering",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 15.0,
+          "priority": 7.5
+        }
+      ],
+      "est_gap_hours": 69.0,
+      "openness_flags": [],
+      "explanation": "Business Analyst: skill coverage 35%. Strongest matches: Communication, Excel. Biggest gaps: Process analysis, Documentation (~69 h estimated). Band: stretch. Weights are provisional.",
+      "provisional_weights": true
+    },
+    {
+      "rank": 7,
+      "role_id": "R003",
+      "title": "Data Analyst",
+      "score": 0.2392,
+      "band": "stretch",
+      "feature_scores": {
+        "skill_coverage": 0.2174,
+        "preference_fit": null,
+        "learnability": 0.2917
+      },
+      "weights_used": {
+        "skill_coverage": 0.7059,
+        "learnability": 0.2941
+      },
+      "blocking_gaps": [
+        "SK-SQL",
+        "SK-DATACLEAN",
+        "SK-STATS"
+      ],
+      "matched": [
+        {
+          "skill_id": "SK-EXCEL",
+          "name": "Excel",
+          "user_level": 2,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": []
+        }
+      ],
+      "gaps": [
+        {
+          "skill_id": "SK-DATACLEAN",
+          "name": "Data cleaning",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 30.0,
+          "priority": 15.0
+        },
+        {
+          "skill_id": "SK-SQL",
+          "name": "SQL",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 20.0,
+          "priority": 7.5
+        },
+        {
+          "skill_id": "SK-STATS",
+          "name": "Statistics",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 20.0,
+          "priority": 7.5
+        },
+        {
+          "skill_id": "SK-VIZ",
+          "name": "Visualization",
+          "required_level": 1,
+          "user_level": 0,
+          "gap_levels": 1,
+          "mandatory": false,
+          "importance": 3,
+          "est_hours": 15.0,
+          "priority": 3.0
+        }
+      ],
+      "est_gap_hours": 85.0,
+      "openness_flags": [],
+      "explanation": "Data Analyst: skill coverage 22%. Strongest matches: Excel. Biggest gaps: Data cleaning, SQL (~85 h estimated). Band: stretch. Weights are provisional.",
+      "provisional_weights": true
+    },
+    {
+      "rank": 8,
+      "role_id": "R008",
+      "title": "Compliance Coordinator",
+      "score": 0.2353,
+      "band": "stretch",
+      "feature_scores": {
+        "skill_coverage": 0.1667,
+        "preference_fit": null,
+        "learnability": 0.4
+      },
+      "weights_used": {
+        "skill_coverage": 0.7059,
+        "learnability": 0.2941
+      },
+      "blocking_gaps": [
+        "SK-DOCCONTROL",
+        "SK-DETAIL",
+        "SK-COMPDOC"
+      ],
+      "matched": [
+        {
+          "skill_id": "SK-COMM",
+          "name": "Communication",
+          "user_level": 3,
+          "required_level": 2,
+          "coverage": 1.0,
+          "evidence_quotes": [
+            "supported cross-team communication"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "skill_id": "SK-DOCCONTROL",
+          "name": "Document control",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 24.0,
+          "priority": 15.0
+        },
+        {
+          "skill_id": "SK-DETAIL",
+          "name": "Attention to detail",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 24.0,
+          "priority": 15.0
+        },
+        {
+          "skill_id": "SK-COMPDOC",
+          "name": "Compliance documentation",
+          "required_level": 2,
+          "user_level": 0,
+          "gap_levels": 2,
+          "mandatory": true,
+          "importance": 5,
+          "est_hours": 24.0,
+          "priority": 15.0
+        }
+      ],
+      "est_gap_hours": 72.0,
+      "openness_flags": [],
+      "explanation": "Compliance Coordinator: skill coverage 17%. Strongest matches: Communication. Biggest gaps: Document control, Attention to detail (~72 h estimated). Band: stretch. Weights are provisional.",
+      "provisional_weights": true
+    }
+  ],
+  "goal": {
+    "rank": 1,
+    "role_id": "R001",
+    "title": "HR Coordinator",
+    "score": 0.7877,
+    "band": "bridgeable",
+    "feature_scores": {
+      "skill_coverage": 0.7826,
+      "preference_fit": null,
+      "learnability": 0.8
+    },
+    "weights_used": {
+      "skill_coverage": 0.7059,
+      "learnability": 0.2941
+    },
+    "blocking_gaps": [
+      "SK-CONF"
+    ],
+    "matched": [
+      {
+        "skill_id": "SK-EXCEL",
+        "name": "Excel",
+        "user_level": 2,
+        "required_level": 2,
+        "coverage": 1.0,
+        "evidence_quotes": []
+      },
+      {
+        "skill_id": "SK-COMM",
+        "name": "Communication",
+        "user_level": 3,
+        "required_level": 2,
+        "coverage": 1.0,
+        "evidence_quotes": [
+          "supported cross-team communication"
+        ]
+      },
+      {
+        "skill_id": "SK-RECORDS",
+        "name": "Record management",
+        "user_level": 3,
+        "required_level": 2,
+        "coverage": 1.0,
+        "evidence_quotes": [
+          "maintained records"
+        ]
+      },
+      {
+        "skill_id": "SK-SCHED",
+        "name": "Scheduling",
+        "user_level": 2,
+        "required_level": 2,
+        "coverage": 1.0,
+        "evidence_quotes": [
+          "Coordinated calendars"
+        ]
+      }
+    ],
+    "gaps": [
+      {
+        "skill_id": "SK-CONF",
+        "name": "Confidentiality",
+        "required_level": 2,
+        "user_level": 0,
+        "gap_levels": 2,
+        "mandatory": true,
+        "importance": 5,
+        "est_hours": 24.0,
+        "priority": 15.0
+      }
+    ],
+    "est_gap_hours": 24.0,
+    "openness_flags": [],
+    "explanation": "HR Coordinator: skill coverage 78%. Strongest matches: Excel, Communication, Record management. Biggest gaps: Confidentiality (~24 h estimated). Band: bridgeable. Weights are provisional.",
+    "provisional_weights": true
+  },
+  "disclaimer": "Scores are provisional and explain skill coverage. They are not a hiring probability or a guarantee of employment."
+}

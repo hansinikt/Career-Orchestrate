@@ -1,0 +1,14 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "helpful": {
+      "title": "Helpful",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "helpful"
+  ],
+  "title": "MessageFeedback",
+  "type": "object"
+}

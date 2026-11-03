@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "interests": {
+      "description": "Ordered, most wanted first",
+      "items": {
+        "enum": [
+          "people",
+          "data",
+          "operations",
+          "planning",
+          "compliance"
+        ],
+        "type": "string"
+      },
+      "maxItems": 3,
+      "title": "Interests",
+      "type": "array"
+    },
+    "weekly_hours": {
+      "anyOf": [
+        {
+          "maximum": 40,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Weekly Hours"
+    }
+  },
+  "title": "Preferences",
+  "type": "object"
+}

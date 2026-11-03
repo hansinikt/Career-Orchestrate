@@ -1,0 +1,9 @@
+user_id,name,education,current_role,years_experience,target_role,country,languages,learning_preference
+U001,Anitha Raman,Bachelor's degree,Administrative Coordinator,15,HR Coordinator,India,English,Open to reskilling
+U002,Priya Sharma,Bachelor's degree,Office Administrator,8,Project Coordinator,India,English; Hindi,Prefers flexible learning
+U003,Rahul Kumar,Bachelor's degree,Operations Assistant,5,Data Analyst,India,English; Telugu,Interested in analytics
+U004,Sneha Reddy,Bachelor's degree,Customer Support Executive,6,Business Analyst,India,English; Telugu,Wants role transition
+U005,Kiran Patel,Diploma,Administrative Assistant,10,Operations Analyst,India,English; Hindi,Prefers practical projects
+U006,Meera Nair,Master's degree,Team Administrator,12,Learning and Development Coordinator,India,English; Malayalam,Interested in people development
+U007,Arjun Das,Bachelor's degree,Sales Operations Associate,7,CRM Analyst,India,English; Bengali,Wants to improve reporting
+U008,Fatima Khan,Bachelor's degree,Records Officer,9,Compliance Coordinator,India,English; Hindi; Urdu,Prefers structured learning

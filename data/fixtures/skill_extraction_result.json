@@ -1,0 +1,230 @@
+{
+ "evidence": [
+  {
+   "evidence_id": "EV-1",
+   "quote": "I prepare the monthly MIS report for the operations head using Excel pivot tables",
+   "source": "work_entry",
+   "entry_index": 0,
+   "level_signal": "owned_outcome"
+  },
+  {
+   "evidence_id": "EV-2",
+   "quote": "cross-check figures against the dispatch register before sending",
+   "source": "work_entry",
+   "entry_index": 0,
+   "level_signal": "performed"
+  },
+  {
+   "evidence_id": "EV-3",
+   "quote": "I schedule meetings and site visits for a team of 12",
+   "source": "work_entry",
+   "entry_index": 0,
+   "level_signal": "owned_outcome"
+  },
+  {
+   "evidence_id": "EV-4",
+   "quote": "send follow-up emails to vendors for pending deliveries",
+   "source": "work_entry",
+   "entry_index": 0,
+   "level_signal": "performed"
+  },
+  {
+   "evidence_id": "EV-5",
+   "quote": "I keep the filing system and digital records for purchase and dispatch documents",
+   "source": "work_entry",
+   "entry_index": 0,
+   "level_signal": "owned_outcome"
+  },
+  {
+   "evidence_id": "EV-6",
+   "quote": "I write minutes of meeting after weekly reviews and track action items",
+   "source": "work_entry",
+   "entry_index": 0,
+   "level_signal": "owned_outcome"
+  },
+  {
+   "evidence_id": "EV-7",
+   "quote": "I track monthly petty cash and expense statements for the department",
+   "source": "work_entry",
+   "entry_index": 0,
+   "level_signal": "performed"
+  },
+  {
+   "evidence_id": "EV-8",
+   "quote": "I have entered purchase entries in the company ERP system",
+   "source": "work_entry",
+   "entry_index": 0,
+   "level_signal": "mentioned"
+  }
+ ],
+ "skills": [
+  {
+   "skill_id": "SK-REPORT",
+   "name": "Report preparation",
+   "origin": "explicit",
+   "status": "pending",
+   "level": 3,
+   "evidence_ids": [
+    "EV-1"
+   ],
+   "confidence": "high",
+   "rationale": "Prepares a recurring management report."
+  },
+  {
+   "skill_id": "SK-SPREADSHEET",
+   "name": "Spreadsheet analysis",
+   "origin": "explicit",
+   "status": "pending",
+   "level": 3,
+   "evidence_ids": [
+    "EV-1"
+   ],
+   "confidence": "high",
+   "rationale": "Names Excel pivot tables as the working tool."
+  },
+  {
+   "skill_id": "SK-SCHEDULING",
+   "name": "Scheduling and calendar coordination",
+   "origin": "explicit",
+   "status": "pending",
+   "level": 3,
+   "evidence_ids": [
+    "EV-3"
+   ],
+   "confidence": "high",
+   "rationale": "Schedules meetings and visits for a team."
+  },
+  {
+   "skill_id": "SK-VENDOR",
+   "name": "Vendor coordination",
+   "origin": "explicit",
+   "status": "pending",
+   "level": 2,
+   "evidence_ids": [
+    "EV-4"
+   ],
+   "confidence": "medium",
+   "rationale": "Follows up with vendors on deliveries."
+  },
+  {
+   "skill_id": "SK-RECORDS",
+   "name": "Records management",
+   "origin": "explicit",
+   "status": "pending",
+   "level": 3,
+   "evidence_ids": [
+    "EV-5"
+   ],
+   "confidence": "high",
+   "rationale": "Maintains filing system and digital records."
+  },
+  {
+   "skill_id": "SK-MINUTES",
+   "name": "Meeting coordination and minutes",
+   "origin": "explicit",
+   "status": "pending",
+   "level": 3,
+   "evidence_ids": [
+    "EV-6"
+   ],
+   "confidence": "high",
+   "rationale": "Writes minutes and tracks action items."
+  },
+  {
+   "skill_id": "SK-BUDGET",
+   "name": "Budget and expense tracking",
+   "origin": "explicit",
+   "status": "pending",
+   "level": 2,
+   "evidence_ids": [
+    "EV-7"
+   ],
+   "confidence": "medium",
+   "rationale": "Tracks petty cash and expense statements."
+  },
+  {
+   "skill_id": "SK-ERPBASIC",
+   "name": "ERP transaction basics",
+   "origin": "explicit",
+   "status": "pending",
+   "level": 1,
+   "evidence_ids": [
+    "EV-8"
+   ],
+   "confidence": "low",
+   "rationale": "Single mention of ERP data entry."
+  },
+  {
+   "skill_id": "SK-DATAQUALITY",
+   "name": "Data validation and quality checks",
+   "origin": "inferred",
+   "status": "pending",
+   "level": 2,
+   "evidence_ids": [
+    "EV-2"
+   ],
+   "confidence": "medium",
+   "rationale": "Cross-checks figures against a register before sending."
+  },
+  {
+   "skill_id": "SK-TEAMCOORD",
+   "name": "Team and task coordination",
+   "origin": "inferred",
+   "status": "pending",
+   "level": 2,
+   "evidence_ids": [
+    "EV-3"
+   ],
+   "confidence": "medium",
+   "rationale": "Coordinates schedules for a team of 12."
+  },
+  {
+   "skill_id": "SK-STAKEHOLDER",
+   "name": "Stakeholder communication",
+   "origin": "inferred",
+   "status": "pending",
+   "level": 2,
+   "evidence_ids": [
+    "EV-4"
+   ],
+   "confidence": "medium",
+   "rationale": "Follows up with external parties."
+  },
+  {
+   "skill_id": "SK-BUSWRITING",
+   "name": "Business writing",
+   "origin": "inferred",
+   "status": "pending",
+   "level": 2,
+   "evidence_ids": [
+    "EV-4"
+   ],
+   "confidence": "medium",
+   "rationale": "Writes follow-up emails."
+  },
+  {
+   "skill_id": "SK-PROCESSIMPROVE",
+   "name": "Process improvement",
+   "origin": "inferred",
+   "status": "pending",
+   "level": 2,
+   "evidence_ids": [
+    "EV-2"
+   ],
+   "confidence": "low",
+   "rationale": "Checking before sending may indicate error-reduction habits."
+  }
+ ],
+ "clarifying_questions": [
+  {
+   "question_id": "Q-1",
+   "text": "Have you used any dashboard or BI tool, or written database queries, in your work?",
+   "skill_ids": [
+    "SK-BI",
+    "SK-SQL"
+   ]
+  }
+ ],
+ "dropped_ungrounded": 0,
+ "taxonomy_version": "seed-0.1"
+}

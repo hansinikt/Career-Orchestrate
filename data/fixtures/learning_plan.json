@@ -1,0 +1,78 @@
+{
+ "plan_id": "plan_demo_R001",
+ "role_id": "R-001",
+ "total_est_hours": 75.0,
+ "weeks_at_pace": 13,
+ "steps": [
+  {
+   "order": 1,
+   "skill_id": "SK-BI",
+   "skill_name": "Dashboarding and BI tools",
+   "status": "resource_found",
+   "resource": {
+    "resource_id": "RES-001",
+    "title": "Exploring SAP Analytics Cloud",
+    "provider": "SAP Learning Hub (student edition)",
+    "url": null,
+    "skill_ids": [
+     "SK-BI"
+    ],
+    "level_from": 0,
+    "level_to": 1,
+    "est_hours": null,
+    "cost": "unknown",
+    "verification_status": "seed_unverified",
+    "last_verified": null
+   },
+   "est_hours": 25.0,
+   "builds_on": [
+    "SK-SPREADSHEET"
+   ],
+   "rationale": "Moves Dashboarding and BI tools from level 0 to 1 (target 2); builds on your Spreadsheet analysis"
+  },
+  {
+   "order": 2,
+   "skill_id": "SK-BI",
+   "skill_name": "Dashboarding and BI tools",
+   "status": "resource_found",
+   "resource": {
+    "resource_id": "RES-002",
+    "title": "SAP Analytics Cloud: Story Design",
+    "provider": "SAP Learning Hub (student edition)",
+    "url": null,
+    "skill_ids": [
+     "SK-BI"
+    ],
+    "level_from": 1,
+    "level_to": 2,
+    "est_hours": null,
+    "cost": "unknown",
+    "verification_status": "seed_unverified",
+    "last_verified": null
+   },
+   "est_hours": 25.0,
+   "builds_on": [
+    "SK-SPREADSHEET"
+   ],
+   "rationale": "Moves Dashboarding and BI tools from level 1 to 2 (target 2); builds on your Spreadsheet analysis"
+  },
+  {
+   "order": 3,
+   "skill_id": "SK-SQL",
+   "skill_name": "Basic SQL querying",
+   "status": "no_verified_resource",
+   "resource": null,
+   "est_hours": 25.0,
+   "builds_on": [
+    "SK-SPREADSHEET"
+   ],
+   "rationale": "Moves Basic SQL querying from level 0 to 1 (target 1); builds on your Spreadsheet analysis"
+  }
+ ],
+ "unresolved_skill_ids": [
+  "SK-SQL"
+ ],
+ "proof_tasks": [
+  "Rebuild one of your monthly reports as a dashboard and document the data checks you apply"
+ ]
+}

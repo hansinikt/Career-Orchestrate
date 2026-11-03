@@ -1,0 +1,289 @@
+{
+ "U001": {
+  "user_id": "U001",
+  "name": "Anitha Raman",
+  "current_role": "Administrative Coordinator",
+  "target_role_stated": "HR Coordinator",
+  "country": "India",
+  "work_text": "Coordinated calendars, maintained records, prepared reports, supported cross-team communication",
+  "declared_skills": [
+   {
+    "name": "Excel",
+    "level": 2
+   },
+   {
+    "name": "Communication",
+    "level": 3
+   },
+   {
+    "name": "Team coordination",
+    "level": 3
+   },
+   {
+    "name": "Record management",
+    "level": 3
+   },
+   {
+    "name": "Presentation skills",
+    "level": 2
+   }
+  ],
+  "stated_goal_role_id": "R001",
+  "confirmed_levels": {
+   "SK-EXCEL": 2,
+   "SK-COMM": 3,
+   "SK-RECORDS": 3
+  },
+  "alias_mapped": [],
+  "unscored_skills": [
+   "Team coordination",
+   "Presentation skills"
+  ]
+ },
+ "U002": {
+  "user_id": "U002",
+  "name": "Priya Sharma",
+  "current_role": "Office Administrator",
+  "target_role_stated": "Project Coordinator",
+  "country": "India",
+  "work_text": "Managed schedules, meeting logistics, documentation, and office workflows",
+  "declared_skills": [
+   {
+    "name": "Scheduling",
+    "level": 3
+   },
+   {
+    "name": "Documentation",
+    "level": 3
+   },
+   {
+    "name": "Microsoft Office",
+    "level": 2
+   },
+   {
+    "name": "Stakeholder communication",
+    "level": 2
+   }
+  ],
+  "stated_goal_role_id": "R002",
+  "confirmed_levels": {
+   "SK-SCHED": 3,
+   "SK-DOC": 3,
+   "SK-COMM": 2
+  },
+  "alias_mapped": [
+   {
+    "from_skill": "Stakeholder communication",
+    "to": "Communication",
+    "level": 2
+   }
+  ],
+  "unscored_skills": [
+   "Microsoft Office"
+  ]
+ },
+ "U003": {
+  "user_id": "U003",
+  "name": "Rahul Kumar",
+  "current_role": "Operations Assistant",
+  "target_role_stated": "Data Analyst",
+  "country": "India",
+  "work_text": "Maintained operational spreadsheets, checked data quality, and prepared weekly summaries",
+  "declared_skills": [
+   {
+    "name": "Excel",
+    "level": 2
+   },
+   {
+    "name": "Data cleaning",
+    "level": 1
+   },
+   {
+    "name": "Problem solving",
+    "level": 2
+   },
+   {
+    "name": "Reporting",
+    "level": 2
+   }
+  ],
+  "stated_goal_role_id": "R003",
+  "confirmed_levels": {
+   "SK-EXCEL": 2,
+   "SK-DATACLEAN": 1,
+   "SK-PROBLEM": 2,
+   "SK-REPORT": 2
+  },
+  "alias_mapped": [],
+  "unscored_skills": []
+ },
+ "U004": {
+  "user_id": "U004",
+  "name": "Sneha Reddy",
+  "current_role": "Customer Support Executive",
+  "target_role_stated": "Business Analyst",
+  "country": "India",
+  "work_text": "Resolved customer queries, documented cases, and tracked service metrics",
+  "declared_skills": [
+   {
+    "name": "Customer service",
+    "level": 3
+   },
+   {
+    "name": "CRM tools",
+    "level": 2
+   },
+   {
+    "name": "Communication",
+    "level": 3
+   },
+   {
+    "name": "Case documentation",
+    "level": 3
+   }
+  ],
+  "stated_goal_role_id": "R004",
+  "confirmed_levels": {
+   "SK-CRM": 2,
+   "SK-COMM": 3,
+   "SK-DOC": 3
+  },
+  "alias_mapped": [
+   {
+    "from_skill": "Case documentation",
+    "to": "Documentation",
+    "level": 3
+   }
+  ],
+  "unscored_skills": [
+   "Customer service"
+  ]
+ },
+ "U005": {
+  "user_id": "U005",
+  "name": "Kiran Patel",
+  "current_role": "Administrative Assistant",
+  "target_role_stated": "Operations Analyst",
+  "country": "India",
+  "work_text": "Managed records, supported procurement, and coordinated internal requests",
+  "declared_skills": [
+   {
+    "name": "Record management",
+    "level": 3
+   },
+   {
+    "name": "Excel",
+    "level": 2
+   },
+   {
+    "name": "Process coordination",
+    "level": 2
+   }
+  ],
+  "stated_goal_role_id": "R005",
+  "confirmed_levels": {
+   "SK-RECORDS": 3,
+   "SK-EXCEL": 2
+  },
+  "alias_mapped": [],
+  "unscored_skills": [
+   "Process coordination"
+  ]
+ },
+ "U006": {
+  "user_id": "U006",
+  "name": "Meera Nair",
+  "current_role": "Team Administrator",
+  "target_role_stated": "Learning and Development Coordinator",
+  "country": "India",
+  "work_text": "Organized training sessions, maintained attendance, and coordinated team communications",
+  "declared_skills": [
+   {
+    "name": "Training coordination",
+    "level": 3
+   },
+   {
+    "name": "Scheduling",
+    "level": 3
+   },
+   {
+    "name": "Communication",
+    "level": 3
+   }
+  ],
+  "stated_goal_role_id": "R006",
+  "confirmed_levels": {
+   "SK-TRAINCOORD": 3,
+   "SK-SCHED": 3,
+   "SK-COMM": 3
+  },
+  "alias_mapped": [],
+  "unscored_skills": []
+ },
+ "U007": {
+  "user_id": "U007",
+  "name": "Arjun Das",
+  "current_role": "Sales Operations Associate",
+  "target_role_stated": "CRM Analyst",
+  "country": "India",
+  "work_text": "Updated CRM records, prepared sales reports, and coordinated with sales teams",
+  "declared_skills": [
+   {
+    "name": "CRM tools",
+    "level": 2
+   },
+   {
+    "name": "Sales reporting",
+    "level": 2
+   },
+   {
+    "name": "Excel",
+    "level": 2
+   }
+  ],
+  "stated_goal_role_id": "R007",
+  "confirmed_levels": {
+   "SK-CRM": 2,
+   "SK-REPORT": 2,
+   "SK-EXCEL": 2
+  },
+  "alias_mapped": [
+   {
+    "from_skill": "Sales reporting",
+    "to": "Reporting",
+    "level": 2
+   }
+  ],
+  "unscored_skills": []
+ },
+ "U008": {
+  "user_id": "U008",
+  "name": "Fatima Khan",
+  "current_role": "Records Officer",
+  "target_role_stated": "Compliance Coordinator",
+  "country": "India",
+  "work_text": "Maintained controlled records, checked document completeness, and supported audits",
+  "declared_skills": [
+   {
+    "name": "Document control",
+    "level": 3
+   },
+   {
+    "name": "Compliance documentation",
+    "level": 2
+   },
+   {
+    "name": "Attention to detail",
+    "level": 3
+   }
+  ],
+  "stated_goal_role_id": "R008",
+  "confirmed_levels": {
+   "SK-DOCCONTROL": 3,
+   "SK-COMPDOC": 2,
+   "SK-DETAIL": 3
+  },
+  "alias_mapped": [],
+  "unscored_skills": []
+ }
+}

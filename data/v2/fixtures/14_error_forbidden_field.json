@@ -1,0 +1,11 @@
+{
+  "error": {
+    "code": "FORBIDDEN_FIELD",
+    "message": "This system never accepts age, date of birth, gender or similar fields.",
+    "details": {
+      "fields": [
+        "age"
+      ]
+    }
+  }
+}

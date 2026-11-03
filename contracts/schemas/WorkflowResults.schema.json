@@ -1,0 +1,1217 @@
+{
+ "$defs": {
+  "Achievement": {
+   "additionalProperties": false,
+   "properties": {
+    "text": {
+     "title": "Text",
+     "type": "string"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1,
+     "title": "Evidence Ids",
+     "type": "array"
+    },
+    "needs_user_input": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Needs User Input",
+     "type": "array"
+    }
+   },
+   "required": [
+    "text",
+    "evidence_ids"
+   ],
+   "title": "Achievement",
+   "type": "object"
+  },
+  "AuditFlag": {
+   "additionalProperties": false,
+   "properties": {
+    "variant_id": {
+     "title": "Variant Id",
+     "type": "string"
+    },
+    "metric": {
+     "title": "Metric",
+     "type": "string"
+    },
+    "observed": {
+     "title": "Observed",
+     "type": "number"
+    },
+    "threshold": {
+     "title": "Threshold",
+     "type": "number"
+    },
+    "message": {
+     "title": "Message",
+     "type": "string"
+    }
+   },
+   "required": [
+    "variant_id",
+    "metric",
+    "observed",
+    "threshold",
+    "message"
+   ],
+   "title": "AuditFlag",
+   "type": "object"
+  },
+  "AuditVariantResult": {
+   "additionalProperties": false,
+   "properties": {
+    "variant_id": {
+     "title": "Variant Id",
+     "type": "string"
+    },
+    "cue_set": {
+     "enum": [
+      "baseline",
+      "direct_age_cue",
+      "proxy_experience_years"
+     ],
+     "title": "Cue Set",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "skills_jaccard": {
+     "title": "Skills Jaccard",
+     "type": "number"
+    },
+    "top3_overlap": {
+     "title": "Top3 Overlap",
+     "type": "integer"
+    },
+    "kendall_tau": {
+     "title": "Kendall Tau",
+     "type": "number"
+    },
+    "max_abs_score_delta": {
+     "title": "Max Abs Score Delta",
+     "type": "number"
+    },
+    "plan_hours_delta": {
+     "title": "Plan Hours Delta",
+     "type": "number"
+    },
+    "lexicon_hits": {
+     "title": "Lexicon Hits",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "variant_id",
+    "cue_set",
+    "label",
+    "skills_jaccard",
+    "top3_overlap",
+    "kendall_tau",
+    "max_abs_score_delta",
+    "plan_hours_delta",
+    "lexicon_hits"
+   ],
+   "title": "AuditVariantResult",
+   "type": "object"
+  },
+  "BiasAuditResult": {
+   "additionalProperties": false,
+   "properties": {
+    "audit_id": {
+     "title": "Audit Id",
+     "type": "string"
+    },
+    "profile_id": {
+     "title": "Profile Id",
+     "type": "string"
+    },
+    "status": {
+     "enum": [
+      "RUNNING",
+      "SUCCEEDED",
+      "FAILED"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "created_at": {
+     "title": "Created At",
+     "type": "string"
+    },
+    "mode": {
+     "enum": [
+      "deterministic_only",
+      "llm_extraction",
+      "replay"
+     ],
+     "title": "Mode",
+     "type": "string"
+    },
+    "repeats": {
+     "title": "Repeats",
+     "type": "integer"
+    },
+    "variants": {
+     "items": {
+      "$ref": "#/$defs/AuditVariantResult"
+     },
+     "title": "Variants",
+     "type": "array"
+    },
+    "thresholds": {
+     "additionalProperties": {
+      "type": "number"
+     },
+     "title": "Thresholds",
+     "type": "object"
+    },
+    "flags": {
+     "items": {
+      "$ref": "#/$defs/AuditFlag"
+     },
+     "title": "Flags",
+     "type": "array"
+    },
+    "verdict": {
+     "enum": [
+      "pass",
+      "flag",
+      "inconclusive"
+     ],
+     "title": "Verdict",
+     "type": "string"
+    },
+    "reviewer": {
+     "$ref": "#/$defs/Reviewer"
+    },
+    "limitations": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Limitations",
+     "type": "array"
+    }
+   },
+   "required": [
+    "audit_id",
+    "profile_id",
+    "status",
+    "created_at",
+    "mode",
+    "repeats",
+    "variants",
+    "thresholds",
+    "flags",
+    "verdict",
+    "reviewer",
+    "limitations"
+   ],
+   "title": "BiasAuditResult",
+   "type": "object"
+  },
+  "ClarifyingQuestion": {
+   "additionalProperties": false,
+   "properties": {
+    "question_id": {
+     "title": "Question Id",
+     "type": "string"
+    },
+    "text": {
+     "title": "Text",
+     "type": "string"
+    },
+    "skill_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Skill Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "question_id",
+    "text",
+    "skill_ids"
+   ],
+   "title": "ClarifyingQuestion",
+   "type": "object"
+  },
+  "EmployerReadinessResult": {
+   "additionalProperties": false,
+   "properties": {
+    "role_id": {
+     "title": "Role Id",
+     "type": "string"
+    },
+    "relevant_achievements": {
+     "items": {
+      "$ref": "#/$defs/Achievement"
+     },
+     "title": "Relevant Achievements",
+     "type": "array"
+    },
+    "transferable_experience": {
+     "items": {
+      "$ref": "#/$defs/TransferItem"
+     },
+     "title": "Transferable Experience",
+     "type": "array"
+    },
+    "resume_improvements": {
+     "items": {
+      "$ref": "#/$defs/ResumeTip"
+     },
+     "title": "Resume Improvements",
+     "type": "array"
+    },
+    "portfolio_suggestions": {
+     "items": {
+      "$ref": "#/$defs/PortfolioIdea"
+     },
+     "title": "Portfolio Suggestions",
+     "type": "array"
+    },
+    "interview_prep": {
+     "items": {
+      "$ref": "#/$defs/InterviewItem"
+     },
+     "title": "Interview Prep",
+     "type": "array"
+    },
+    "remaining_prep": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Remaining Prep",
+     "type": "array"
+    },
+    "openness_flags": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Openness Flags",
+     "type": "array"
+    },
+    "grounding_report": {
+     "$ref": "#/$defs/GroundingReport"
+    }
+   },
+   "required": [
+    "role_id",
+    "relevant_achievements",
+    "transferable_experience",
+    "resume_improvements",
+    "portfolio_suggestions",
+    "interview_prep",
+    "remaining_prep",
+    "openness_flags",
+    "grounding_report"
+   ],
+   "title": "EmployerReadinessResult",
+   "type": "object"
+  },
+  "FeatureScores": {
+   "additionalProperties": false,
+   "properties": {
+    "skill_coverage": {
+     "title": "Skill Coverage",
+     "type": "number"
+    },
+    "preference_fit": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Preference Fit"
+    },
+    "learnability": {
+     "title": "Learnability",
+     "type": "number"
+    }
+   },
+   "required": [
+    "skill_coverage",
+    "preference_fit",
+    "learnability"
+   ],
+   "title": "FeatureScores",
+   "type": "object"
+  },
+  "GroundingReport": {
+   "additionalProperties": false,
+   "properties": {
+    "dropped_claims": {
+     "title": "Dropped Claims",
+     "type": "integer"
+    },
+    "flagged_numbers": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Flagged Numbers",
+     "type": "array"
+    }
+   },
+   "required": [
+    "dropped_claims",
+    "flagged_numbers"
+   ],
+   "title": "GroundingReport",
+   "type": "object"
+  },
+  "InterviewItem": {
+   "additionalProperties": false,
+   "properties": {
+    "question": {
+     "title": "Question",
+     "type": "string"
+    },
+    "star_hint": {
+     "title": "Star Hint",
+     "type": "string"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evidence Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "question",
+    "star_hint",
+    "evidence_ids"
+   ],
+   "title": "InterviewItem",
+   "type": "object"
+  },
+  "LearningPlan": {
+   "additionalProperties": false,
+   "properties": {
+    "plan_id": {
+     "title": "Plan Id",
+     "type": "string"
+    },
+    "role_id": {
+     "title": "Role Id",
+     "type": "string"
+    },
+    "total_est_hours": {
+     "title": "Total Est Hours",
+     "type": "number"
+    },
+    "weeks_at_pace": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Weeks At Pace"
+    },
+    "steps": {
+     "items": {
+      "$ref": "#/$defs/PlanStep"
+     },
+     "title": "Steps",
+     "type": "array"
+    },
+    "unresolved_skill_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Unresolved Skill Ids",
+     "type": "array"
+    },
+    "proof_tasks": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Proof Tasks",
+     "type": "array"
+    }
+   },
+   "required": [
+    "plan_id",
+    "role_id",
+    "total_est_hours",
+    "weeks_at_pace",
+    "steps",
+    "unresolved_skill_ids",
+    "proof_tasks"
+   ],
+   "title": "LearningPlan",
+   "type": "object"
+  },
+  "LearningResource": {
+   "additionalProperties": false,
+   "properties": {
+    "resource_id": {
+     "title": "Resource Id",
+     "type": "string"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    },
+    "provider": {
+     "title": "Provider",
+     "type": "string"
+    },
+    "url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Url"
+    },
+    "skill_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Skill Ids",
+     "type": "array"
+    },
+    "level_from": {
+     "title": "Level From",
+     "type": "integer"
+    },
+    "level_to": {
+     "title": "Level To",
+     "type": "integer"
+    },
+    "est_hours": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Est Hours"
+    },
+    "cost": {
+     "enum": [
+      "free",
+      "paid",
+      "unknown"
+     ],
+     "title": "Cost",
+     "type": "string"
+    },
+    "verification_status": {
+     "enum": [
+      "verified",
+      "seed_unverified",
+      "broken"
+     ],
+     "title": "Verification Status",
+     "type": "string"
+    },
+    "last_verified": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Last Verified"
+    }
+   },
+   "required": [
+    "resource_id",
+    "title",
+    "provider",
+    "url",
+    "skill_ids",
+    "level_from",
+    "level_to",
+    "est_hours",
+    "cost",
+    "verification_status"
+   ],
+   "title": "LearningResource",
+   "type": "object"
+  },
+  "MatchedSkill": {
+   "additionalProperties": false,
+   "properties": {
+    "skill_id": {
+     "title": "Skill Id",
+     "type": "string"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "user_level": {
+     "title": "User Level",
+     "type": "integer"
+    },
+    "required_level": {
+     "title": "Required Level",
+     "type": "integer"
+    },
+    "coverage": {
+     "title": "Coverage",
+     "type": "number"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evidence Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "skill_id",
+    "name",
+    "user_level",
+    "required_level",
+    "coverage",
+    "evidence_ids"
+   ],
+   "title": "MatchedSkill",
+   "type": "object"
+  },
+  "NormalizedSkill": {
+   "additionalProperties": false,
+   "properties": {
+    "skill_id": {
+     "title": "Skill Id",
+     "type": "string"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "origin": {
+     "enum": [
+      "explicit",
+      "inferred",
+      "user_added"
+     ],
+     "title": "Origin",
+     "type": "string"
+    },
+    "status": {
+     "enum": [
+      "pending",
+      "confirmed",
+      "rejected"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "level": {
+     "description": "0 none,1 foundational,2 working,3 advanced/owned",
+     "maximum": 3,
+     "minimum": 0,
+     "title": "Level",
+     "type": "integer"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evidence Ids",
+     "type": "array"
+    },
+    "confidence": {
+     "enum": [
+      "low",
+      "medium",
+      "high"
+     ],
+     "title": "Confidence",
+     "type": "string"
+    },
+    "rationale": {
+     "maxLength": 240,
+     "title": "Rationale",
+     "type": "string"
+    }
+   },
+   "required": [
+    "skill_id",
+    "name",
+    "origin",
+    "status",
+    "level",
+    "evidence_ids",
+    "confidence",
+    "rationale"
+   ],
+   "title": "NormalizedSkill",
+   "type": "object"
+  },
+  "PlanStep": {
+   "additionalProperties": false,
+   "properties": {
+    "order": {
+     "title": "Order",
+     "type": "integer"
+    },
+    "skill_id": {
+     "title": "Skill Id",
+     "type": "string"
+    },
+    "skill_name": {
+     "title": "Skill Name",
+     "type": "string"
+    },
+    "status": {
+     "enum": [
+      "resource_found",
+      "no_verified_resource",
+      "already_met"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "resource": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/LearningResource"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "est_hours": {
+     "title": "Est Hours",
+     "type": "number"
+    },
+    "builds_on": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Builds On",
+     "type": "array"
+    },
+    "rationale": {
+     "title": "Rationale",
+     "type": "string"
+    }
+   },
+   "required": [
+    "order",
+    "skill_id",
+    "skill_name",
+    "status",
+    "resource",
+    "est_hours",
+    "builds_on",
+    "rationale"
+   ],
+   "title": "PlanStep",
+   "type": "object"
+  },
+  "PortfolioIdea": {
+   "additionalProperties": false,
+   "properties": {
+    "title": {
+     "title": "Title",
+     "type": "string"
+    },
+    "description": {
+     "title": "Description",
+     "type": "string"
+    },
+    "skill_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Skill Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "title",
+    "description",
+    "skill_ids"
+   ],
+   "title": "PortfolioIdea",
+   "type": "object"
+  },
+  "ResumeTip": {
+   "additionalProperties": false,
+   "properties": {
+    "type": {
+     "enum": [
+      "reword",
+      "quantify_prompt",
+      "add_section"
+     ],
+     "title": "Type",
+     "type": "string"
+    },
+    "suggestion": {
+     "title": "Suggestion",
+     "type": "string"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evidence Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "type",
+    "suggestion",
+    "evidence_ids"
+   ],
+   "title": "ResumeTip",
+   "type": "object"
+  },
+  "Reviewer": {
+   "additionalProperties": false,
+   "properties": {
+    "status": {
+     "enum": [
+      "pending",
+      "reviewed"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "decision": {
+     "anyOf": [
+      {
+       "enum": [
+        "accept_no_action",
+        "investigate",
+        "block_release"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Decision"
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    },
+    "reviewed_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Reviewed At"
+    }
+   },
+   "required": [
+    "status"
+   ],
+   "title": "Reviewer",
+   "type": "object"
+  },
+  "RoleRecommendation": {
+   "additionalProperties": false,
+   "properties": {
+    "role_id": {
+     "title": "Role Id",
+     "type": "string"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    },
+    "rank": {
+     "title": "Rank",
+     "type": "integer"
+    },
+    "score": {
+     "title": "Score",
+     "type": "number"
+    },
+    "band": {
+     "enum": [
+      "strong_fit",
+      "bridgeable",
+      "stretch"
+     ],
+     "title": "Band",
+     "type": "string"
+    },
+    "feature_scores": {
+     "$ref": "#/$defs/FeatureScores"
+    },
+    "weights_used": {
+     "additionalProperties": {
+      "type": "number"
+     },
+     "title": "Weights Used",
+     "type": "object"
+    },
+    "blocking_gaps": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Blocking Gaps",
+     "type": "array"
+    },
+    "matched": {
+     "items": {
+      "$ref": "#/$defs/MatchedSkill"
+     },
+     "title": "Matched",
+     "type": "array"
+    },
+    "gaps": {
+     "items": {
+      "$ref": "#/$defs/SkillGap"
+     },
+     "title": "Gaps",
+     "type": "array"
+    },
+    "est_gap_hours": {
+     "title": "Est Gap Hours",
+     "type": "number"
+    },
+    "openness_flags": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Openness Flags",
+     "type": "array"
+    },
+    "explanation": {
+     "title": "Explanation",
+     "type": "string"
+    },
+    "provisional_weights": {
+     "default": true,
+     "title": "Provisional Weights",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "role_id",
+    "title",
+    "rank",
+    "score",
+    "band",
+    "feature_scores",
+    "weights_used",
+    "blocking_gaps",
+    "matched",
+    "gaps",
+    "est_gap_hours",
+    "openness_flags",
+    "explanation"
+   ],
+   "title": "RoleRecommendation",
+   "type": "object"
+  },
+  "SkillEvidence": {
+   "additionalProperties": false,
+   "properties": {
+    "evidence_id": {
+     "title": "Evidence Id",
+     "type": "string"
+    },
+    "quote": {
+     "description": "Verbatim substring of the user's input (whitespace-normalised)",
+     "title": "Quote",
+     "type": "string"
+    },
+    "source": {
+     "enum": [
+      "summary_text",
+      "work_entry"
+     ],
+     "title": "Source",
+     "type": "string"
+    },
+    "entry_index": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Entry Index"
+    },
+    "level_signal": {
+     "enum": [
+      "mentioned",
+      "performed",
+      "owned_outcome"
+     ],
+     "title": "Level Signal",
+     "type": "string"
+    }
+   },
+   "required": [
+    "evidence_id",
+    "quote",
+    "source",
+    "level_signal"
+   ],
+   "title": "SkillEvidence",
+   "type": "object"
+  },
+  "SkillExtractionResult": {
+   "additionalProperties": false,
+   "properties": {
+    "evidence": {
+     "items": {
+      "$ref": "#/$defs/SkillEvidence"
+     },
+     "title": "Evidence",
+     "type": "array"
+    },
+    "skills": {
+     "items": {
+      "$ref": "#/$defs/NormalizedSkill"
+     },
+     "title": "Skills",
+     "type": "array"
+    },
+    "clarifying_questions": {
+     "items": {
+      "$ref": "#/$defs/ClarifyingQuestion"
+     },
+     "maxItems": 3,
+     "title": "Clarifying Questions",
+     "type": "array"
+    },
+    "dropped_ungrounded": {
+     "default": 0,
+     "title": "Dropped Ungrounded",
+     "type": "integer"
+    },
+    "taxonomy_version": {
+     "title": "Taxonomy Version",
+     "type": "string"
+    }
+   },
+   "required": [
+    "evidence",
+    "skills",
+    "clarifying_questions",
+    "taxonomy_version"
+   ],
+   "title": "SkillExtractionResult",
+   "type": "object"
+  },
+  "SkillGap": {
+   "additionalProperties": false,
+   "properties": {
+    "skill_id": {
+     "title": "Skill Id",
+     "type": "string"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "required_level": {
+     "title": "Required Level",
+     "type": "integer"
+    },
+    "user_level": {
+     "title": "User Level",
+     "type": "integer"
+    },
+    "gap_levels": {
+     "title": "Gap Levels",
+     "type": "integer"
+    },
+    "mandatory": {
+     "title": "Mandatory",
+     "type": "boolean"
+    },
+    "importance": {
+     "title": "Importance",
+     "type": "integer"
+    },
+    "est_hours": {
+     "title": "Est Hours",
+     "type": "number"
+    },
+    "priority": {
+     "title": "Priority",
+     "type": "number"
+    }
+   },
+   "required": [
+    "skill_id",
+    "name",
+    "required_level",
+    "user_level",
+    "gap_levels",
+    "mandatory",
+    "importance",
+    "est_hours",
+    "priority"
+   ],
+   "title": "SkillGap",
+   "type": "object"
+  },
+  "TransferItem": {
+   "additionalProperties": false,
+   "properties": {
+    "skill_id": {
+     "title": "Skill Id",
+     "type": "string"
+    },
+    "role_requirement": {
+     "title": "Role Requirement",
+     "type": "string"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evidence Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "skill_id",
+    "role_requirement",
+    "evidence_ids"
+   ],
+   "title": "TransferItem",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "workflow_id": {
+   "title": "Workflow Id",
+   "type": "string"
+  },
+  "skills": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/SkillExtractionResult"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "recommendations": {
+   "anyOf": [
+    {
+     "items": {
+      "$ref": "#/$defs/RoleRecommendation"
+     },
+     "type": "array"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Recommendations"
+  },
+  "learning_plans": {
+   "anyOf": [
+    {
+     "items": {
+      "$ref": "#/$defs/LearningPlan"
+     },
+     "type": "array"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Learning Plans"
+  },
+  "employer_readiness": {
+   "anyOf": [
+    {
+     "items": {
+      "$ref": "#/$defs/EmployerReadinessResult"
+     },
+     "type": "array"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Employer Readiness"
+  },
+  "bias_audit": {
+   "anyOf": [
+    {
+     "$ref": "#/$defs/BiasAuditResult"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null
+  },
+  "disclaimers": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Disclaimers",
+   "type": "array"
+  }
+ },
+ "required": [
+  "workflow_id",
+  "disclaimers"
+ ],
+ "title": "WorkflowResults",
+ "type": "object"
+}

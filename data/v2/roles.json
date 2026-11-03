@@ -1,0 +1,352 @@
+{
+ "dataset_version": "v2-csv-0.1",
+ "roles": [
+  {
+   "role_id": "R001",
+   "title": "HR Coordinator",
+   "summary": "Coordinates HR administration, onboarding, records, and employee communication",
+   "family": "Human Resources",
+   "tags": [
+    "people",
+    "operations"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-EXCEL",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-COMM",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-RECORDS",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-SCHED",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-CONF",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    }
+   ],
+   "requires_degree": false,
+   "max_experience_years": null,
+   "data_note": "Illustrative; validate against real job descriptions"
+  },
+  {
+   "role_id": "R002",
+   "title": "Project Coordinator",
+   "summary": "Tracks project schedules, actions, documentation, and stakeholder updates",
+   "family": "Project Management",
+   "tags": [
+    "planning",
+    "operations"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-SCHED",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-DOC",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-COMM",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-RISK",
+     "importance": 3,
+     "required_level": 1,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-REPORT",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    }
+   ],
+   "requires_degree": false,
+   "max_experience_years": null,
+   "data_note": "Illustrative; validate against real job descriptions"
+  },
+  {
+   "role_id": "R003",
+   "title": "Data Analyst",
+   "summary": "Cleans data, analyzes trends, builds reports, and communicates findings",
+   "family": "Analytics",
+   "tags": [
+    "data"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-EXCEL",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-SQL",
+     "importance": 5,
+     "required_level": 1,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-DATACLEAN",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-STATS",
+     "importance": 5,
+     "required_level": 1,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-VIZ",
+     "importance": 3,
+     "required_level": 1,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": false,
+   "max_experience_years": null,
+   "data_note": "Illustrative; validate against real job descriptions"
+  },
+  {
+   "role_id": "R004",
+   "title": "Business Analyst",
+   "summary": "Documents requirements, analyzes processes, and communicates business needs",
+   "family": "Business Analysis",
+   "tags": [
+    "data",
+    "planning"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-COMM",
+     "importance": 5,
+     "required_level": 3,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-PROCANALYSIS",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-DOC",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-EXCEL",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-REQ",
+     "importance": 5,
+     "required_level": 1,
+     "mandatory": true
+    }
+   ],
+   "requires_degree": false,
+   "max_experience_years": null,
+   "data_note": "Illustrative; validate against real job descriptions"
+  },
+  {
+   "role_id": "R005",
+   "title": "Operations Analyst",
+   "summary": "Analyzes operational processes, KPIs, and reporting data",
+   "family": "Operations",
+   "tags": [
+    "operations",
+    "data"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-EXCEL",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-REPORT",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-PROCIMPROVE",
+     "importance": 5,
+     "required_level": 1,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-DATAANALYSIS",
+     "importance": 5,
+     "required_level": 1,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-PROBLEM",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    }
+   ],
+   "requires_degree": false,
+   "max_experience_years": null,
+   "data_note": "Illustrative; validate against real job descriptions"
+  },
+  {
+   "role_id": "R006",
+   "title": "Learning and Development Coordinator",
+   "summary": "Coordinates training, learning records, and program logistics",
+   "family": "Learning and Development",
+   "tags": [
+    "people",
+    "planning"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-TRAINCOORD",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-SCHED",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-COMM",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-LEARNADMIN",
+     "importance": 3,
+     "required_level": 1,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": false,
+   "max_experience_years": null,
+   "data_note": "Illustrative; validate against real job descriptions"
+  },
+  {
+   "role_id": "R007",
+   "title": "CRM Analyst",
+   "summary": "Maintains CRM data quality and reports on customer or sales activity",
+   "family": "Business Systems",
+   "tags": [
+    "data",
+    "people"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-CRM",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-EXCEL",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-DATAQUALITY",
+     "importance": 5,
+     "required_level": 1,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-REPORT",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-DASH",
+     "importance": 3,
+     "required_level": 1,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": false,
+   "max_experience_years": null,
+   "data_note": "Illustrative; validate against real job descriptions"
+  },
+  {
+   "role_id": "R008",
+   "title": "Compliance Coordinator",
+   "summary": "Maintains compliance documentation, records, and audit readiness",
+   "family": "Compliance",
+   "tags": [
+    "compliance",
+    "operations"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-DOCCONTROL",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-DETAIL",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-COMPDOC",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-COMM",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": false,
+   "max_experience_years": null,
+   "data_note": "Illustrative; validate against real job descriptions"
+  }
+ ]
+}

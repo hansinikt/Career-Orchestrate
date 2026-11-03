@@ -1,0 +1,28 @@
+sequenceDiagram
+  autonumber
+  participant FE as Frontend
+  participant API as Backend routes
+  participant ENG as engine
+  participant DB as SQLite
+  FE->>API: POST /profiles (consent=true, work text, skills)
+  API->>DB: INSERT profile
+  API-->>FE: 201 Profile
+  FE->>API: POST /profiles/{id}/extract
+  API->>ENG: suggest(declared, texts)
+  ENG-->>API: suggestions + verbatim evidence quotes
+  API->>DB: store extraction
+  API-->>FE: suggestions
+  FE->>API: POST /profiles/{id}/confirm (a decision for each)
+  API->>DB: store confirmed skills
+  FE->>API: GET /recommendations
+  API->>ENG: rank(confirmed levels, roles, interests)
+  ENG-->>API: ranked roles, gaps, hours
+  API-->>FE: recommendations + goal role
+  FE->>API: POST /plan {role_id}
+  API->>ENG: build_plan(...)
+  API->>DB: store plan (active)
+  API-->>FE: plan steps
+  FE->>API: POST /progress {step, percent}
+  API->>DB: upsert progress
+  API->>ENG: detect_event + select message
+  API-->>FE: progress + next_message

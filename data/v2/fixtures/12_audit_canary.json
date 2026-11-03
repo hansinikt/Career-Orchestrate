@@ -1,0 +1,150 @@
+{
+  "audit_id": "aud_34c369a1",
+  "profile_id": "prof_97d4982679",
+  "status": "flagged",
+  "canary": true,
+  "variants": [
+    {
+      "variant_id": "A29",
+      "cue": "age_statement",
+      "metrics": {
+        "skills_jaccard": 1.0,
+        "top3_overlap": 3,
+        "kendall_tau": 1.0,
+        "max_abs_score_delta": 0.0,
+        "plan_hours_delta": 0.0,
+        "lexicon_hits": 0
+      },
+      "flags": []
+    },
+    {
+      "variant_id": "A42",
+      "cue": "age_statement",
+      "metrics": {
+        "skills_jaccard": 1.0,
+        "top3_overlap": 3,
+        "kendall_tau": 1.0,
+        "max_abs_score_delta": 0.0,
+        "plan_hours_delta": 0.0,
+        "lexicon_hits": 0
+      },
+      "flags": []
+    },
+    {
+      "variant_id": "A50",
+      "cue": "age_statement",
+      "metrics": {
+        "skills_jaccard": 1.0,
+        "top3_overlap": 3,
+        "kendall_tau": 1.0,
+        "max_abs_score_delta": 0.0,
+        "plan_hours_delta": 0.0,
+        "lexicon_hits": 0
+      },
+      "flags": []
+    },
+    {
+      "variant_id": "A58",
+      "cue": "age_statement",
+      "metrics": {
+        "skills_jaccard": 1.0,
+        "top3_overlap": 3,
+        "kendall_tau": 1.0,
+        "max_abs_score_delta": 0.0,
+        "plan_hours_delta": 0.0,
+        "lexicon_hits": 0
+      },
+      "flags": []
+    },
+    {
+      "variant_id": "P5",
+      "cue": "experience_proxy",
+      "metrics": {
+        "skills_jaccard": 1.0,
+        "top3_overlap": 3,
+        "kendall_tau": 1.0,
+        "max_abs_score_delta": 0.0,
+        "plan_hours_delta": 0.0,
+        "lexicon_hits": 0
+      },
+      "flags": []
+    },
+    {
+      "variant_id": "P25",
+      "cue": "experience_proxy",
+      "metrics": {
+        "skills_jaccard": 1.0,
+        "top3_overlap": 3,
+        "kendall_tau": 1.0,
+        "max_abs_score_delta": 0.0,
+        "plan_hours_delta": 0.0,
+        "lexicon_hits": 0
+      },
+      "flags": []
+    },
+    {
+      "variant_id": "CANARY",
+      "cue": "deliberately_biased_scorer",
+      "metrics": {
+        "skills_jaccard": 0.0,
+        "top3_overlap": 3,
+        "kendall_tau": 0.7143,
+        "max_abs_score_delta": 0.227,
+        "plan_hours_delta": 27.0,
+        "lexicon_hits": 2
+      },
+      "flags": [
+        {
+          "variant_id": "CANARY",
+          "metric": "skills_jaccard",
+          "observed": 0.0,
+          "threshold": 0.9,
+          "message": "skills_jaccard=0.0 breaches threshold 0.9 versus baseline; route to human reviewer"
+        },
+        {
+          "variant_id": "CANARY",
+          "metric": "kendall_tau",
+          "observed": 0.7143,
+          "threshold": 0.9,
+          "message": "kendall_tau=0.7143 breaches threshold 0.9 versus baseline; route to human reviewer"
+        },
+        {
+          "variant_id": "CANARY",
+          "metric": "max_abs_score_delta",
+          "observed": 0.227,
+          "threshold": 0.03,
+          "message": "max_abs_score_delta=0.227 breaches threshold 0.03 versus baseline; route to human reviewer"
+        },
+        {
+          "variant_id": "CANARY",
+          "metric": "plan_hours_delta",
+          "observed": 27.0,
+          "threshold": 10.0,
+          "message": "plan_hours_delta=27.0 breaches threshold 10.0 versus baseline; route to human reviewer"
+        },
+        {
+          "variant_id": "CANARY",
+          "metric": "lexicon_hits",
+          "observed": 2.0,
+          "threshold": 0.0,
+          "message": "lexicon_hits=2 breaches threshold 0 versus baseline; route to human reviewer"
+        }
+      ]
+    }
+  ],
+  "thresholds": {
+    "skills_jaccard_min": 0.9,
+    "top3_overlap_min": 3.0,
+    "kendall_tau_min": 0.9,
+    "max_abs_score_delta_max": 0.03,
+    "plan_hours_delta_max": 10.0,
+    "lexicon_hits_max": 0.0
+  },
+  "limitations": [
+    "Tests only the variants listed; it cannot prove the system is free of bias.",
+    "Variants add a statement about age or years of experience to the worker's own text.",
+    "In rules mode the extractor ignores such statements by construction, so the audit is a regression guard until a language model is used."
+  ],
+  "review": null,
+  "created_at": "2026-11-01T12:19:25+00:00"
+}

@@ -1,0 +1,74 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "app_version": {
+      "title": "App Version",
+      "type": "string"
+    },
+    "catalog": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Catalog",
+      "type": "object"
+    },
+    "contract_version": {
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "disclaimers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Disclaimers",
+      "type": "array"
+    },
+    "extraction_mode": {
+      "enum": [
+        "rules",
+        "llm+rules"
+      ],
+      "title": "Extraction Mode",
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "replay",
+        "live"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "resource_policy": {
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "title": "Resource Policy",
+      "type": "object"
+    },
+    "weights": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Weights",
+      "type": "object"
+    },
+    "weights_are_provisional": {
+      "title": "Weights Are Provisional",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "app_version",
+    "contract_version",
+    "mode",
+    "extraction_mode",
+    "weights",
+    "weights_are_provisional",
+    "catalog",
+    "resource_policy",
+    "disclaimers"
+  ],
+  "title": "Meta",
+  "type": "object"
+}

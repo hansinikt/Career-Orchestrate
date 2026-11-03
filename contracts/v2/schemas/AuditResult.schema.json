@@ -1,0 +1,215 @@
+{
+  "$defs": {
+    "AuditFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "observed": {
+          "title": "Observed",
+          "type": "number"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "number"
+        },
+        "variant_id": {
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "variant_id",
+        "metric",
+        "observed",
+        "threshold",
+        "message"
+      ],
+      "title": "AuditFlag",
+      "type": "object"
+    },
+    "AuditMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "kendall_tau": {
+          "title": "Kendall Tau",
+          "type": "number"
+        },
+        "lexicon_hits": {
+          "title": "Lexicon Hits",
+          "type": "integer"
+        },
+        "max_abs_score_delta": {
+          "title": "Max Abs Score Delta",
+          "type": "number"
+        },
+        "plan_hours_delta": {
+          "title": "Plan Hours Delta",
+          "type": "number"
+        },
+        "skills_jaccard": {
+          "title": "Skills Jaccard",
+          "type": "number"
+        },
+        "top3_overlap": {
+          "title": "Top3 Overlap",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "skills_jaccard",
+        "top3_overlap",
+        "kendall_tau",
+        "max_abs_score_delta",
+        "plan_hours_delta",
+        "lexicon_hits"
+      ],
+      "title": "AuditMetrics",
+      "type": "object"
+    },
+    "AuditReview": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "title": "Decision",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Note"
+        },
+        "reviewed_at": {
+          "title": "Reviewed At",
+          "type": "string"
+        },
+        "reviewer": {
+          "title": "Reviewer",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewer",
+        "decision",
+        "note",
+        "reviewed_at"
+      ],
+      "title": "AuditReview",
+      "type": "object"
+    },
+    "AuditVariant": {
+      "additionalProperties": false,
+      "properties": {
+        "cue": {
+          "title": "Cue",
+          "type": "string"
+        },
+        "flags": {
+          "items": {
+            "$ref": "#/$defs/AuditFlag"
+          },
+          "title": "Flags",
+          "type": "array"
+        },
+        "metrics": {
+          "$ref": "#/$defs/AuditMetrics"
+        },
+        "variant_id": {
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "variant_id",
+        "cue",
+        "metrics",
+        "flags"
+      ],
+      "title": "AuditVariant",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "audit_id": {
+      "title": "Audit Id",
+      "type": "string"
+    },
+    "canary": {
+      "title": "Canary",
+      "type": "boolean"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "review": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AuditReview"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "flagged"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "thresholds": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Thresholds",
+      "type": "object"
+    },
+    "variants": {
+      "items": {
+        "$ref": "#/$defs/AuditVariant"
+      },
+      "title": "Variants",
+      "type": "array"
+    }
+  },
+  "required": [
+    "audit_id",
+    "profile_id",
+    "status",
+    "canary",
+    "variants",
+    "thresholds",
+    "limitations",
+    "review",
+    "created_at"
+  ],
+  "title": "AuditResult",
+  "type": "object"
+}
