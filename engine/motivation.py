@@ -57,3 +57,8 @@ def detect_event(before_pct: int, after_pct: int, steps_done_before: int, steps_
 def select(styles: list[str], event: str, nums: dict, shown_count: int):
     """Alternates between the worker's chosen styles. Returns (style, text, suggested_action)."""
     st = styles[shown_count % len(styles)]; return st, LIB[st][event].format(**nums), ACTION.get(st, "none")
+
+# ---- model-written messages: the language model may only REWRITE a template; code checks the result ----
+VOICE = {"progress": "upbeat and clear, a little cheeky about the numbers", "goals": "focused and playful, like a coach who enjoys a good target",
+         "encouragement": "warm, sassy and fun, like a best friend who believes in them and says so with a wink",
+         "accountability": "friendly nudge with light teasing, never guilt", "challenge": "cheeky and game-like, competitive but kind"}

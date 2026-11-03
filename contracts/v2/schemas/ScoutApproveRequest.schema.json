@@ -1,0 +1,40 @@
+{
+  "$defs": {
+    "ScoutChoice": {
+      "additionalProperties": false,
+      "properties": {
+        "order": {
+          "title": "Order",
+          "type": "integer"
+        },
+        "resource_id": {
+          "title": "Resource Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "order",
+        "resource_id"
+      ],
+      "title": "ScoutChoice",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "choices": {
+      "items": {
+        "$ref": "#/$defs/ScoutChoice"
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Choices",
+      "type": "array"
+    }
+  },
+  "required": [
+    "choices"
+  ],
+  "title": "ScoutApproveRequest",
+  "type": "object"
+}

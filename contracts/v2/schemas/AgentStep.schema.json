@@ -1,0 +1,53 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "agent": {
+      "enum": [
+        "skills_discovery",
+        "market_intelligence",
+        "learning_pathway",
+        "inclusive_matching",
+        "bias_audit",
+        "human_in_the_loop"
+      ],
+      "title": "Agent",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "input_summary": {
+      "title": "Input Summary",
+      "type": "string"
+    },
+    "mode": {
+      "title": "Mode",
+      "type": "string"
+    },
+    "output_summary": {
+      "title": "Output Summary",
+      "type": "string"
+    },
+    "step": {
+      "minimum": 1,
+      "title": "Step",
+      "type": "integer"
+    },
+    "stopped_at_gate": {
+      "title": "Stopped At Gate",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "step",
+    "agent",
+    "mode",
+    "input_summary",
+    "output_summary",
+    "stopped_at_gate",
+    "created_at"
+  ],
+  "title": "AgentStep",
+  "type": "object"
+}

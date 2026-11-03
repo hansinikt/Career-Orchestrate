@@ -1,0 +1,32 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "file_name": {
+      "title": "File Name",
+      "type": "string"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "sections": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Sections",
+      "type": "array"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "profile_id",
+    "file_name",
+    "text",
+    "sections"
+  ],
+  "title": "CVDocument",
+  "type": "object"
+}

@@ -1,0 +1,17 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "text": {
+      "description": "Plain text of the CV",
+      "maxLength": 20000,
+      "minLength": 40,
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "text"
+  ],
+  "title": "CVParseRequest",
+  "type": "object"
+}

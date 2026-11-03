@@ -3,6 +3,7 @@ import { T } from "../strings.js";
 import { h, bar, crumb, emptyState, num } from "../ui.js";
 import { ill } from "../art.js";
 import * as slots from "../slots.js";
+import { scoutCard } from "../panels.js";
 
 export default async function courses() {
   const t = T.crs;
@@ -21,5 +22,5 @@ export default async function courses() {
   };
   q.addEventListener("input", draw);
   draw();
-  return h("div", { class: "page" }, crumb(t.crumb), h("div", { class: "head" }, h("div", null, h("h1", { id: "page-title", tabindex: "-1", text: t.title }), h("p", { class: "lead", text: t.lead })), rows.length ? q : null), list);
+  return h("div", { class: "page" }, crumb(t.crumb), h("div", { class: "head" }, h("div", null, h("h1", { id: "page-title", tabindex: "-1", text: t.title }), h("p", { class: "lead", text: t.lead })), rows.length ? q : null), rows.length ? scoutCard(() => window.dispatchEvent(new HashChangeEvent("hashchange"))) : null, list);
 }

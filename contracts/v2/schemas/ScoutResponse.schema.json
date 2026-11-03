@@ -1,0 +1,216 @@
+{
+  "$defs": {
+    "Resource": {
+      "additionalProperties": false,
+      "properties": {
+        "cost": {
+          "title": "Cost",
+          "type": "string"
+        },
+        "duration_text": {
+          "title": "Duration Text",
+          "type": "string"
+        },
+        "est_hours": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Est Hours"
+        },
+        "last_verified": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Verified"
+        },
+        "level_from": {
+          "title": "Level From",
+          "type": "integer"
+        },
+        "level_to": {
+          "title": "Level To",
+          "type": "integer"
+        },
+        "note": {
+          "title": "Note",
+          "type": "string"
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "resource_id": {
+          "title": "Resource Id",
+          "type": "string"
+        },
+        "skill_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Skill Ids",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Url"
+        },
+        "verification_status": {
+          "enum": [
+            "verified",
+            "seed_unverified",
+            "sample_placeholder"
+          ],
+          "title": "Verification Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "resource_id",
+        "title",
+        "provider",
+        "url",
+        "skill_ids",
+        "level_from",
+        "level_to",
+        "est_hours",
+        "duration_text",
+        "cost",
+        "verification_status",
+        "last_verified",
+        "note"
+      ],
+      "title": "Resource",
+      "type": "object"
+    },
+    "ScoutStep": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/Resource"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "current_resource_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Resource Id"
+        },
+        "decided_by": {
+          "enum": [
+            "agent",
+            "rules"
+          ],
+          "title": "Decided By",
+          "type": "string"
+        },
+        "order": {
+          "title": "Order",
+          "type": "integer"
+        },
+        "pick_resource_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pick Resource Id"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "skill_id": {
+          "title": "Skill Id",
+          "type": "string"
+        },
+        "skill_name": {
+          "title": "Skill Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "order",
+        "skill_id",
+        "skill_name",
+        "current_resource_id",
+        "pick_resource_id",
+        "reason",
+        "decided_by",
+        "candidates"
+      ],
+      "title": "ScoutStep",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "mode": {
+      "enum": [
+        "agent",
+        "rules"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "note": {
+      "title": "Note",
+      "type": "string"
+    },
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/ScoutStep"
+      },
+      "title": "Steps",
+      "type": "array"
+    }
+  },
+  "required": [
+    "profile_id",
+    "plan_id",
+    "mode",
+    "steps",
+    "note"
+  ],
+  "title": "ScoutResponse",
+  "type": "object"
+}

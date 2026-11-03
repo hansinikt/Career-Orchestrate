@@ -16,6 +16,48 @@ components:
       - level
       title: AddedSkill
       type: object
+    AgentStep:
+      additionalProperties: false
+      properties:
+        agent:
+          enum:
+          - skills_discovery
+          - market_intelligence
+          - learning_pathway
+          - inclusive_matching
+          - bias_audit
+          - human_in_the_loop
+          title: Agent
+          type: string
+        created_at:
+          title: Created At
+          type: string
+        input_summary:
+          title: Input Summary
+          type: string
+        mode:
+          title: Mode
+          type: string
+        output_summary:
+          title: Output Summary
+          type: string
+        step:
+          minimum: 1.0
+          title: Step
+          type: integer
+        stopped_at_gate:
+          title: Stopped At Gate
+          type: boolean
+      required:
+      - step
+      - agent
+      - mode
+      - input_summary
+      - output_summary
+      - stopped_at_gate
+      - created_at
+      title: AgentStep
+      type: object
     AuditFlag:
       additionalProperties: false
       properties:
@@ -182,6 +224,274 @@ components:
       - flags
       title: AuditVariant
       type: object
+    Background:
+      additionalProperties: false
+      properties:
+        barriers:
+          items:
+            enum:
+            - time
+            - money
+            - confidence
+            - device_internet
+            - language
+            - caring_duties
+            - unsure_start
+            type: string
+          maxItems: 3
+          title: Barriers
+          type: array
+        certifications:
+          items:
+            $ref: '#/components/schemas/CertItem'
+          maxItems: 10
+          title: Certifications
+          type: array
+        education:
+          items:
+            $ref: '#/components/schemas/EducationItem'
+          maxItems: 5
+          title: Education
+          type: array
+        languages:
+          items:
+            type: string
+          maxItems: 8
+          title: Languages
+          type: array
+        learning_formats:
+          items:
+            enum:
+            - video
+            - reading
+            - hands_on
+            - live
+            type: string
+          maxItems: 4
+          title: Learning Formats
+          type: array
+        situation:
+          anyOf:
+          - enum:
+            - promotion
+            - switch_field
+            - returning
+            - cv_not_showing_skills
+            - other
+            type: string
+          - type: 'null'
+          title: Situation
+        tools:
+          items:
+            type: string
+          maxItems: 20
+          title: Tools
+          type: array
+      title: Background
+      type: object
+    CVDocument:
+      additionalProperties: false
+      properties:
+        file_name:
+          title: File Name
+          type: string
+        profile_id:
+          title: Profile Id
+          type: string
+        sections:
+          items:
+            type: string
+          title: Sections
+          type: array
+        text:
+          title: Text
+          type: string
+      required:
+      - profile_id
+      - file_name
+      - text
+      - sections
+      title: CVDocument
+      type: object
+    CVParseRequest:
+      additionalProperties: false
+      properties:
+        text:
+          description: Plain text of the CV
+          maxLength: 20000
+          minLength: 40
+          title: Text
+          type: string
+      required:
+      - text
+      title: CVParseRequest
+      type: object
+    CVParseResponse:
+      additionalProperties: false
+      properties:
+        certifications:
+          items:
+            $ref: '#/components/schemas/ParsedCert'
+          title: Certifications
+          type: array
+        current_role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Current Role
+        education:
+          items:
+            $ref: '#/components/schemas/ParsedEducation'
+          title: Education
+          type: array
+        ignored_lines:
+          description: Lines about age, gender, years worked and similar that were
+            dropped and never used
+          minimum: 0.0
+          title: Ignored Lines
+          type: integer
+        languages:
+          items:
+            type: string
+          title: Languages
+          type: array
+        mode:
+          enum:
+          - rules
+          - llm+rules
+          title: Mode
+          type: string
+        skills:
+          items:
+            type: string
+          title: Skills
+          type: array
+        tools:
+          items:
+            type: string
+          title: Tools
+          type: array
+        warnings:
+          items:
+            type: string
+          title: Warnings
+          type: array
+        work_examples:
+          items:
+            type: string
+          title: Work Examples
+          type: array
+      required:
+      - current_role
+      - work_examples
+      - skills
+      - tools
+      - certifications
+      - education
+      - languages
+      - mode
+      - ignored_lines
+      - warnings
+      title: CVParseResponse
+      type: object
+    CertItem:
+      additionalProperties: false
+      properties:
+        issuer:
+          anyOf:
+          - maxLength: 80
+            type: string
+          - type: 'null'
+          title: Issuer
+        name:
+          maxLength: 100
+          minLength: 1
+          title: Name
+          type: string
+      required:
+      - name
+      title: CertItem
+      type: object
+    Chapter:
+      additionalProperties: false
+      properties:
+        chapter_id:
+          title: Chapter Id
+          type: string
+        done:
+          title: Done
+          type: boolean
+        est_hours:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Est Hours
+        title:
+          title: Title
+          type: string
+      required:
+      - chapter_id
+      - title
+      - est_hours
+      - done
+      title: Chapter
+      type: object
+    ChapterTick:
+      additionalProperties: false
+      properties:
+        chapter_id:
+          title: Chapter Id
+          type: string
+        done:
+          title: Done
+          type: boolean
+      required:
+      - chapter_id
+      - done
+      title: ChapterTick
+      type: object
+    ChaptersResponse:
+      additionalProperties: false
+      properties:
+        chapters:
+          items:
+            $ref: '#/components/schemas/Chapter'
+          title: Chapters
+          type: array
+        next_message:
+          anyOf:
+          - $ref: '#/components/schemas/NextMessage'
+          - type: 'null'
+        percent:
+          title: Percent
+          type: integer
+        profile_id:
+          title: Profile Id
+          type: string
+        resource_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Resource Id
+        source:
+          enum:
+          - chapters
+          - manual
+          title: Source
+          type: string
+        step_order:
+          title: Step Order
+          type: integer
+      required:
+      - profile_id
+      - step_order
+      - resource_id
+      - chapters
+      - percent
+      - source
+      - next_message
+      title: ChaptersResponse
+      type: object
     ConfirmRequest:
       additionalProperties: false
       properties:
@@ -302,6 +612,34 @@ components:
       - level
       title: DeclaredSkill
       type: object
+    EducationItem:
+      additionalProperties: false
+      properties:
+        field:
+          anyOf:
+          - maxLength: 80
+            type: string
+          - type: 'null'
+          title: Field
+        institution:
+          anyOf:
+          - maxLength: 80
+            type: string
+          - type: 'null'
+          title: Institution
+        level:
+          enum:
+          - school
+          - diploma
+          - bachelor
+          - master
+          - other
+          title: Level
+          type: string
+      required:
+      - level
+      title: EducationItem
+      type: object
     Evidence:
       additionalProperties: false
       properties:
@@ -384,6 +722,67 @@ components:
           title: Detail
           type: array
       title: HTTPValidationError
+      type: object
+    MarketResponse:
+      additionalProperties: false
+      properties:
+        held:
+          items:
+            $ref: '#/components/schemas/MarketSkill'
+          title: Held
+          type: array
+        next_skills:
+          items:
+            $ref: '#/components/schemas/MarketSkill'
+          title: Next Skills
+          type: array
+        profile_id:
+          title: Profile Id
+          type: string
+        roles_in_catalogue:
+          title: Roles In Catalogue
+          type: integer
+        source_note:
+          title: Source Note
+          type: string
+        top_role_ids:
+          items:
+            type: string
+          title: Top Role Ids
+          type: array
+      required:
+      - profile_id
+      - roles_in_catalogue
+      - top_role_ids
+      - held
+      - next_skills
+      - source_note
+      title: MarketResponse
+      type: object
+    MarketSkill:
+      additionalProperties: false
+      properties:
+        mandatory_in:
+          minimum: 0.0
+          title: Mandatory In
+          type: integer
+        name:
+          title: Name
+          type: string
+        roles_asking:
+          description: How many roles in OUR catalogue list this skill
+          minimum: 0.0
+          title: Roles Asking
+          type: integer
+        skill_id:
+          title: Skill Id
+          type: string
+      required:
+      - skill_id
+      - name
+      - roles_asking
+      - mandatory_in
+      title: MarketSkill
       type: object
     MatchedSkill:
       additionalProperties: false
@@ -483,6 +882,97 @@ components:
       - disclaimers
       title: Meta
       type: object
+    Mission:
+      additionalProperties: false
+      properties:
+        brief:
+          title: Brief
+          type: string
+        chapter_title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Chapter Title
+        mission_id:
+          title: Mission Id
+          type: string
+        order:
+          title: Order
+          type: integer
+        percent:
+          description: 0 not started, 50 started, 100 proof uploaded
+          maximum: 100.0
+          minimum: 0.0
+          title: Percent
+          type: integer
+        proof_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Proof Name
+        source:
+          title: Source
+          type: string
+        status:
+          enum:
+          - open
+          - locked
+          - done
+          - declined
+          title: Status
+          type: string
+        title:
+          title: Title
+          type: string
+      required:
+      - mission_id
+      - order
+      - title
+      - brief
+      - source
+      - chapter_title
+      - status
+      - percent
+      - proof_name
+      title: Mission
+      type: object
+    MissionDeclineResponse:
+      additionalProperties: false
+      properties:
+        message:
+          anyOf:
+          - $ref: '#/components/schemas/NextMessage'
+          - type: 'null'
+          description: Encouragement for the worker, or null when messages are paused
+        missions:
+          $ref: '#/components/schemas/MissionsResponse'
+      required:
+      - missions
+      - message
+      title: MissionDeclineResponse
+      type: object
+    MissionsResponse:
+      additionalProperties: false
+      properties:
+        missions:
+          items:
+            $ref: '#/components/schemas/Mission'
+          title: Missions
+          type: array
+        profile_id:
+          title: Profile Id
+          type: string
+        today_mission_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Today Mission Id
+      required:
+      - profile_id
+      - missions
+      - today_mission_id
+      title: MissionsResponse
+      type: object
     MotivationPrefs:
       additionalProperties: false
       properties:
@@ -557,6 +1047,56 @@ components:
       - text
       - suggested_action
       title: NextMessage
+      type: object
+    ParsedCert:
+      additionalProperties: false
+      properties:
+        issuer:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Issuer
+        name:
+          title: Name
+          type: string
+      required:
+      - name
+      - issuer
+      title: ParsedCert
+      type: object
+    ParsedEducation:
+      additionalProperties: false
+      properties:
+        field:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Field
+        institution:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Institution
+        level:
+          anyOf:
+          - enum:
+            - school
+            - diploma
+            - bachelor
+            - master
+            - other
+            type: string
+          - type: 'null'
+          title: Level
+        line:
+          title: Line
+          type: string
+      required:
+      - line
+      - level
+      - field
+      - institution
+      title: ParsedEducation
       type: object
     PlanRequest:
       additionalProperties: false
@@ -883,6 +1423,31 @@ components:
       - percent
       title: ProgressUpdate
       type: object
+    ProofRequest:
+      additionalProperties: false
+      properties:
+        content_base64:
+          description: File content, at most about 2 MB
+          maxLength: 2900000
+          minLength: 1
+          title: Content Base64
+          type: string
+        file_name:
+          maxLength: 120
+          minLength: 1
+          title: File Name
+          type: string
+        note:
+          anyOf:
+          - maxLength: 500
+            type: string
+          - type: 'null'
+          title: Note
+      required:
+      - file_name
+      - content_base64
+      title: ProofRequest
+      type: object
     ReadinessFlag:
       additionalProperties: false
       properties:
@@ -1144,6 +1709,112 @@ components:
       - explanation
       title: RoleRecommendation
       type: object
+    ScoutApproveRequest:
+      additionalProperties: false
+      properties:
+        choices:
+          items:
+            $ref: '#/components/schemas/ScoutChoice'
+          maxItems: 20
+          minItems: 1
+          title: Choices
+          type: array
+      required:
+      - choices
+      title: ScoutApproveRequest
+      type: object
+    ScoutChoice:
+      additionalProperties: false
+      properties:
+        order:
+          title: Order
+          type: integer
+        resource_id:
+          title: Resource Id
+          type: string
+      required:
+      - order
+      - resource_id
+      title: ScoutChoice
+      type: object
+    ScoutResponse:
+      additionalProperties: false
+      properties:
+        mode:
+          enum:
+          - agent
+          - rules
+          title: Mode
+          type: string
+        note:
+          title: Note
+          type: string
+        plan_id:
+          title: Plan Id
+          type: string
+        profile_id:
+          title: Profile Id
+          type: string
+        steps:
+          items:
+            $ref: '#/components/schemas/ScoutStep'
+          title: Steps
+          type: array
+      required:
+      - profile_id
+      - plan_id
+      - mode
+      - steps
+      - note
+      title: ScoutResponse
+      type: object
+    ScoutStep:
+      additionalProperties: false
+      properties:
+        candidates:
+          items:
+            $ref: '#/components/schemas/Resource'
+          title: Candidates
+          type: array
+        current_resource_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Current Resource Id
+        decided_by:
+          enum:
+          - agent
+          - rules
+          title: Decided By
+          type: string
+        order:
+          title: Order
+          type: integer
+        pick_resource_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pick Resource Id
+        reason:
+          title: Reason
+          type: string
+        skill_id:
+          title: Skill Id
+          type: string
+        skill_name:
+          title: Skill Name
+          type: string
+      required:
+      - order
+      - skill_id
+      - skill_name
+      - current_resource_id
+      - pick_resource_id
+      - reason
+      - decided_by
+      - candidates
+      title: ScoutStep
+      type: object
     SkillGap:
       additionalProperties: false
       properties:
@@ -1259,6 +1930,22 @@ components:
       - percent
       title: StepProgress
       type: object
+    TraceResponse:
+      additionalProperties: false
+      properties:
+        profile_id:
+          title: Profile Id
+          type: string
+        steps:
+          items:
+            $ref: '#/components/schemas/AgentStep'
+          title: Steps
+          type: array
+      required:
+      - profile_id
+      - steps
+      title: TraceResponse
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -1344,6 +2031,29 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Review Audit
+  /api/v1/cv/parse:
+    post:
+      operationId: cv_parse_api_v1_cv_parse_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CVParseRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CVParseResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Cv Parse
   /api/v1/demo/personas:
     get:
       operationId: demo_personas_api_v1_demo_personas_get
@@ -1472,6 +2182,59 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Start Audit
+  /api/v1/profiles/{pid}/background:
+    get:
+      operationId: read_background_api_v1_profiles__pid__background_get
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Background'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Read Background
+    put:
+      operationId: put_background_api_v1_profiles__pid__background_put
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Background'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Background'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Put Background
   /api/v1/profiles/{pid}/confirm:
     post:
       operationId: confirm_api_v1_profiles__pid__confirm_post
@@ -1502,6 +2265,30 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Confirm
+  /api/v1/profiles/{pid}/cv:
+    get:
+      operationId: generate_cv_api_v1_profiles__pid__cv_get
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CVDocument'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Generate Cv
   /api/v1/profiles/{pid}/extract:
     post:
       operationId: extract_api_v1_profiles__pid__extract_post
@@ -1526,6 +2313,30 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Extract
+  /api/v1/profiles/{pid}/market:
+    get:
+      operationId: market_api_v1_profiles__pid__market_get
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Market
   /api/v1/profiles/{pid}/messages/{mid}/feedback:
     post:
       operationId: feedback_api_v1_profiles__pid__messages__mid__feedback_post
@@ -1558,6 +2369,156 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Feedback
+  /api/v1/profiles/{pid}/missions:
+    get:
+      operationId: read_missions_api_v1_profiles__pid__missions_get
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Read Missions
+  /api/v1/profiles/{pid}/missions/{mid}/decline:
+    post:
+      operationId: decline_mission_api_v1_profiles__pid__missions__mid__decline_post
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      - in: path
+        name: mid
+        required: true
+        schema:
+          title: Mid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionDeclineResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Decline Mission
+  /api/v1/profiles/{pid}/missions/{mid}/proof:
+    post:
+      operationId: upload_proof_api_v1_profiles__pid__missions__mid__proof_post
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      - in: path
+        name: mid
+        required: true
+        schema:
+          title: Mid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProofRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Upload Proof
+  /api/v1/profiles/{pid}/missions/{mid}/reopen:
+    post:
+      operationId: reopen_mission_api_v1_profiles__pid__missions__mid__reopen_post
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      - in: path
+        name: mid
+        required: true
+        schema:
+          title: Mid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Reopen Mission
+  /api/v1/profiles/{pid}/missions/{mid}/start:
+    post:
+      operationId: start_mission_api_v1_profiles__pid__missions__mid__start_post
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      - in: path
+        name: mid
+        required: true
+        schema:
+          title: Mid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissionsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Start Mission
   /api/v1/profiles/{pid}/motivation:
     put:
       operationId: set_motivation_api_v1_profiles__pid__motivation_put
@@ -1718,6 +2679,149 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Recommendations
+  /api/v1/profiles/{pid}/scout:
+    post:
+      operationId: scout_api_v1_profiles__pid__scout_post
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoutResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Scout
+  /api/v1/profiles/{pid}/scout/approve:
+    post:
+      operationId: scout_approve_api_v1_profiles__pid__scout_approve_post
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoutApproveRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Scout Approve
+  /api/v1/profiles/{pid}/steps/{order}/chapters:
+    get:
+      operationId: read_chapters_api_v1_profiles__pid__steps__order__chapters_get
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      - in: path
+        name: order
+        required: true
+        schema:
+          title: Order
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChaptersResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Read Chapters
+    post:
+      operationId: tick_chapter_api_v1_profiles__pid__steps__order__chapters_post
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      - in: path
+        name: order
+        required: true
+        schema:
+          title: Order
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChapterTick'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChaptersResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Tick Chapter
+  /api/v1/profiles/{pid}/trace:
+    get:
+      operationId: read_trace_api_v1_profiles__pid__trace_get
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          title: Pid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Read Trace
   /api/v1/readiness/check:
     post:
       operationId: readiness_api_v1_readiness_check_post

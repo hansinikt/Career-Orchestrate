@@ -1,0 +1,178 @@
+{
+  "$defs": {
+    "ParsedCert": {
+      "additionalProperties": false,
+      "properties": {
+        "issuer": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Issuer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "issuer"
+      ],
+      "title": "ParsedCert",
+      "type": "object"
+    },
+    "ParsedEducation": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Field"
+        },
+        "institution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Institution"
+        },
+        "level": {
+          "anyOf": [
+            {
+              "enum": [
+                "school",
+                "diploma",
+                "bachelor",
+                "master",
+                "other"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Level"
+        },
+        "line": {
+          "title": "Line",
+          "type": "string"
+        }
+      },
+      "required": [
+        "line",
+        "level",
+        "field",
+        "institution"
+      ],
+      "title": "ParsedEducation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "certifications": {
+      "items": {
+        "$ref": "#/$defs/ParsedCert"
+      },
+      "title": "Certifications",
+      "type": "array"
+    },
+    "current_role": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Current Role"
+    },
+    "education": {
+      "items": {
+        "$ref": "#/$defs/ParsedEducation"
+      },
+      "title": "Education",
+      "type": "array"
+    },
+    "ignored_lines": {
+      "description": "Lines about age, gender, years worked and similar that were dropped and never used",
+      "minimum": 0,
+      "title": "Ignored Lines",
+      "type": "integer"
+    },
+    "languages": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Languages",
+      "type": "array"
+    },
+    "mode": {
+      "enum": [
+        "rules",
+        "llm+rules"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "skills": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Skills",
+      "type": "array"
+    },
+    "tools": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tools",
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    },
+    "work_examples": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Work Examples",
+      "type": "array"
+    }
+  },
+  "required": [
+    "current_role",
+    "work_examples",
+    "skills",
+    "tools",
+    "certifications",
+    "education",
+    "languages",
+    "mode",
+    "ignored_lines",
+    "warnings"
+  ],
+  "title": "CVParseResponse",
+  "type": "object"
+}

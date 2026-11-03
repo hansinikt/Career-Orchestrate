@@ -1,0 +1,19 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "order": {
+      "title": "Order",
+      "type": "integer"
+    },
+    "resource_id": {
+      "title": "Resource Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "order",
+    "resource_id"
+  ],
+  "title": "ScoutChoice",
+  "type": "object"
+}

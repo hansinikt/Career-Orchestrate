@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "chapter_id": {
+      "title": "Chapter Id",
+      "type": "string"
+    },
+    "done": {
+      "title": "Done",
+      "type": "boolean"
+    },
+    "est_hours": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Est Hours"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "chapter_id",
+    "title",
+    "est_hours",
+    "done"
+  ],
+  "title": "Chapter",
+  "type": "object"
+}

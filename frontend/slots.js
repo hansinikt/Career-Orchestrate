@@ -3,9 +3,9 @@
 //
 // Shapes the backend should return (the screens already draw them; empty list = empty state):
 //   courses():   [{ order, title, sub, text, hours, url, provider, duration, cost, percent, hasCourse, skill_name }]   <- built from GET /plan and GET /progress (exists today)
-//   missions():  [{ id, title, source, brief, status: "open"|"done"|"locked" }]                                        <- NO endpoint yet (returns [] unless config DEMO_EXTRAS)
+//   missions():  [{ id, title, source, brief, status: "open"|"done"|"locked" }]                                        <- GET /profiles/{id}/missions (exists)
 //   questions(): [{ id, text, options: [string], answer_index?: number }]                                                <- NO endpoint yet (returns [] unless config DEMO_EXTRAS)
-//   certificates and proofs are kept on this device until the backend has upload endpoints.
+//   proofs are saved on the server (POST /missions/{id}/proof). Certificates are kept on this device until the backend has an endpoint.
 import { api, ApiError } from "./api.js";
 import { S } from "./state.js";
 import { T } from "./strings.js";
@@ -38,22 +38,25 @@ export function courseRows(p, prog) {
   });
 }
 export async function missions() {
-  if (!DEMO) return [];   // TODO(backend): GET /profiles/{id}/missions
-  const base = [
-    { id: "m1", title: "List five things you would keep private", source: "Step 1", brief: "Write five examples and say why each is private.", status: "open" },
-    { id: "m2", title: "Write a one-page note for new joiners", source: "Step 1", brief: "One page, plain words.", status: "open" },
-    { id: "m3", title: "Summarise your records process", source: "Step 2", brief: "One paragraph.", status: "locked" },
-  ];
-  return base.map((m) => (U.x.proofs[m.id] ? Object.assign({}, m, { status: "done" }) : m));
+  if (!S.profileId) return [];
+  try {
+    const r = await api.getMissions(S.profileId);
+    return r.missions.map((m) => ({ id: m.mission_id, title: m.title, source: m.source, brief: m.brief, status: m.status, percent: m.percent, chapter_title: m.chapter_title, proof_name: m.proof_name }));
+  } catch (e) { if (quiet(e, ["NO_ACTIVE_PLAN", "SKILLS_NOT_CONFIRMED"])) return []; throw e; }
 }
 export function todayMission(list) { return list.find((m) => m.status === "open") || null; }
 export async function questions() {
   if (!DEMO) return [];   // TODO(backend): GET /profiles/{id}/skillcheck
   return [{ id: "q1", text: "A colleague asks for a copy of another person's record. What do you do first?", options: ["Share it with the whole team", "Ask the person who owns the record before sharing", "Keep a copy on your own computer", "Send it to whoever asks first"], answer_index: 1 }];
 }
-export function saveProof(id, file) {   // TODO(backend): POST /profiles/{id}/missions/{mid}/proof (multipart)
-  U.x.proofs[id] = { name: file.name, at: new Date().toISOString().slice(0, 10) }; saveExtras();
+export async function saveProof(id, file) {
+  if (file.size > 2000000) throw new ApiError("VALIDATION_ERROR", T.mis.tooBig, null, 422);
+  const buf = new Uint8Array(await file.arrayBuffer()); let bin = ""; for (let i = 0; i < buf.length; i += 8192) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 8192));
+  await api.uploadProof(S.profileId, id, { file_name: file.name, content_base64: btoa(bin) });
 }
+export async function startMission(id) { await api.startMission(S.profileId, id); }
+export async function reopenMission(id) { await api.reopenMission(S.profileId, id); }
+export async function declineMission(id) { const r = await api.declineMission(S.profileId, id); return r.message; }   // the encouragement text, or null when messages are paused
 export function addCertificate(c) { U.x.certs.push(Object.assign({ id: "c" + Date.now(), added: new Date().toISOString().slice(0, 10) }, c)); saveExtras(); }
 export function removeCertificate(id) { U.x.certs = U.x.certs.filter((c) => c.id !== id); saveExtras(); }
 // Plain text CVs are read in the browser. PDF and Word need a backend reader (TODO(backend): POST /cv/read).

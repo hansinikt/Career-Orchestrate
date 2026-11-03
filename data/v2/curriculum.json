@@ -1,0 +1,1 @@
+{"note":"Course chapter lists. A human fills this from the real course pages. Shape: {\"curriculum\": {\"<resource_id>\": {\"chapters\": [{\"chapter_id\": \"c1\", \"title\": \"<exact chapter title>\", \"est_hours\": null}]}}}. est_hours may be null. Never invent chapters.","curriculum":{}}

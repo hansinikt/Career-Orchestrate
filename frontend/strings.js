@@ -300,21 +300,38 @@ export const T = {
     todayTag: "TODAY'S MISSION", idleTitle: "Your first mission will appear here", idleText: "When the agents add missions to your plan, today's mission shows in this box.", proofTitle: "Submit your proof", proofDrop: "Choose a file", proofBtn: "Upload proof", proofDone: "Proof saved.",
     welcome: (n) => `Welcome back, ${n}`, goal: (r) => `Your goal: ${r}`, noGoal: "Choose a role to see your goal here.",
     roadmap: "Your roadmap", resume: "Resume learning", resumeEmpty: "Nothing to resume yet", resumeEmptyText: "Your first course shows here once your plan is ready.", resumeBtn: "Continue",
-    gaugeTitle: "Your progress", gaugeCaption: "Fills as you complete steps and upload proof", gaugeOf: (a, b) => `${a} of ${b} steps`,
+    gaugeTitle: "Your progress", gaugeCaption: "Fills as you complete steps", gaugeOf: (a, b) => `${a} of ${b} steps`,
   },
   crs: {
     title: "Courses", lead: "The coursework in your plan, in the order that closes your gaps.", crumb: "Dashboard / Courses",
     search: "Search courses", emptyTitle: "Your courses will appear here", emptyText: "Your agents are choosing courses that close your skill gaps. They show up here, in order, once your plan is ready.", makePlan: "Choose a role",
     hours: "Hours", open: "Open course", noCourse: "No course found yet for this skill. Ask your adviser, or look for one and check its page yourself.", step: (n) => `Step ${n}`,
     detailCrumb: (t) => `Dashboard / Courses / ${t}`, openPage: "Open the course page", why: "Why this step", progress: "Your progress", lastActivity: "Last activity", provider: "Provider", duration: "Duration", cost: "Cost",
-    states: [["Not started", 0], ["Started", 25], ["Half way", 50], ["Done", 100]], mark: "Mark your progress", saved: "Saved", checkPage: "Check the course page before you enrol.", related: "Missions for this step", relatedEmpty: "No missions for this step yet.",
+    states: [["Not started", 0], ["Started", 25], ["Half way", 50], ["Done", 100]], mark: "Mark your progress", chaptersTitle: "Chapters", chaptersHelp: "Tick each chapter as you finish it. Your progress follows.", saved: "Saved", checkPage: "Check the course page before you enrol.", related: "Missions for this step", relatedEmpty: "No missions for this step yet.",
     none: "—",
   },
   mis: {
     title: "Missions", lead: "Small tasks that show what you can do. Upload proof for each one.", crumb: "Dashboard / Missions",
     emptyTitle: "Your missions will appear here", emptyText: "Each course brings small missions. They show up here, with a place to upload proof.",
     upload: "Upload proof", open: "Open", from: (s) => `From ${s}`, done: "Proof saved", progress: "Mission progress",
-    howTitle: "How missions work", how: ["Read the brief", "Do the task", "Upload a photo or file as proof"], chooseFile: "Choose a file", save: "Save proof", needFile: "Choose a file first.",
+    howTitle: "How missions work", how: ["Read the brief", "Do the task", "Upload a photo or file as proof"], chooseFile: "Choose a file", save: "Save proof", needFile: "Choose a file first.", saving: "Saving…", tooBig: "That file is over 2 MB. Choose a smaller one.",
+    start: "I have started", notNow: "Not now", bringBack: "Bring it back", setAside: "Set aside", stages: ["Not started", "Started", "Proof uploaded"], chapter: (c) => `Chapter: ${c}`,
+  },
+  agents: {
+    title: "Which agents worked on this", lead: "Every step the agents took for you, in order. Where it says you decided, the work stopped until you chose.",
+    empty: "Nothing yet. The agents' work appears here as you go.", decided: "Stopped for your decision", step: (n) => `Step ${n}`,
+    names: { skills_discovery: "Skills Discovery", market_intelligence: "Market Intelligence", learning_pathway: "Learning Pathway", inclusive_matching: "Inclusive Matching", bias_audit: "Bias Audit", human_in_the_loop: "Human in the loop" },
+    modes: { rules: "rules", "llm+rules": "language model + rules", catalogue: "catalogue", variants: "fairness variants", canary: "fairness test", course_scout_agent: "course scout (model)", course_scout_rules: "course scout (rules)",
+             gate_1_confirm_skills: "you confirmed skills", gate_2_choose_role: "you chose the role", gate_3_approve_courses: "you approved courses" },
+  },
+  market: {
+    title: "Skills the roles ask for", lead: "Skills your best-fit roles ask for that you have not confirmed yet.", empty: "Confirm your skills to see this.",
+    asked: (n, m) => `asked by ${n} of ${m} roles`,
+  },
+  scout: {
+    title: "Course Scout", lead: "The Course Scout looks at your skill gaps and suggests a course from the catalogue for each. Nothing changes until you approve.",
+    ask: "Ask the Course Scout", asking: "Looking through the catalogue…", approve: "Approve", approveAll: "Approve all suggestions", approved: "Approved. Your plan was updated.", none: "No suggestions to change.",
+    modeAgent: "Suggested by the Course Scout agent", modeRules: "Suggested from the catalogue by rules", current: "In your plan now", same: "Already in your plan",
   },
   sk: {
     title: "Skill Check", lead: "A few questions the course does not ask, based on the skills in your plan.", crumb: "Dashboard / Skill Check",
@@ -334,7 +351,9 @@ export const T = {
     mailSubject: "Your plan for today", mailHello: (n) => `Good morning, ${n}.`, mailMission: (m) => `Today's mission: ${m}`, mailCourse: (c) => `Today: continue with ${c}.`, mailNone: "Your plan is being prepared. Check back soon.",
     delete: "Delete my data", deleteWarn: "This removes your profile and plan from this device and the server.", deleted: "Your data was deleted.", sched: "Weekly schedule",
   },
-  enc: { open: "Open my courses", later: "Remind me tomorrow", close: "Close" },
+  enc: { open: "Open my courses", later: "Remind me tomorrow", close: "Close", back: "Back to my missions" },
+  cvx: { title: "Your updated CV", lead: "A plain-text CV built only from what you confirmed, your own words and the courses you completed. It has no age, years worked or gender, so it works well with applicant tracking systems.",
+    make: "Create my updated CV", making: "Writing your CV…", download: "Download as text", copy: "Copy", copied: "Copied", empty: "Confirm your skills first to create a CV." },
   fairnessNote: "This checks the variants listed. It does not prove the system is free of bias.",
   // advert page
   ad: {

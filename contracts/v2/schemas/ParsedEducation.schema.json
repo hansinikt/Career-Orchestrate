@@ -1,0 +1,57 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "field": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Field"
+    },
+    "institution": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Institution"
+    },
+    "level": {
+      "anyOf": [
+        {
+          "enum": [
+            "school",
+            "diploma",
+            "bachelor",
+            "master",
+            "other"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Level"
+    },
+    "line": {
+      "title": "Line",
+      "type": "string"
+    }
+  },
+  "required": [
+    "line",
+    "level",
+    "field",
+    "institution"
+  ],
+  "title": "ParsedEducation",
+  "type": "object"
+}

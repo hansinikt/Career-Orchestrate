@@ -1,0 +1,167 @@
+{
+  "$defs": {
+    "CertItem": {
+      "additionalProperties": false,
+      "properties": {
+        "issuer": {
+          "anyOf": [
+            {
+              "maxLength": 80,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Issuer"
+        },
+        "name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "CertItem",
+      "type": "object"
+    },
+    "EducationItem": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "anyOf": [
+            {
+              "maxLength": 80,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field"
+        },
+        "institution": {
+          "anyOf": [
+            {
+              "maxLength": 80,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Institution"
+        },
+        "level": {
+          "enum": [
+            "school",
+            "diploma",
+            "bachelor",
+            "master",
+            "other"
+          ],
+          "title": "Level",
+          "type": "string"
+        }
+      },
+      "required": [
+        "level"
+      ],
+      "title": "EducationItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "barriers": {
+      "items": {
+        "enum": [
+          "time",
+          "money",
+          "confidence",
+          "device_internet",
+          "language",
+          "caring_duties",
+          "unsure_start"
+        ],
+        "type": "string"
+      },
+      "maxItems": 3,
+      "title": "Barriers",
+      "type": "array"
+    },
+    "certifications": {
+      "items": {
+        "$ref": "#/$defs/CertItem"
+      },
+      "maxItems": 10,
+      "title": "Certifications",
+      "type": "array"
+    },
+    "education": {
+      "items": {
+        "$ref": "#/$defs/EducationItem"
+      },
+      "maxItems": 5,
+      "title": "Education",
+      "type": "array"
+    },
+    "languages": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 8,
+      "title": "Languages",
+      "type": "array"
+    },
+    "learning_formats": {
+      "items": {
+        "enum": [
+          "video",
+          "reading",
+          "hands_on",
+          "live"
+        ],
+        "type": "string"
+      },
+      "maxItems": 4,
+      "title": "Learning Formats",
+      "type": "array"
+    },
+    "situation": {
+      "anyOf": [
+        {
+          "enum": [
+            "promotion",
+            "switch_field",
+            "returning",
+            "cv_not_showing_skills",
+            "other"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Situation"
+    },
+    "tools": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20,
+      "title": "Tools",
+      "type": "array"
+    }
+  },
+  "title": "Background",
+  "type": "object"
+}

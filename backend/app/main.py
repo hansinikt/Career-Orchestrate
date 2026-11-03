@@ -1,5 +1,5 @@
 """Reference backend. Run: make run  (rules mode, no keys needed). Business rules live in engine/; this file only validates, stores and wires."""
-import json, os, uuid, pathlib, datetime as dt
+import json, os, uuid, pathlib, base64, binascii, time, datetime as dt
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -9,17 +9,35 @@ from starlette.exceptions import HTTPException as HTTPEx
 from engine import core as E, extract_rules as X, readiness as R, motivation as M
 from contracts.v2 import models as C
 from .db import DB
+from . import orchestrator as O, agents as A, llm
+from engine import market as MK, missions as MS, chapters as CH, cv as CV, motivation as MOT
 
 APP_VERSION, CONTRACT_VERSION = "0.2.0", "2.0"
 SK, ROLES, RES = E.load("v2"); ROLE = {r["role_id"]: r for r in ROLES}
+CURR = json.loads((E.DATA / "v2" / "curriculum.json").read_text())["curriculum"]
 PERSONAS = json.loads((E.DATA / "v2" / "personas.json").read_text())
 FORBIDDEN = (E.FORBIDDEN_FEATURES - {"name"}) | {"dob", "date_of_birth", "birthdate", "sex", "caste", "religion"}
 ALLOW_UNVERIFIED = os.environ.get("ALLOW_UNVERIFIED_RESOURCES", "true").lower() == "true"
 ALLOW_SAMPLE = os.environ.get("ALLOW_SAMPLE_RESOURCES", "true").lower() == "true"
 DISCLAIMER = "Scores are provisional and explain skill coverage. They are not a hiring probability or a guarantee of employment."
 PLAN_NOTE = "Courses marked unverified or sample have not been confirmed by a person. Check the course page before enrolling."
-db = DB(); app = FastAPI(title="Career Orchestrator API", version=CONTRACT_VERSION)
-app.add_middleware(CORSMiddleware, allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","), allow_methods=["*"], allow_headers=["*"])
+db = DB(); O.bind(db); app = FastAPI(title="Career Orchestrator API", version=CONTRACT_VERSION)
+app.add_middleware(CORSMiddleware, allow_origins=[o for o in os.environ.get("CORS_ORIGINS", "http://localhost:8000,http://127.0.0.1:8000").split(",") if o], allow_methods=["*"], allow_headers=["*"])
+MAX_BODY = 4_000_000
+_hits = {}
+@app.middleware("http")
+async def _guard(request: Request, call_next):
+    if int(request.headers.get("content-length") or 0) > MAX_BODY:
+        return JSONResponse(status_code=413, content={"error": {"code": "VALIDATION_ERROR", "message": "Request is too large.", "details": None}})
+    if request.method == "POST" and request.url.path.endswith(("/extract", "/scout", "/cv/parse", "/decline")):   # these may call the language model
+        k = (request.client.host if request.client else "?"); t = time.time(); _hits[k] = [x for x in _hits.get(k, []) if t - x < 60]
+        if len(_hits[k]) >= int(os.environ.get("RATE_LIMIT_PER_MIN", "40")): return JSONResponse(status_code=429, content={"error": {"code": "INTERNAL", "message": "Too many requests. Wait a minute and try again.", "details": None}})
+        _hits[k].append(t)
+    resp = await call_next(request)
+    resp.headers["X-Content-Type-Options"] = "nosniff"; resp.headers["X-Frame-Options"] = "DENY"; resp.headers["Referrer-Policy"] = "no-referrer"
+    resp.headers["Content-Security-Policy"] = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
+    if request.url.path.startswith("/api/"): resp.headers["Cache-Control"] = "no-store"
+    return resp
 def now() -> dt.datetime: return dt.datetime.now(dt.timezone.utc)
 def iso(t=None) -> str: return (t or now()).replace(microsecond=0).isoformat()
 class Err(Exception):
@@ -64,7 +82,7 @@ def rank_for(profile: dict, lv: dict, ev: dict):
 def health(): return {"status": "ok", "time": iso()}
 @app.get("/api/v1/meta", response_model=C.Meta)
 def meta():
-    return dict(app_version=APP_VERSION, contract_version=CONTRACT_VERSION, mode=os.environ.get("APP_MODE", "replay"), extraction_mode="rules", weights=E.WEIGHTS, weights_are_provisional=True,
+    return dict(app_version=APP_VERSION, contract_version=CONTRACT_VERSION, mode=os.environ.get("APP_MODE", "replay"), extraction_mode="llm+rules" if llm.live_ready() else "rules", weights=E.WEIGHTS, weights_are_provisional=True,
                 catalog=dict(skills=sum(1 for s in SK.values() if s["scored"]), roles=len(ROLES), resources=len(RES)), resource_policy=dict(allow_unverified=ALLOW_UNVERIFIED, allow_sample=ALLOW_SAMPLE),
                 disclaimers=[DISCLAIMER, "Demo data is synthetic and illustrative.", "Fairness checks do not prove a system is free of bias."])
 @app.get("/api/v1/roles")
@@ -96,10 +114,13 @@ def delete_profile(pid: str):
 @app.post("/api/v1/profiles/{pid}/extract", response_model=C.ExtractResponse)
 def extract(pid: str):
     p = get_profile(pid); sug, uns = X.suggest(p["declared_skills"], p["work_examples"], SK)
+    found = A.skills_discovery(p["work_examples"], SK); mode = "rules"
+    if found is not None: sug = A.merge_findings(sug, found, SK); mode = "llm+rules"
     for s in sug: s["suggestion_id"] = "sg_" + s["skill_id"]
-    out = dict(profile_id=pid, suggestions=sug, unmatched_declared=uns, extraction_mode="rules",
-               warnings=["Suggestions come from keyword rules. Please check every one."] + (["No skills found. Add examples or declare skills."] if not sug else []))
-    db.run("INSERT OR REPLACE INTO extractions VALUES (?,?,?)", (pid, json.dumps(out), iso())); db.log(iso(), "system", "skills_suggested", pid, {"n": len(sug)}); return out
+    warn = ["Suggestions come from the Skills Discovery agent (a language model) and keyword rules. Please check every one." if mode == "llm+rules" else "Suggestions come from keyword rules. Please check every one."]
+    out = dict(profile_id=pid, suggestions=sug, unmatched_declared=uns, extraction_mode=mode, warnings=warn + (["No skills found. Add examples or declare skills."] if not sug else []))
+    db.run("INSERT OR REPLACE INTO extractions VALUES (?,?,?)", (pid, json.dumps(out), iso())); db.log(iso(), "system", "skills_suggested", pid, {"n": len(sug), "mode": mode})
+    O.record(pid, "skills_discovery", mode, f"{len(p['work_examples'])} work examples, {len(p['declared_skills'])} declared skills", f"{len(sug)} skills suggested with evidence"); return out
 @app.post("/api/v1/profiles/{pid}/confirm", response_model=C.ConfirmResponse)
 def confirm(pid: str, body: C.ConfirmRequest):
     get_profile(pid); r = db.one("SELECT payload FROM extractions WHERE profile_id=?", (pid,))
@@ -119,13 +140,16 @@ def confirm(pid: str, body: C.ConfirmRequest):
         conf.append(dict(skill_id=a.skill_id, name=SK[a.skill_id]["name"], level=a.level, source="user_added", evidence=[]))
     conf.sort(key=lambda c: c["name"]); out = dict(profile_id=pid, confirmed_skills=conf, rejected_skill_ids=sorted(rej))
     db.run("INSERT OR REPLACE INTO confirmations VALUES (?,?,?)", (pid, json.dumps(out), iso())); db.run("UPDATE plans SET active=0 WHERE profile_id=?", (pid,))
-    db.log(iso(), "worker", "skills_confirmed", pid, {"confirmed": len(conf), "rejected": len(rej)}); return out
+    db.log(iso(), "worker", "skills_confirmed", pid, {"confirmed": len(conf), "rejected": len(rej)})
+    ed = sum(1 for d in body.decisions if d.action == "edit"); ac = sum(1 for d in body.decisions if d.action == "accept")
+    O.record(pid, "human_in_the_loop", "gate_1_confirm_skills", f"{len(sug)} suggestions shown", f"{ac} accepted, {ed} edited, {len(rej)} rejected, {len(body.added_skills)} added by the worker", stopped_at_gate=True); return out
 
 @app.get("/api/v1/profiles/{pid}/recommendations", response_model=C.RecommendationsResponse)
 def recommendations(pid: str):
     p = get_profile(pid); lv, ev = levels_and_evidence(confirmed_of(pid)); recs = rank_for(p, lv, ev)
     goal = next((r for r in recs if r["role_id"] == p["stated_goal_role_id"]), None)
-    db.log(iso(), "system", "recommendations_shown", pid, {"top": [r["role_id"] for r in recs[:3]]}); return dict(profile_id=pid, recommendations=recs, goal=goal, disclaimer=DISCLAIMER)
+    db.log(iso(), "system", "recommendations_shown", pid, {"top": [r["role_id"] for r in recs[:3]]})
+    O.record(pid, "inclusive_matching", "rules", f"{len(lv)} confirmed skills (no age, gender or years used)", f"{len(recs)} roles ranked; top {recs[0]['role_id']}", dedupe=True); return dict(profile_id=pid, recommendations=recs, goal=goal, disclaimer=DISCLAIMER)
 
 def plan_payload(pid, p, role_id, weekly):
     lv, ev = levels_and_evidence(confirmed_of(pid)); rec = next(r for r in rank_for(p, lv, ev) if r["role_id"] == role_id)
@@ -141,7 +165,9 @@ def make_plan(pid: str, body: C.PlanRequest):
     pl_id = "plan_" + uuid.uuid4().hex[:10]; db.run("UPDATE plans SET active=0 WHERE profile_id=?", (pid,))
     out = dict(plan_id=pl_id, profile_id=pid, role_id=body.role_id, role_title=ROLE[body.role_id]["title"], total_est_hours=plan["total_est_hours"], weekly_hours=weekly, weeks_at_pace=plan["weeks_at_pace"], steps=plan["steps"],
                unresolved_skill_ids=plan["unresolved_skill_ids"], includes_unverified_resources=any(s["resource"] and s["resource"]["verification_status"] != "verified" for s in plan["steps"]), disclaimer=PLAN_NOTE)
-    db.run("INSERT INTO plans VALUES (?,?,?,?,1,?)", (pl_id, pid, body.role_id, json.dumps(out), iso())); db.log(iso(), "worker", "plan_accepted", pid, {"role_id": body.role_id, "plan_id": pl_id}); return out
+    db.run("INSERT INTO plans VALUES (?,?,?,?,1,?)", (pl_id, pid, body.role_id, json.dumps(out), iso())); db.log(iso(), "worker", "plan_accepted", pid, {"role_id": body.role_id, "plan_id": pl_id})
+    O.record(pid, "human_in_the_loop", "gate_2_choose_role", "roles ranked and shown", f"worker chose {body.role_id}", stopped_at_gate=True)
+    O.record(pid, "learning_pathway", "rules", f"{len(plan['steps'])} skill gaps for {body.role_id}", f"{len(plan['steps'])} step{'s' if len(plan['steps']) != 1 else ''}, {plan['total_est_hours']:g} hours, {len(plan['unresolved_skill_ids'])} without a course"); return out
 def active_plan(pid):
     get_profile(pid); r = db.one("SELECT payload FROM plans WHERE profile_id=? AND active=1 ORDER BY created_at DESC LIMIT 1", (pid,))
     if not r: raise Err(409, "NO_ACTIVE_PLAN", "Create a plan first (POST /profiles/{id}/plan).")
@@ -170,8 +196,12 @@ def progress_view(pid, plan, msg=None):
             msg = new_message(pid, plan, pr, "behind", dict(n, matched_count=0))
     return dict(profile_id=pid, plan_id=plan["plan_id"], percent=n["percent"], hours_done=round(plan["total_est_hours"] - n["hours_left"], 1), hours_total=plan["total_est_hours"], steps_done=n["done"], steps_total=n["total"],
                 steps=[dict(order=s["order"], skill_name=s["skill_name"], est_hours=s["est_hours"], percent=pm.get(s["order"], 0)) for s in plan["steps"]], last_activity_at=last, next_message=msg)
+def get_background(pid) -> dict:
+    r = db.one("SELECT payload FROM background WHERE profile_id=?", (pid,)); return jl(r["payload"]) if r else C.Background().model_dump()
 def new_message(pid, plan, prefs, event, nums):
     shown = db.one("SELECT COUNT(*) c FROM messages WHERE profile_id=?", (pid,))["c"]; st, text, act = M.select(active_styles(pid, prefs), event, nums, shown)
+    bg = get_background(pid); ctx = {k: v for k, v in (("situation", bg.get("situation")), ("barriers", bg.get("barriers"))) if v}
+    text = A.polish(text, st, ctx)       # the model may only re-word the template; any failed check keeps the template
     mid = "msg_" + uuid.uuid4().hex[:10]; db.run("INSERT INTO messages VALUES (?,?,?,?,?,?,?,NULL,?)", (mid, pid, plan["plan_id"], st, event, text, act, iso()))
     return dict(message_id=mid, style=st, event=event, text=text, suggested_action=act)
 @app.get("/api/v1/profiles/{pid}/progress", response_model=C.ProgressResponse)
@@ -197,6 +227,126 @@ def feedback(pid: str, mid: str, body: C.MessageFeedback):
     if not db.one("SELECT 1 FROM messages WHERE message_id=? AND profile_id=?", (mid, pid)): raise Err(404, "NOT_FOUND", "Message not found")
     db.run("UPDATE messages SET helpful=? WHERE message_id=?", (1 if body.helpful else 0, mid))
 
+# ---------- v3: trace, market intelligence, course scout, missions ----------
+@app.get("/api/v1/profiles/{pid}/trace", response_model=C.TraceResponse)
+def read_trace(pid: str): get_profile(pid); return dict(profile_id=pid, steps=O.trace(pid))
+@app.get("/api/v1/profiles/{pid}/market", response_model=C.MarketResponse)
+def market(pid: str):
+    p = get_profile(pid); lv, ev = levels_and_evidence(confirmed_of(pid)); top = [r["role_id"] for r in rank_for(p, lv, ev)[:3]]
+    out = dict(profile_id=pid, **MK.market_view(lv, ROLES, SK, top))
+    O.record(pid, "market_intelligence", "catalogue", f"{len(lv)} confirmed skills, {len(ROLES)} catalogue roles", f"{len(out['held'])} held skills counted, {len(out['next_skills'])} next skills", dedupe=True); return out
+RES_FIELDS = list(C.Resource.model_fields)
+def as_resource(r): return {k: r[k] for k in RES_FIELDS}
+@app.post("/api/v1/profiles/{pid}/scout", response_model=C.ScoutResponse)
+def scout(pid: str):
+    plan = active_plan(pid); done_titles = {c["name"].strip().lower() for c in get_background(pid)["certifications"]}
+    steps, mode = A.scout(plan, RES, RES_FIELDS, ALLOW_UNVERIFIED, ALLOW_SAMPLE, done_titles)
+    O.record(pid, "learning_pathway", "course_scout_" + mode, f"{len(steps)} plan steps, {len(RES)} catalogue courses", f"{sum(1 for x in steps if x['pick_resource_id'])} picks proposed for the worker to approve")
+    return dict(profile_id=pid, plan_id=plan["plan_id"], mode=mode, steps=steps, note="Picks come only from the course catalogue. Nothing changes until you approve. Check the course page before you enrol.")
+@app.post("/api/v1/profiles/{pid}/scout/approve", response_model=C.PlanResponse)
+def scout_approve(pid: str, body: C.ScoutApproveRequest):
+    plan = active_plan(pid); by_order = {s["order"]: s for s in plan["steps"]}; res = {r["resource_id"]: r for r in RES}
+    for ch in body.choices:
+        st, r = by_order.get(ch.order), res.get(ch.resource_id)
+        if st is None: raise Err(422, "VALIDATION_ERROR", f"Unknown step {ch.order}")
+        if r is None or st["skill_id"] not in r["skill_ids"]: raise Err(422, "VALIDATION_ERROR", f"Course {ch.resource_id} does not cover {st['skill_name']}")
+        st["resource"] = as_resource(r); st["status"] = "resource_found"
+    plan["unresolved_skill_ids"] = [s["skill_id"] for s in plan["steps"] if s["status"] != "resource_found"]
+    plan["includes_unverified_resources"] = any(s["resource"] and s["resource"]["verification_status"] != "verified" for s in plan["steps"])
+    db.run("UPDATE plans SET payload=? WHERE plan_id=?", (json.dumps(plan), plan["plan_id"])); db.log(iso(), "worker", "scout_approved", pid, {"n": len(body.choices)})
+    O.record(pid, "human_in_the_loop", "gate_3_approve_courses", "course picks shown", f"worker approved {len(body.choices)} course choices", stopped_at_gate=True); return plan
+def chapters_of(step) -> list:
+    rid = (step.get("resource") or {}).get("resource_id"); return (CURR.get(rid) or {}).get("chapters", []) if rid else []
+def missions_view(pid):
+    plan = active_plan(pid); done = {r["mission_id"]: r["file_name"] for r in db.all("SELECT mission_id, file_name FROM proofs WHERE profile_id=?", (pid,))}
+    st = {r["mission_id"]: r["state"] for r in db.all("SELECT mission_id, state FROM mission_state WHERE profile_id=?", (pid,))}
+    ms = MS.build(plan["steps"], set(done), {m for m, v in st.items() if v == "started"}, {m for m, v in st.items() if v == "declined"}, {x["order"]: chapters_of(x) for x in plan["steps"] if chapters_of(x)})
+    for m in ms: m["proof_name"] = done.get(m["mission_id"])
+    today = next((m["mission_id"] for m in ms if m["status"] == "open"), None)
+    return dict(profile_id=pid, missions=ms, today_mission_id=today)
+@app.get("/api/v1/profiles/{pid}/missions", response_model=C.MissionsResponse)
+def read_missions(pid: str): return missions_view(pid)
+def mission_or_404(pid, mid):
+    m = next((x for x in missions_view(pid)["missions"] if x["mission_id"] == mid), None)
+    if m is None: raise Err(404, "NOT_FOUND", "Mission not found")
+    return m
+@app.post("/api/v1/profiles/{pid}/missions/{mid}/start", response_model=C.MissionsResponse)
+def start_mission(pid: str, mid: str):
+    m = mission_or_404(pid, mid)
+    if m["status"] in ("open", "declined"): db.run("INSERT OR REPLACE INTO mission_state VALUES (?,?,?,?)", (pid, mid, "started", iso())); db.log(iso(), "worker", "mission_started", pid, {"mission": mid})
+    return missions_view(pid)
+@app.post("/api/v1/profiles/{pid}/missions/{mid}/reopen", response_model=C.MissionsResponse)
+def reopen_mission(pid: str, mid: str):
+    mission_or_404(pid, mid); db.run("DELETE FROM mission_state WHERE profile_id=? AND mission_id=? AND state='declined'", (pid, mid)); return missions_view(pid)
+@app.post("/api/v1/profiles/{pid}/missions/{mid}/decline", response_model=C.MissionDeclineResponse)
+def decline_mission(pid: str, mid: str):
+    m = mission_or_404(pid, mid)
+    if m["status"] == "done": raise Err(422, "VALIDATION_ERROR", "This mission is already done.")
+    db.run("INSERT OR REPLACE INTO mission_state VALUES (?,?,?,?)", (pid, mid, "declined", iso())); db.log(iso(), "worker", "mission_declined", pid, {"mission": mid})
+    p = get_profile(pid); plan = active_plan(pid); pr = p["motivation"]; msg = None
+    if pr and not pr["paused"]:
+        matched = sum(1 for c in confirmed_of(pid)["confirmed_skills"] if c["evidence"]); msg = new_message(pid, plan, pr, "behind", M.plan_numbers(plan["steps"], progress_map(plan["plan_id"]), plan.get("weekly_hours"), matched))
+    O.record(pid, "human_in_the_loop", "mission_declined", "worker chose not to do a mission now", "mission set aside, encouragement " + ("shown" if msg else "paused"))
+    return dict(missions=missions_view(pid), message=msg)
+PROOF_EXT = (".pdf", ".png", ".jpg", ".jpeg", ".txt", ".doc", ".docx")
+@app.post("/api/v1/profiles/{pid}/missions/{mid}/proof", response_model=C.MissionsResponse)
+def upload_proof(pid: str, mid: str, body: C.ProofRequest):
+    mission_or_404(pid, mid)
+    name = pathlib.PurePath(body.file_name).name
+    if not name.lower().endswith(PROOF_EXT): raise Err(422, "VALIDATION_ERROR", "Proof must be a PDF, image, text or Word file.")
+    try: raw = base64.b64decode(body.content_base64, validate=True)
+    except (binascii.Error, ValueError): raise Err(422, "VALIDATION_ERROR", "File content is not valid.")
+    if not raw or len(raw) > 2_000_000: raise Err(422, "VALIDATION_ERROR", "Proof must be between 1 byte and 2 MB.")
+    db.run("INSERT OR REPLACE INTO proofs VALUES (?,?,?,?,?,?,?)", (pid, mid, name, len(raw), body.note, raw, iso())); db.log(iso(), "worker", "proof_uploaded", pid, {"mission": mid, "bytes": len(raw)}); return missions_view(pid)
+
+# ---------- chapters: progress from ticked chapters ----------
+def chapters_view(pid, order, msg=None):
+    plan = active_plan(pid); st = next((x for x in plan["steps"] if x["order"] == order), None)
+    if st is None: raise Err(422, "VALIDATION_ERROR", "Unknown step_order for the active plan")
+    chs = chapters_of(st); rid = (st.get("resource") or {}).get("resource_id")
+    done = {r["chapter_id"] for r in db.all("SELECT chapter_id FROM chapter_done WHERE profile_id=? AND resource_id=?", (pid, rid))} if rid else set()
+    pct = CH.percent(chs, done) if chs else progress_map(plan["plan_id"]).get(order, 0)
+    return dict(profile_id=pid, step_order=order, resource_id=rid, chapters=[dict(chapter_id=c["chapter_id"], title=c["title"], est_hours=c.get("est_hours"), done=c["chapter_id"] in done) for c in chs],
+                percent=pct, source="chapters" if chs else "manual", next_message=msg)
+@app.get("/api/v1/profiles/{pid}/steps/{order}/chapters", response_model=C.ChaptersResponse)
+def read_chapters(pid: str, order: int): return chapters_view(pid, order)
+@app.post("/api/v1/profiles/{pid}/steps/{order}/chapters", response_model=C.ChaptersResponse)
+def tick_chapter(pid: str, order: int, body: C.ChapterTick):
+    plan = active_plan(pid); st = next((x for x in plan["steps"] if x["order"] == order), None)
+    if st is None: raise Err(422, "VALIDATION_ERROR", "Unknown step_order for the active plan")
+    chs = chapters_of(st); rid = (st.get("resource") or {}).get("resource_id")
+    if not chs or body.chapter_id not in {c["chapter_id"] for c in chs}: raise Err(422, "VALIDATION_ERROR", "This course has no such chapter.")
+    if body.done: db.run("INSERT OR REPLACE INTO chapter_done VALUES (?,?,?,?)", (pid, rid, body.chapter_id, iso()))
+    else: db.run("DELETE FROM chapter_done WHERE profile_id=? AND resource_id=? AND chapter_id=?", (pid, rid, body.chapter_id))
+    pct = chapters_view(pid, order)["percent"]; prog = update_progress(pid, C.ProgressUpdate(step_order=order, percent=pct))
+    return chapters_view(pid, order, prog.get("next_message"))
+
+# ---------- background (education, certificates, barriers...) and the CV ----------
+@app.put("/api/v1/profiles/{pid}/background", response_model=C.Background)
+def put_background(pid: str, body: C.Background):
+    get_profile(pid); db.run("INSERT OR REPLACE INTO background VALUES (?,?,?)", (pid, body.model_dump_json(), iso())); db.log(iso(), "worker", "background_saved", pid, {"education": len(body.education), "certifications": len(body.certifications)}); return body
+@app.get("/api/v1/profiles/{pid}/background", response_model=C.Background)
+def read_background(pid: str): get_profile(pid); return get_background(pid)
+@app.post("/api/v1/cv/parse", response_model=C.CVParseResponse)
+def cv_parse(body: C.CVParseRequest):
+    out, mode, ignored = A.cv_parse(body.text, SK)
+    return dict(out, mode=mode, ignored_lines=ignored, warnings=["Check every box before you continue. Nothing is used until you confirm.", "Lines about age, gender and years worked are ignored and never used."]
+                + ([] if (out["work_examples"] or out["skills"]) else ["We could not find work tasks or skills. Check that the CV has headings such as Experience and Skills."]))
+@app.get("/api/v1/profiles/{pid}/cv", response_model=C.CVDocument)
+def generate_cv(pid: str):
+    p = get_profile(pid); conf = confirmed_of(pid); bg = get_background(pid); goal = None; completed = []; tasks = []
+    try:
+        plan = active_plan(pid); goal = plan["role_title"]; pm = progress_map(plan["plan_id"])
+        completed = [f"{s['resource']['title']} ({s['resource']['provider']})" for s in plan["steps"] if s["status"] == "resource_found" and pm.get(s["order"], 0) >= 100]
+        tasks = [m["chapter_title"] or m["title"] for m in missions_view(pid)["missions"] if m["status"] == "done"]
+    except Err:
+        if p["stated_goal_role_id"] in ROLE: goal = ROLE[p["stated_goal_role_id"]]["title"]
+    skills = [c["name"] for c in sorted(conf["confirmed_skills"], key=lambda c: (-c["level"], c["name"]))]
+    ex = [x for x in (CV.scrub(e) for e in p["work_examples"]) if len(x) >= 10]
+    text, secs = CV.render(p["display_name"], p["current_role"], goal, skills, ex, bg["education"], bg["certifications"], bg["languages"], bg["tools"], completed, tasks)
+    safe = "".join(ch if ch.isalnum() else "_" for ch in p["display_name"]).strip("_") or "My"
+    db.log(iso(), "worker", "cv_generated", pid, {"sections": len(secs)}); return dict(profile_id=pid, file_name=f"{safe}_updated_CV.txt", text=text, sections=secs)
+
 @app.post("/api/v1/readiness/check", response_model=C.ReadinessResult)
 def readiness(body: C.ReadinessRequest): return R.check(body.text)
 
@@ -221,7 +371,8 @@ def start_audit(pid: str, body: C.AuditRequest = C.AuditRequest()):
     out = dict(audit_id=aid, profile_id=pid, status="flagged" if any(v["flags"] for v in variants) else "pass", canary=body.canary, variants=variants, thresholds=E.THRESH,
                limitations=["Tests only the variants listed; it cannot prove the system is free of bias.", "Variants add a statement about age or years of experience to the worker's own text.",
                             "In rules mode the extractor ignores such statements by construction, so the audit is a regression guard until a language model is used."], review=None, created_at=iso())
-    db.run("INSERT INTO audits VALUES (?,?,?,?)", (aid, pid, json.dumps(out), iso())); db.log(iso(), "system", "audit_run", pid, {"status": out["status"], "canary": body.canary}); return out
+    db.run("INSERT INTO audits VALUES (?,?,?,?)", (aid, pid, json.dumps(out), iso())); db.log(iso(), "system", "audit_run", pid, {"status": out["status"], "canary": body.canary})
+    O.record(pid, "bias_audit", "canary" if body.canary else "variants", f"{len(variants)} variants tested", f"status {out['status']}, {sum(len(v['flags']) for v in variants)} flags for a human reviewer"); return out
 @app.get("/api/v1/audits/{aid}", response_model=C.AuditResult)
 def read_audit(aid: str):
     r = db.one("SELECT payload FROM audits WHERE audit_id=?", (aid,))

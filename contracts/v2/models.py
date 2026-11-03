@@ -253,6 +253,131 @@ class AuditResult(S):
     review: Optional[AuditReview]
     created_at: str
 
+# ---------- v3 additions (additive only): trace, market, course scout, missions ----------
+AgentName = Literal["skills_discovery", "market_intelligence", "learning_pathway", "inclusive_matching", "bias_audit", "human_in_the_loop"]
+class AgentStep(S):
+    step: int = Field(ge=1)
+    agent: AgentName
+    mode: str
+    input_summary: str
+    output_summary: str
+    stopped_at_gate: bool
+    created_at: str
+class TraceResponse(S):
+    profile_id: str
+    steps: list[AgentStep]
+class MarketSkill(S):
+    skill_id: str
+    name: str
+    roles_asking: int = Field(ge=0, description="How many roles in OUR catalogue list this skill")
+    mandatory_in: int = Field(ge=0)
+class MarketResponse(S):
+    profile_id: str
+    roles_in_catalogue: int
+    top_role_ids: list[str]
+    held: list[MarketSkill]
+    next_skills: list[MarketSkill]
+    source_note: str
+class ScoutStep(S):
+    order: int
+    skill_id: str
+    skill_name: str
+    current_resource_id: Optional[str]
+    pick_resource_id: Optional[str]
+    reason: str
+    decided_by: Literal["agent", "rules"]
+    candidates: list[Resource]
+class ScoutResponse(S):
+    profile_id: str
+    plan_id: str
+    mode: Literal["agent", "rules"]
+    steps: list[ScoutStep]
+    note: str
+class ScoutChoice(S):
+    order: int
+    resource_id: str
+class ScoutApproveRequest(S):
+    choices: list[ScoutChoice] = Field(min_length=1, max_length=20)
+class Mission(S):
+    mission_id: str
+    order: int
+    title: str
+    brief: str
+    source: str
+    chapter_title: Optional[str]
+    status: Literal["open", "locked", "done", "declined"]
+    percent: int = Field(ge=0, le=100, description="0 not started, 50 started, 100 proof uploaded")
+    proof_name: Optional[str]
+class MissionsResponse(S):
+    profile_id: str
+    missions: list[Mission]
+    today_mission_id: Optional[str]
+class MissionDeclineResponse(S):
+    missions: MissionsResponse
+    message: Optional[NextMessage] = Field(description="Encouragement for the worker, or null when messages are paused")
+class ProofRequest(S):
+    file_name: str = Field(min_length=1, max_length=120)
+    content_base64: str = Field(min_length=1, max_length=2_900_000, description="File content, at most about 2 MB")
+    note: Optional[str] = Field(default=None, max_length=500)
+class Chapter(S):
+    chapter_id: str
+    title: str
+    est_hours: Optional[float]
+    done: bool
+class ChaptersResponse(S):
+    profile_id: str
+    step_order: int
+    resource_id: Optional[str]
+    chapters: list[Chapter]
+    percent: int
+    source: Literal["chapters", "manual"]
+    next_message: Optional[NextMessage]
+class ChapterTick(S):
+    chapter_id: str
+    done: bool
+EduLevel = Literal["school", "diploma", "bachelor", "master", "other"]
+class EducationItem(S):
+    level: EduLevel
+    field: Optional[str] = Field(default=None, max_length=80)
+    institution: Optional[str] = Field(default=None, max_length=80)
+class CertItem(S):
+    name: str = Field(min_length=1, max_length=100)
+    issuer: Optional[str] = Field(default=None, max_length=80)
+class Background(S):
+    education: list[EducationItem] = Field(default_factory=list, max_length=5)
+    certifications: list[CertItem] = Field(default_factory=list, max_length=10)
+    languages: list[str] = Field(default_factory=list, max_length=8)
+    tools: list[str] = Field(default_factory=list, max_length=20)
+    barriers: list[Literal["time", "money", "confidence", "device_internet", "language", "caring_duties", "unsure_start"]] = Field(default_factory=list, max_length=3)
+    situation: Optional[Literal["promotion", "switch_field", "returning", "cv_not_showing_skills", "other"]] = None
+    learning_formats: list[Literal["video", "reading", "hands_on", "live"]] = Field(default_factory=list, max_length=4)
+class CVParseRequest(S):
+    text: str = Field(min_length=40, max_length=20000, description="Plain text of the CV")
+class ParsedCert(S):
+    name: str
+    issuer: Optional[str]
+class ParsedEducation(S):
+    line: str
+    level: Optional[EduLevel]
+    field: Optional[str]
+    institution: Optional[str]
+class CVParseResponse(S):
+    current_role: Optional[str]
+    work_examples: list[str]
+    skills: list[str]
+    tools: list[str]
+    certifications: list[ParsedCert]
+    education: list[ParsedEducation]
+    languages: list[str]
+    mode: Literal["rules", "llm+rules"]
+    ignored_lines: int = Field(ge=0, description="Lines about age, gender, years worked and similar that were dropped and never used")
+    warnings: list[str]
+class CVDocument(S):
+    profile_id: str
+    file_name: str
+    text: str
+    sections: list[str]
+
 # ---------- meta and errors ----------
 class Meta(S):
     app_version: str

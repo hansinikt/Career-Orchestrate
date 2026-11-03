@@ -1,0 +1,19 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "chapter_id": {
+      "title": "Chapter Id",
+      "type": "string"
+    },
+    "done": {
+      "title": "Done",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "chapter_id",
+    "done"
+  ],
+  "title": "ChapterTick",
+  "type": "object"
+}

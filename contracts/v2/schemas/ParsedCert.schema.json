@@ -1,0 +1,26 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "issuer": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Issuer"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "issuer"
+  ],
+  "title": "ParsedCert",
+  "type": "object"
+}

@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "Mission": {
+      "additionalProperties": false,
+      "properties": {
+        "brief": {
+          "title": "Brief",
+          "type": "string"
+        },
+        "chapter_title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Chapter Title"
+        },
+        "mission_id": {
+          "title": "Mission Id",
+          "type": "string"
+        },
+        "order": {
+          "title": "Order",
+          "type": "integer"
+        },
+        "percent": {
+          "description": "0 not started, 50 started, 100 proof uploaded",
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Percent",
+          "type": "integer"
+        },
+        "proof_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Proof Name"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "locked",
+            "done",
+            "declined"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mission_id",
+        "order",
+        "title",
+        "brief",
+        "source",
+        "chapter_title",
+        "status",
+        "percent",
+        "proof_name"
+      ],
+      "title": "Mission",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "missions": {
+      "items": {
+        "$ref": "#/$defs/Mission"
+      },
+      "title": "Missions",
+      "type": "array"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "today_mission_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Today Mission Id"
+    }
+  },
+  "required": [
+    "profile_id",
+    "missions",
+    "today_mission_id"
+  ],
+  "title": "MissionsResponse",
+  "type": "object"
+}

@@ -1,21 +1,27 @@
-# NEXT TASK: V2 Orchestrator and agent trace (PRD v3, sections 3 and 6)
+# STATUS AND NEXT TASKS (updated 3 Nov 2026, v3 build)
 
-Brief: docs/briefs/out/02_BACKEND_BRIEF.md. Allowed files: `backend/app/*`, `backend/app/schema.sql`, `contracts/v2/models.py` (ADDITIVE ONLY: new models, no changed fields), `tests/test_v3.py`, `tools_export_v2.py` outputs via `make contracts`.
+## Done in this build (all covered by `make test`, 61 tests)
+- LLM adapter `backend/app/llm.py` (Gemini, rules fallback, replay mode). Agents in `backend/app/agents.py`: Skills Discovery (model answer is checked: catalogue ids only, quote must be the worker's exact words), Course Scout (picks only catalogue courses, reasons checked for invented numbers, human approves).
+- Market Intelligence `engine/market.py` (counts from OUR catalogue only, never live market data).
+- Orchestrator trace `backend/app/orchestrator.py`, `GET /api/v1/profiles/{id}/trace`; the dashboard panel "Which agents worked on this".
+- Missions from plan steps (`engine/missions.py`), proof saved on the server (`POST .../missions/{mid}/proof`, JSON base64, max 2 MB, never served back).
+- Security: headers (CSP, nosniff, no-store), request size limit, rate limit on model endpoints, CORS limited to same origin by default.
+- Contract: ADDITIVE models only (AgentStep, TraceResponse, MarketResponse, ScoutResponse, Mission...). No existing field changed. `make contracts` was run. Tell the other developers.
 
-## Goal
-Add an orchestrator that records which agent did what, and expose it so the frontend can show a "Which agents worked on this" panel.
+## Added in the second batch (3 Nov, afternoon; 83 tests)
+- Encouragement: `agents.polish` lets Gemini re-word the template in the chosen voice (sassy and fun); code rejects invented numbers, promises, links, lost quoted names. Template is the fallback.
+- Missions: tied to course chapters when `data/v2/curriculum.json` has them; own progress bar (0, 50 started, 100 proof); `start`, `decline` (shows the full-screen encouragement) and `reopen` endpoints.
+- Chapters: `GET/POST /profiles/{id}/steps/{order}/chapters`; ticked chapters set the step percent (hours-weighted only when every chapter has hours).
+- CV: `POST /cv/parse` (plain text; redacts contact details, years, age and gender lines; every value must be a piece of the cleaned text), `PUT/GET /profiles/{id}/background` (education, certificates, languages, tools, barriers, situation), `GET /profiles/{id}/cv` (updated plain-text CV for applicant tracking systems).
+- Course Scout skips courses the person lists as done.
 
-## Build
-1. New table `agent_trace` in `schema.sql` (id, profile_id, agent, mode, input_summary, output_summary, stopped_at_gate, created_at) with ON DELETE CASCADE from profiles, like the other tables.
-2. New module `backend/app/orchestrator.py` with one function `record(profile_id, agent, mode, input_summary, output_summary, stopped_at_gate=False)`. Agent names are exactly: `skills_discovery`, `inclusive_matching`, `learning_pathway`, `bias_audit`, `human_in_the_loop`. (There is no `market_intelligence` yet; do not record it.)
-3. Call `record` from the existing routes, only where that work really happened: extract -> skills_discovery (mode = the extraction_mode, `rules` today); confirm -> human_in_the_loop (summary: how many accepted, edited, rejected); recommendations -> inclusive_matching; plan -> human_in_the_loop (role chosen) then learning_pathway; audit -> bias_audit. Summaries are one short line built from numbers already in the response. Never put the worker's text or name in a summary.
-4. New contract models (additive): `AgentStep` and `TraceResponse` (profile_id, steps in time order). New route `GET /api/v1/profiles/{profile_id}/trace`. Unknown profile -> NOT_FOUND as usual.
-5. `make contracts` to regenerate OpenAPI. Do not edit generated files by hand.
+## Still open (in priority order)
+0. **Questionnaire rework** (approved list pending) and CV autofill in the wizard (the endpoints above are ready). The wizard still asks the old questions and keeps most answers only in the browser.
+0b. **Chapter lists** in `data/v2/curriculum.json` for each real SAP course (title, ordered chapters, hours if shown). Never invent chapters.
+1. **Real SAP Learning Hub courses** in `data/v2/resources.json` (title, course page link, hours, skills; only a human sets `verified`). Without them the Course Scout has nothing real to pick from: Anitha's gap (Confidentiality) has no course in the catalogue yet.
+2. **Gemini key** in a local `.env` (see `.env.example`), then `APP_MODE=live`, test the Anitha journey, set `LLM_RECORD=true` once to save the answers, then demo in `APP_MODE=replay`.
+3. SAP platform: Cloud Foundry deployment, HANA Cloud for audit/trace records (`hdbcli` approved by the team lead), Credential Store for the key.
+4. Not built: Skill Check questions, real accounts (demo sign-in only), CV reading for PDF and Word, certificate storage on the server.
 
-## Done when
-- `make test` passes (the existing 41 plus new tests in `tests/test_v3.py`: a full Anitha journey leaves exactly the expected steps in order; trace for unknown profile is 404 NOT_FOUND; deleting the profile deletes its trace; no step text contains the worker's name).
-- Anitha's locked numbers are unchanged (0.7877, 24 hours).
-- You list every assumption.
-
-## Not in this task
-No frontend changes, no language-model calls, no new libraries. Tell the person if the contract change needs agreement from the other developers (it is additive, but the contract is frozen until all four agree).
+## Rules reminder
+No age, gender, date of birth or years of experience anywhere. Never invent course names, links or hours. Business logic only in `engine/`. The frontend never recomputes scores.

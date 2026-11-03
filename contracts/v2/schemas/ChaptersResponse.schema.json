@@ -1,0 +1,155 @@
+{
+  "$defs": {
+    "Chapter": {
+      "additionalProperties": false,
+      "properties": {
+        "chapter_id": {
+          "title": "Chapter Id",
+          "type": "string"
+        },
+        "done": {
+          "title": "Done",
+          "type": "boolean"
+        },
+        "est_hours": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Est Hours"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "chapter_id",
+        "title",
+        "est_hours",
+        "done"
+      ],
+      "title": "Chapter",
+      "type": "object"
+    },
+    "NextMessage": {
+      "additionalProperties": false,
+      "properties": {
+        "event": {
+          "enum": [
+            "start",
+            "step_done",
+            "halfway",
+            "behind",
+            "welcome_back",
+            "plan_done"
+          ],
+          "title": "Event",
+          "type": "string"
+        },
+        "message_id": {
+          "title": "Message Id",
+          "type": "string"
+        },
+        "style": {
+          "enum": [
+            "progress",
+            "goals",
+            "encouragement",
+            "accountability",
+            "challenge"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "suggested_action": {
+          "enum": [
+            "none",
+            "share_summary"
+          ],
+          "title": "Suggested Action",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message_id",
+        "style",
+        "event",
+        "text",
+        "suggested_action"
+      ],
+      "title": "NextMessage",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "chapters": {
+      "items": {
+        "$ref": "#/$defs/Chapter"
+      },
+      "title": "Chapters",
+      "type": "array"
+    },
+    "next_message": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NextMessage"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "percent": {
+      "title": "Percent",
+      "type": "integer"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "resource_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Resource Id"
+    },
+    "source": {
+      "enum": [
+        "chapters",
+        "manual"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "step_order": {
+      "title": "Step Order",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "profile_id",
+    "step_order",
+    "resource_id",
+    "chapters",
+    "percent",
+    "source",
+    "next_message"
+  ],
+  "title": "ChaptersResponse",
+  "type": "object"
+}

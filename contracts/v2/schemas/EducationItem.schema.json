@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "field": {
+      "anyOf": [
+        {
+          "maxLength": 80,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Field"
+    },
+    "institution": {
+      "anyOf": [
+        {
+          "maxLength": 80,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Institution"
+    },
+    "level": {
+      "enum": [
+        "school",
+        "diploma",
+        "bachelor",
+        "master",
+        "other"
+      ],
+      "title": "Level",
+      "type": "string"
+    }
+  },
+  "required": [
+    "level"
+  ],
+  "title": "EducationItem",
+  "type": "object"
+}

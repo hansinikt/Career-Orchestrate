@@ -6,6 +6,7 @@ import { U } from "../store.js";
 import { h, go, bar, itemCard, emptyState, num } from "../ui.js";
 import { gaugeSvg, ill } from "../art.js";
 import * as slots from "../slots.js";
+import { agentsCard, marketCard, showEncouragement } from "../panels.js";
 
 export default async function dashboard() {
   const t = T.dash;
@@ -16,8 +17,10 @@ export default async function dashboard() {
 
   const proofBox = () => {
     const file = h("input", { type: "file", id: "d-proof", "aria-label": t.proofDrop }), out = h("p", { class: "small", role: "status" });
+    const notNow = h("button", { class: "btn ghost", type: "button", style: "width:100%;margin-top:8px", text: T.mis.notNow, onclick: async () => {
+      try { const msg = await slots.declineMission(today.id); if (msg) showEncouragement(msg.text, { href: "#/missions", label: T.enc.back }); window.dispatchEvent(new HashChangeEvent("hashchange")); } catch (e) { out.textContent = e.message; } } });
     return h("div", { class: "proof" }, h("b", { text: t.proofTitle }), h("div", { class: "drop" }, t.proofDrop, h("br"), file), out,
-      h("button", { class: "btn org", type: "button", style: "width:100%", text: t.proofBtn, onclick: () => { if (!file.files[0]) { out.textContent = T.mis.needFile; return; } slots.saveProof(today.id, file.files[0]); window.dispatchEvent(new HashChangeEvent("hashchange")); } }));
+      h("button", { class: "btn org", type: "button", style: "width:100%", text: t.proofBtn, onclick: () => { if (!file.files[0]) { out.textContent = T.mis.needFile; return; } out.textContent = T.mis.saving; slots.saveProof(today.id, file.files[0]).then(() => window.dispatchEvent(new HashChangeEvent("hashchange")), (e) => { out.textContent = e.message; }); } }), notNow);
   };
   const banner = today
     ? h("section", { class: "banner", "aria-label": t.todayTag }, h("div", null, h("small", { text: t.todayTag }), h("div", { class: "t", text: today.title }), h("p", { text: today.brief })), proofBox())
@@ -35,18 +38,11 @@ export default async function dashboard() {
   root.append(banner,
     h("div", null, h("h1", { id: "page-title", tabindex: "-1", style: "font-size:1.7rem", text: t.welcome(U.user.name.split(" ")[0]) }), h("p", { class: "muted", text: plan ? t.goal(plan.role_title) : t.noGoal })),
     h("div", { class: "split", style: "grid-template-columns:1.5fr 1fr" }, h("div", { class: "stack" }, h("h3", { text: t.roadmap }), h("div", { class: "grid g2" }, items.map((it) => itemCard({ kind: it.kind, size: 52, title: it.title, sub: it.sub, href: it.href }))), h("h3", { style: "margin-top:26px", text: t.resume }), resume),
-      h("div", { class: "stack" }, h("h3", { text: t.gaugeTitle }), gauge)));
+      h("div", { class: "stack" }, h("h3", { text: t.gaugeTitle }), gauge)),
+    h("div", { class: "grid g2", style: "margin-top:26px;align-items:start" }, await agentsCard(), await marketCard()));
 
   // Encouragement: shown full screen only when the backend sends a message for a missed or returning person, and messages are not paused.
   const m = prog && prog.next_message, paused = profile.motivation && profile.motivation.paused;
-  if (m && ["behind", "welcome_back"].includes(m.event) && !paused && !S.encDismissed) {
-    const close = () => { S.encDismissed = true; over.remove(); };
-    const over = h("div", { class: "over", role: "dialog", "aria-modal": "true", "aria-label": "Encouragement" },
-      h("button", { class: "x", type: "button", "aria-label": T.enc.close, text: "×", onclick: close }),
-      h("div", { class: "in" }, h("div", { class: "sun", "aria-hidden": "true" }, ill("goal", 56)), h("div", { class: "t", text: m.text }),
-        h("div", { class: "row" }, h("a", { class: "btn org lg", href: "#/courses", text: T.enc.open, onclick: close }), h("button", { class: "btn ghost lg", type: "button", style: "color:#fff;border-color:#fff", text: T.enc.later, onclick: close }))));
-    document.addEventListener("keydown", function esc(e) { if (e.key === "Escape") { close(); document.removeEventListener("keydown", esc); } });
-    root.append(over);
-  }
+  if (m && ["behind", "welcome_back"].includes(m.event) && !paused && !S.encDismissed) { S.encDismissed = true; showEncouragement(m.text); }
   return root;
 }

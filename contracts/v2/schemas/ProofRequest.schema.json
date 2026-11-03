@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "content_base64": {
+      "description": "File content, at most about 2 MB",
+      "maxLength": 2900000,
+      "minLength": 1,
+      "title": "Content Base64",
+      "type": "string"
+    },
+    "file_name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "File Name",
+      "type": "string"
+    },
+    "note": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Note"
+    }
+  },
+  "required": [
+    "file_name",
+    "content_base64"
+  ],
+  "title": "ProofRequest",
+  "type": "object"
+}

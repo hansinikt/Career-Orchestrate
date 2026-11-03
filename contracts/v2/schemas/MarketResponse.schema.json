@@ -1,0 +1,82 @@
+{
+  "$defs": {
+    "MarketSkill": {
+      "additionalProperties": false,
+      "properties": {
+        "mandatory_in": {
+          "minimum": 0,
+          "title": "Mandatory In",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "roles_asking": {
+          "description": "How many roles in OUR catalogue list this skill",
+          "minimum": 0,
+          "title": "Roles Asking",
+          "type": "integer"
+        },
+        "skill_id": {
+          "title": "Skill Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "skill_id",
+        "name",
+        "roles_asking",
+        "mandatory_in"
+      ],
+      "title": "MarketSkill",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "held": {
+      "items": {
+        "$ref": "#/$defs/MarketSkill"
+      },
+      "title": "Held",
+      "type": "array"
+    },
+    "next_skills": {
+      "items": {
+        "$ref": "#/$defs/MarketSkill"
+      },
+      "title": "Next Skills",
+      "type": "array"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "roles_in_catalogue": {
+      "title": "Roles In Catalogue",
+      "type": "integer"
+    },
+    "source_note": {
+      "title": "Source Note",
+      "type": "string"
+    },
+    "top_role_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Top Role Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "profile_id",
+    "roles_in_catalogue",
+    "top_role_ids",
+    "held",
+    "next_skills",
+    "source_note"
+  ],
+  "title": "MarketResponse",
+  "type": "object"
+}
