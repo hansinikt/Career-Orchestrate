@@ -1,0 +1,2 @@
+# Only needed to mirror the agent activity log to SAP HANA Cloud (backend/app/hana_sink.py). Local runs do not need it.
+hdbcli==2.30.27

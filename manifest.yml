@@ -1,0 +1,13 @@
+# SAP BTP Cloud Foundry deployment. Secrets are NOT stored here: set them with `cf set-env` (see docs/SAP_DEPLOY.md).
+applications:
+  - name: career-orchestrator
+    memory: 512M
+    instances: 1
+    buildpacks:
+      - python_buildpack
+    command: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    health-check-type: http
+    health-check-http-endpoint: /api/v1/meta
+    env:
+      APP_MODE: replay           # saved answers, no model calls. For live Gemini run: cf set-env career-orchestrator APP_MODE live (plus LLM_PROVIDER and LLM_API_KEY)
+      DB_PATH: /tmp/app.db       # Cloud Foundry disk is temporary, so the demo database starts empty after every restart

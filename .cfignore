@@ -1,0 +1,15 @@
+# Files that must never be uploaded by `cf push` (a local .env holds the Gemini key)
+.env
+.env.*
+!.env.example
+.git
+.venv
+__pycache__
+*.pyc
+app.db
+*.db
+node_modules
+archive
+docs
+tests
+mock_api
