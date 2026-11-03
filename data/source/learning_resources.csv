@@ -1,0 +1,10 @@
+course_id,course_title,description,provider_or_source,level,skills_covered_semicolon_separated,estimated_duration,resource_url
+C001,Excel for Data Analysis,"Tables, formulas, lookup functions, pivot tables",Microsoft Learn,Beginner,Excel; Reporting,2-4 weeks,https://learn.microsoft.com/
+C002,SQL Basics,"SELECT, filtering, joins, aggregation",Khan Academy / SQL practice resources,Beginner,SQL; Data analysis,2-3 weeks,https://www.khanacademy.org/
+C003,Power BI Fundamentals,"Data modeling, visuals, dashboards",Microsoft Learn,Beginner,Visualization; Reporting,3-5 weeks,https://learn.microsoft.com/
+C004,Project Coordination Fundamentals,"Milestones, risks, meeting notes, action tracking",Sample learning path,Beginner,Scheduling; Risk tracking; Communication,2 weeks,
+C005,HR Operations Basics,"Recruitment coordination, onboarding, HR records, confidentiality",Sample learning path,Beginner,HR administration; Record management,2-3 weeks,
+C006,Business Analysis Fundamentals,"Requirements, process maps, stakeholder interviews",Sample learning path,Beginner,Requirements gathering; Process analysis,3-4 weeks,
+C007,CRM Data Quality Basics,"CRM records, deduplication, validation, reporting",Sample learning path,Beginner,CRM tools; Data quality,1-2 weeks,
+C008,Compliance Documentation Essentials,"Document control, audit trails, completeness checks",Sample learning path,Beginner,Compliance documentation; Document control,1-2 weeks,
+C009,Communication and Stakeholder Management,"Meeting facilitation, concise updates, feedback",Sample learning path,Beginner,Communication; Stakeholder communication,2 weeks,

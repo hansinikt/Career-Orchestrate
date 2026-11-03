@@ -1,0 +1,251 @@
+{
+  "$defs": {
+    "PlanStep": {
+      "additionalProperties": false,
+      "properties": {
+        "builds_on": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Builds On",
+          "type": "array"
+        },
+        "est_hours": {
+          "title": "Est Hours",
+          "type": "number"
+        },
+        "order": {
+          "title": "Order",
+          "type": "integer"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "resource": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Resource"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "skill_id": {
+          "title": "Skill Id",
+          "type": "string"
+        },
+        "skill_name": {
+          "title": "Skill Name",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "resource_found",
+            "no_verified_resource"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "order",
+        "skill_id",
+        "skill_name",
+        "status",
+        "resource",
+        "est_hours",
+        "rationale",
+        "builds_on"
+      ],
+      "title": "PlanStep",
+      "type": "object"
+    },
+    "Resource": {
+      "additionalProperties": false,
+      "properties": {
+        "cost": {
+          "title": "Cost",
+          "type": "string"
+        },
+        "duration_text": {
+          "title": "Duration Text",
+          "type": "string"
+        },
+        "est_hours": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Est Hours"
+        },
+        "last_verified": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Verified"
+        },
+        "level_from": {
+          "title": "Level From",
+          "type": "integer"
+        },
+        "level_to": {
+          "title": "Level To",
+          "type": "integer"
+        },
+        "note": {
+          "title": "Note",
+          "type": "string"
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "resource_id": {
+          "title": "Resource Id",
+          "type": "string"
+        },
+        "skill_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Skill Ids",
+          "type": "array"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Url"
+        },
+        "verification_status": {
+          "enum": [
+            "verified",
+            "seed_unverified",
+            "sample_placeholder"
+          ],
+          "title": "Verification Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "resource_id",
+        "title",
+        "provider",
+        "url",
+        "skill_ids",
+        "level_from",
+        "level_to",
+        "est_hours",
+        "duration_text",
+        "cost",
+        "verification_status",
+        "last_verified",
+        "note"
+      ],
+      "title": "Resource",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "disclaimer": {
+      "title": "Disclaimer",
+      "type": "string"
+    },
+    "includes_unverified_resources": {
+      "title": "Includes Unverified Resources",
+      "type": "boolean"
+    },
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "role_id": {
+      "title": "Role Id",
+      "type": "string"
+    },
+    "role_title": {
+      "title": "Role Title",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/PlanStep"
+      },
+      "title": "Steps",
+      "type": "array"
+    },
+    "total_est_hours": {
+      "title": "Total Est Hours",
+      "type": "number"
+    },
+    "unresolved_skill_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unresolved Skill Ids",
+      "type": "array"
+    },
+    "weekly_hours": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Weekly Hours"
+    },
+    "weeks_at_pace": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Weeks At Pace"
+    }
+  },
+  "required": [
+    "plan_id",
+    "profile_id",
+    "role_id",
+    "role_title",
+    "total_est_hours",
+    "weekly_hours",
+    "weeks_at_pace",
+    "steps",
+    "unresolved_skill_ids",
+    "includes_unverified_resources",
+    "disclaimer"
+  ],
+  "title": "PlanResponse",
+  "type": "object"
+}

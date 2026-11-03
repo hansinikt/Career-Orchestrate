@@ -1,0 +1,9 @@
+progress_id,user_id,course_id,status,completion_percent,last_updated
+LP001,U001,C001,Not started,0,2026-10-29
+LP002,U001,C005,Not started,0,2026-10-29
+LP003,U002,C004,In progress,40,2026-10-29
+LP004,U003,C001,In progress,60,2026-10-29
+LP005,U003,C002,Not started,0,2026-10-29
+LP006,U004,C006,Not started,0,2026-10-29
+LP007,U007,C007,In progress,25,2026-10-29
+LP008,U008,C008,Completed,100,2026-10-29

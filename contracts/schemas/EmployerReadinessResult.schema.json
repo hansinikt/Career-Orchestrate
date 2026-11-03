@@ -1,0 +1,242 @@
+{
+ "$defs": {
+  "Achievement": {
+   "additionalProperties": false,
+   "properties": {
+    "text": {
+     "title": "Text",
+     "type": "string"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1,
+     "title": "Evidence Ids",
+     "type": "array"
+    },
+    "needs_user_input": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Needs User Input",
+     "type": "array"
+    }
+   },
+   "required": [
+    "text",
+    "evidence_ids"
+   ],
+   "title": "Achievement",
+   "type": "object"
+  },
+  "GroundingReport": {
+   "additionalProperties": false,
+   "properties": {
+    "dropped_claims": {
+     "title": "Dropped Claims",
+     "type": "integer"
+    },
+    "flagged_numbers": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Flagged Numbers",
+     "type": "array"
+    }
+   },
+   "required": [
+    "dropped_claims",
+    "flagged_numbers"
+   ],
+   "title": "GroundingReport",
+   "type": "object"
+  },
+  "InterviewItem": {
+   "additionalProperties": false,
+   "properties": {
+    "question": {
+     "title": "Question",
+     "type": "string"
+    },
+    "star_hint": {
+     "title": "Star Hint",
+     "type": "string"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evidence Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "question",
+    "star_hint",
+    "evidence_ids"
+   ],
+   "title": "InterviewItem",
+   "type": "object"
+  },
+  "PortfolioIdea": {
+   "additionalProperties": false,
+   "properties": {
+    "title": {
+     "title": "Title",
+     "type": "string"
+    },
+    "description": {
+     "title": "Description",
+     "type": "string"
+    },
+    "skill_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Skill Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "title",
+    "description",
+    "skill_ids"
+   ],
+   "title": "PortfolioIdea",
+   "type": "object"
+  },
+  "ResumeTip": {
+   "additionalProperties": false,
+   "properties": {
+    "type": {
+     "enum": [
+      "reword",
+      "quantify_prompt",
+      "add_section"
+     ],
+     "title": "Type",
+     "type": "string"
+    },
+    "suggestion": {
+     "title": "Suggestion",
+     "type": "string"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evidence Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "type",
+    "suggestion",
+    "evidence_ids"
+   ],
+   "title": "ResumeTip",
+   "type": "object"
+  },
+  "TransferItem": {
+   "additionalProperties": false,
+   "properties": {
+    "skill_id": {
+     "title": "Skill Id",
+     "type": "string"
+    },
+    "role_requirement": {
+     "title": "Role Requirement",
+     "type": "string"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evidence Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "skill_id",
+    "role_requirement",
+    "evidence_ids"
+   ],
+   "title": "TransferItem",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "role_id": {
+   "title": "Role Id",
+   "type": "string"
+  },
+  "relevant_achievements": {
+   "items": {
+    "$ref": "#/$defs/Achievement"
+   },
+   "title": "Relevant Achievements",
+   "type": "array"
+  },
+  "transferable_experience": {
+   "items": {
+    "$ref": "#/$defs/TransferItem"
+   },
+   "title": "Transferable Experience",
+   "type": "array"
+  },
+  "resume_improvements": {
+   "items": {
+    "$ref": "#/$defs/ResumeTip"
+   },
+   "title": "Resume Improvements",
+   "type": "array"
+  },
+  "portfolio_suggestions": {
+   "items": {
+    "$ref": "#/$defs/PortfolioIdea"
+   },
+   "title": "Portfolio Suggestions",
+   "type": "array"
+  },
+  "interview_prep": {
+   "items": {
+    "$ref": "#/$defs/InterviewItem"
+   },
+   "title": "Interview Prep",
+   "type": "array"
+  },
+  "remaining_prep": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Remaining Prep",
+   "type": "array"
+  },
+  "openness_flags": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Openness Flags",
+   "type": "array"
+  },
+  "grounding_report": {
+   "$ref": "#/$defs/GroundingReport"
+  }
+ },
+ "required": [
+  "role_id",
+  "relevant_achievements",
+  "transferable_experience",
+  "resume_improvements",
+  "portfolio_suggestions",
+  "interview_prep",
+  "remaining_prep",
+  "openness_flags",
+  "grounding_report"
+ ],
+ "title": "EmployerReadinessResult",
+ "type": "object"
+}

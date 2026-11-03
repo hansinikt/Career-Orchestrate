@@ -1,0 +1,83 @@
+{
+  "profile_id": "prof_97d4982679",
+  "suggestions": [
+    {
+      "suggestion_id": "sg_SK-COMM",
+      "skill_id": "SK-COMM",
+      "name": "Communication",
+      "suggested_level": 3,
+      "source": "declared",
+      "signal": "performed",
+      "evidence": [
+        {
+          "quote": "supported cross-team communication",
+          "work_example_index": 0
+        }
+      ],
+      "explanation": "You listed this skill; supported by your examples"
+    },
+    {
+      "suggestion_id": "sg_SK-EXCEL",
+      "skill_id": "SK-EXCEL",
+      "name": "Excel",
+      "suggested_level": 2,
+      "source": "declared",
+      "signal": "declared_only",
+      "evidence": [],
+      "explanation": "You listed this skill; no supporting example yet"
+    },
+    {
+      "suggestion_id": "sg_SK-RECORDS",
+      "skill_id": "SK-RECORDS",
+      "name": "Record management",
+      "suggested_level": 3,
+      "source": "declared",
+      "signal": "performed",
+      "evidence": [
+        {
+          "quote": "maintained records",
+          "work_example_index": 0
+        }
+      ],
+      "explanation": "You listed this skill; supported by your examples"
+    },
+    {
+      "suggestion_id": "sg_SK-REPORT",
+      "skill_id": "SK-REPORT",
+      "name": "Reporting",
+      "suggested_level": 2,
+      "source": "extracted",
+      "signal": "performed",
+      "evidence": [
+        {
+          "quote": "prepared reports",
+          "work_example_index": 0
+        }
+      ],
+      "explanation": "Found in your work examples"
+    },
+    {
+      "suggestion_id": "sg_SK-SCHED",
+      "skill_id": "SK-SCHED",
+      "name": "Scheduling",
+      "suggested_level": 2,
+      "source": "extracted",
+      "signal": "performed",
+      "evidence": [
+        {
+          "quote": "Coordinated calendars",
+          "work_example_index": 0
+        }
+      ],
+      "explanation": "Found in your work examples"
+    }
+  ],
+  "unmatched_declared": [
+    "Team coordination",
+    "Presentation skills"
+  ],
+  "extraction_mode": "rules",
+  "warnings": [
+    "Suggestions come from keyword rules. Please check every one."
+  ]
+}

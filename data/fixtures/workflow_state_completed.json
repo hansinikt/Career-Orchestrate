@@ -1,0 +1,95 @@
+{
+ "workflow_id": "wf_demo",
+ "profile_id": "prof_anitha_demo",
+ "status": "COMPLETED",
+ "current_stage": null,
+ "stages": [
+  {
+   "name": "extract_skills",
+   "kind": "llm",
+   "status": "SUCCEEDED",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": "2026-11-01T09:00:00+05:30",
+   "error": null
+  },
+  {
+   "name": "confirm_skills",
+   "kind": "human",
+   "status": "SUCCEEDED",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": "2026-11-01T09:00:00+05:30",
+   "error": null
+  },
+  {
+   "name": "match_roles",
+   "kind": "deterministic",
+   "status": "SUCCEEDED",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": "2026-11-01T09:00:00+05:30",
+   "error": null
+  },
+  {
+   "name": "select_role",
+   "kind": "human",
+   "status": "SUCCEEDED",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": "2026-11-01T09:00:00+05:30",
+   "error": null
+  },
+  {
+   "name": "learning_plan",
+   "kind": "deterministic",
+   "status": "SUCCEEDED",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": "2026-11-01T09:00:00+05:30",
+   "error": null
+  },
+  {
+   "name": "employer_readiness",
+   "kind": "llm",
+   "status": "SUCCEEDED",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": "2026-11-01T09:00:00+05:30",
+   "error": null
+  },
+  {
+   "name": "bias_audit",
+   "kind": "llm",
+   "status": "SUCCEEDED",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": "2026-11-01T09:00:00+05:30",
+   "error": null
+  },
+  {
+   "name": "compose_result",
+   "kind": "deterministic",
+   "status": "SUCCEEDED",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": "2026-11-01T09:00:00+05:30",
+   "error": null
+  }
+ ],
+ "selected_role_ids": [
+  "R-001"
+ ],
+ "warnings": [],
+ "mode": "mock",
+ "created_at": "2026-11-01T09:00:00+05:30",
+ "updated_at": "2026-11-01T09:00:00+05:30"
+}

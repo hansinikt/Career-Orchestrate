@@ -1,0 +1,25 @@
+{
+  "decisions": [
+    {
+      "suggestion_id": "sg_SK-COMM",
+      "action": "accept"
+    },
+    {
+      "suggestion_id": "sg_SK-EXCEL",
+      "action": "accept"
+    },
+    {
+      "suggestion_id": "sg_SK-RECORDS",
+      "action": "accept"
+    },
+    {
+      "suggestion_id": "sg_SK-REPORT",
+      "action": "accept"
+    },
+    {
+      "suggestion_id": "sg_SK-SCHED",
+      "action": "accept"
+    }
+  ],
+  "added_skills": []
+}

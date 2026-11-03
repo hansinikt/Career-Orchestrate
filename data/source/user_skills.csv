@@ -1,0 +1,30 @@
+skill_id,user_id,skill_name,proficiency,evidence_type,skill_category
+S001,U001,Excel,Intermediate,Self-reported,Data handling
+S002,U001,Communication,Advanced,Self-reported,People skills
+S003,U001,Team coordination,Advanced,Self-reported,Operations
+S004,U001,Record management,Advanced,Self-reported,Operations
+S005,U001,Presentation skills,Intermediate,Self-reported,Communication
+S006,U002,Scheduling,Advanced,Self-reported,Operations
+S007,U002,Documentation,Advanced,Self-reported,Operations
+S008,U002,Microsoft Office,Intermediate,Self-reported,Digital
+S009,U002,Stakeholder communication,Intermediate,Self-reported,People skills
+S010,U003,Excel,Intermediate,Self-reported,Data handling
+S011,U003,Data cleaning,Beginner,Self-reported,Analytics
+S012,U003,Problem solving,Intermediate,Self-reported,Thinking
+S013,U003,Reporting,Intermediate,Self-reported,Analytics
+S014,U004,Customer service,Advanced,Self-reported,People skills
+S015,U004,CRM tools,Intermediate,Self-reported,Digital
+S016,U004,Communication,Advanced,Self-reported,People skills
+S017,U004,Case documentation,Advanced,Self-reported,Operations
+S018,U005,Record management,Advanced,Self-reported,Operations
+S019,U005,Excel,Intermediate,Self-reported,Data handling
+S020,U005,Process coordination,Intermediate,Self-reported,Operations
+S021,U006,Training coordination,Advanced,Self-reported,People development
+S022,U006,Scheduling,Advanced,Self-reported,Operations
+S023,U006,Communication,Advanced,Self-reported,People skills
+S024,U007,CRM tools,Intermediate,Self-reported,Digital
+S025,U007,Sales reporting,Intermediate,Self-reported,Analytics
+S026,U007,Excel,Intermediate,Self-reported,Data handling
+S027,U008,Document control,Advanced,Self-reported,Operations
+S028,U008,Compliance documentation,Intermediate,Self-reported,Compliance
+S029,U008,Attention to detail,Advanced,Self-reported,Thinking

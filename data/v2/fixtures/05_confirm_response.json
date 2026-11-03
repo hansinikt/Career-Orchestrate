@@ -1,0 +1,61 @@
+{
+  "profile_id": "prof_97d4982679",
+  "confirmed_skills": [
+    {
+      "skill_id": "SK-COMM",
+      "name": "Communication",
+      "level": 3,
+      "source": "declared",
+      "evidence": [
+        {
+          "quote": "supported cross-team communication",
+          "work_example_index": 0
+        }
+      ]
+    },
+    {
+      "skill_id": "SK-EXCEL",
+      "name": "Excel",
+      "level": 2,
+      "source": "declared",
+      "evidence": []
+    },
+    {
+      "skill_id": "SK-RECORDS",
+      "name": "Record management",
+      "level": 3,
+      "source": "declared",
+      "evidence": [
+        {
+          "quote": "maintained records",
+          "work_example_index": 0
+        }
+      ]
+    },
+    {
+      "skill_id": "SK-REPORT",
+      "name": "Reporting",
+      "level": 2,
+      "source": "extracted",
+      "evidence": [
+        {
+          "quote": "prepared reports",
+          "work_example_index": 0
+        }
+      ]
+    },
+    {
+      "skill_id": "SK-SCHED",
+      "name": "Scheduling",
+      "level": 2,
+      "source": "extracted",
+      "evidence": [
+        {
+          "quote": "Coordinated calendars",
+          "work_example_index": 0
+        }
+      ]
+    }
+  ],
+  "rejected_skill_ids": []
+}

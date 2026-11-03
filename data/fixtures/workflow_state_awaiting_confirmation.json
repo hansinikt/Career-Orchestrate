@@ -1,0 +1,93 @@
+{
+ "workflow_id": "wf_demo",
+ "profile_id": "prof_anitha_demo",
+ "status": "AWAITING_USER",
+ "current_stage": "confirm_skills",
+ "stages": [
+  {
+   "name": "extract_skills",
+   "kind": "llm",
+   "status": "SUCCEEDED",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": "2026-11-01T09:00:00+05:30",
+   "error": null
+  },
+  {
+   "name": "confirm_skills",
+   "kind": "human",
+   "status": "AWAITING_USER",
+   "attempts": 0,
+   "cache_hit": false,
+   "started_at": null,
+   "finished_at": null,
+   "error": null
+  },
+  {
+   "name": "match_roles",
+   "kind": "deterministic",
+   "status": "PENDING",
+   "attempts": 0,
+   "cache_hit": false,
+   "started_at": null,
+   "finished_at": null,
+   "error": null
+  },
+  {
+   "name": "select_role",
+   "kind": "human",
+   "status": "PENDING",
+   "attempts": 0,
+   "cache_hit": false,
+   "started_at": null,
+   "finished_at": null,
+   "error": null
+  },
+  {
+   "name": "learning_plan",
+   "kind": "deterministic",
+   "status": "PENDING",
+   "attempts": 0,
+   "cache_hit": false,
+   "started_at": null,
+   "finished_at": null,
+   "error": null
+  },
+  {
+   "name": "employer_readiness",
+   "kind": "llm",
+   "status": "PENDING",
+   "attempts": 0,
+   "cache_hit": false,
+   "started_at": null,
+   "finished_at": null,
+   "error": null
+  },
+  {
+   "name": "bias_audit",
+   "kind": "llm",
+   "status": "RUNNING",
+   "attempts": 1,
+   "cache_hit": false,
+   "started_at": "2026-11-01T09:00:00+05:30",
+   "finished_at": null,
+   "error": null
+  },
+  {
+   "name": "compose_result",
+   "kind": "deterministic",
+   "status": "PENDING",
+   "attempts": 0,
+   "cache_hit": false,
+   "started_at": null,
+   "finished_at": null,
+   "error": null
+  }
+ ],
+ "selected_role_ids": [],
+ "warnings": [],
+ "mode": "mock",
+ "created_at": "2026-11-01T09:00:00+05:30",
+ "updated_at": "2026-11-01T09:00:00+05:30"
+}

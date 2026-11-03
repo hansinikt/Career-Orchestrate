@@ -1,0 +1,13 @@
+flowchart TD
+  S0([POST /workflows]) --> E["extract_skills<br/>(LLM + validators)"]
+  E --> C{{"confirm_skills<br/>HUMAN GATE"}}
+  E -. "parallel, starts after extract" .-> A["bias_audit<br/>(counterfactual harness)"]
+  C --> M["match_roles<br/>(deterministic)"]
+  M --> R{{"select_role<br/>HUMAN GATE"}}
+  R --> L["learning_plan<br/>(deterministic)"]
+  R --> G["employer_readiness<br/>(LLM + validators)"]
+  L --> F["compose_result"]
+  G --> F
+  A --> F
+  F --> D([COMPLETED / COMPLETED_WITH_WARNINGS])
+  E -- "fail after retries" --> X([FAILED: stage retry endpoint])

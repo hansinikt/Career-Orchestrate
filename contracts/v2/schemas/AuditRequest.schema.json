@@ -1,0 +1,13 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "canary": {
+      "default": false,
+      "description": "Demo only: add a deliberately biased variant to prove the audit can catch bias",
+      "title": "Canary",
+      "type": "boolean"
+    }
+  },
+  "title": "AuditRequest",
+  "type": "object"
+}

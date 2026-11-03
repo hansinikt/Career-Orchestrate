@@ -1,0 +1,21 @@
+flowchart LR
+  U["User (browser)"] --> FE["Frontend (existing app, adapted)<br/>API client adapter + typed models"]
+  FE -- "REST/JSON /api/v1" --> API
+  subgraph BE["Backend process (Python, FastAPI)"]
+    API["API layer<br/>validation, errors, auth guard"] --> ORCH["Career Orchestrator<br/>stage graph + state store"]
+    ORCH --> SD["Skills Discovery<br/>LLM extract + validators"]
+    ORCH --> MI["Market Intelligence<br/>curated role data service"]
+    ORCH --> IM["Inclusive Matching<br/>deterministic scoring"]
+    ORCH --> LP["Learning Pathway<br/>gap + catalog retrieval"]
+    ORCH --> ER["Employer Readiness<br/>grounded LLM + flags"]
+    ORCH --> BA["Bias Audit<br/>counterfactual harness"]
+    ORCH --> DB[("SQLite<br/>profiles, workflows,<br/>stage results, llm_cache, audits")]
+  end
+  SD & ER & BA -- "LLMClient adapter" --> LLM["LLM provider<br/>SAP Gen AI Hub | direct API | replay cache"]
+  MI & IM & LP --> DATA[("Seed data files<br/>skills, roles, resources<br/>versioned in Git")]
+  ORCH -. "structured logs, trace ids" .-> LOG["Logs (JSON lines)"]
+  LP -. "deep links only" .-> HUB["SAP Learning Hub (student edition)<br/>curated catalog, no API"]
+  classDef ai fill:#efe9ff,stroke:#7c5cbf
+  classDef det fill:#e6f3ec,stroke:#3f7d5a
+  class SD,ER,BA ai
+  class MI,IM,LP,ORCH det

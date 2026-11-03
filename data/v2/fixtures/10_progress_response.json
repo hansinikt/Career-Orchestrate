@@ -1,0 +1,25 @@
+{
+  "profile_id": "prof_97d4982679",
+  "plan_id": "plan_230fe857f6",
+  "percent": 40,
+  "hours_done": 10.0,
+  "hours_total": 24.0,
+  "steps_done": 0,
+  "steps_total": 1,
+  "steps": [
+    {
+      "order": 1,
+      "skill_name": "Confidentiality",
+      "est_hours": 24.0,
+      "percent": 40
+    }
+  ],
+  "last_activity_at": "2026-11-01T12:19:25+00:00",
+  "next_message": {
+    "message_id": "msg_39040e0266",
+    "style": "progress",
+    "event": "start",
+    "text": "You have begun. Your plan has 1 step and about 24 hours in all. 40% done so far.",
+    "suggested_action": "none"
+  }
+}

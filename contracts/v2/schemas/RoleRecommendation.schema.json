@@ -1,0 +1,228 @@
+{
+  "$defs": {
+    "FeatureScores": {
+      "additionalProperties": false,
+      "properties": {
+        "learnability": {
+          "title": "Learnability",
+          "type": "number"
+        },
+        "preference_fit": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null when the worker gave no interests (feature dropped, weights renormalised)",
+          "title": "Preference Fit"
+        },
+        "skill_coverage": {
+          "title": "Skill Coverage",
+          "type": "number"
+        }
+      },
+      "required": [
+        "skill_coverage",
+        "preference_fit",
+        "learnability"
+      ],
+      "title": "FeatureScores",
+      "type": "object"
+    },
+    "MatchedSkill": {
+      "additionalProperties": false,
+      "properties": {
+        "coverage": {
+          "title": "Coverage",
+          "type": "number"
+        },
+        "evidence_quotes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Quotes",
+          "type": "array"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "required_level": {
+          "title": "Required Level",
+          "type": "integer"
+        },
+        "skill_id": {
+          "title": "Skill Id",
+          "type": "string"
+        },
+        "user_level": {
+          "title": "User Level",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "skill_id",
+        "name",
+        "user_level",
+        "required_level",
+        "coverage",
+        "evidence_quotes"
+      ],
+      "title": "MatchedSkill",
+      "type": "object"
+    },
+    "SkillGap": {
+      "additionalProperties": false,
+      "properties": {
+        "est_hours": {
+          "title": "Est Hours",
+          "type": "number"
+        },
+        "gap_levels": {
+          "title": "Gap Levels",
+          "type": "integer"
+        },
+        "importance": {
+          "title": "Importance",
+          "type": "integer"
+        },
+        "mandatory": {
+          "title": "Mandatory",
+          "type": "boolean"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "number"
+        },
+        "required_level": {
+          "title": "Required Level",
+          "type": "integer"
+        },
+        "skill_id": {
+          "title": "Skill Id",
+          "type": "string"
+        },
+        "user_level": {
+          "title": "User Level",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "skill_id",
+        "name",
+        "required_level",
+        "user_level",
+        "gap_levels",
+        "mandatory",
+        "importance",
+        "est_hours",
+        "priority"
+      ],
+      "title": "SkillGap",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "band": {
+      "enum": [
+        "strong_fit",
+        "bridgeable",
+        "stretch"
+      ],
+      "title": "Band",
+      "type": "string"
+    },
+    "blocking_gaps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blocking Gaps",
+      "type": "array"
+    },
+    "est_gap_hours": {
+      "title": "Est Gap Hours",
+      "type": "number"
+    },
+    "explanation": {
+      "title": "Explanation",
+      "type": "string"
+    },
+    "feature_scores": {
+      "$ref": "#/$defs/FeatureScores"
+    },
+    "gaps": {
+      "items": {
+        "$ref": "#/$defs/SkillGap"
+      },
+      "title": "Gaps",
+      "type": "array"
+    },
+    "matched": {
+      "items": {
+        "$ref": "#/$defs/MatchedSkill"
+      },
+      "title": "Matched",
+      "type": "array"
+    },
+    "openness_flags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Openness Flags",
+      "type": "array"
+    },
+    "provisional_weights": {
+      "default": true,
+      "title": "Provisional Weights",
+      "type": "boolean"
+    },
+    "rank": {
+      "title": "Rank",
+      "type": "integer"
+    },
+    "role_id": {
+      "title": "Role Id",
+      "type": "string"
+    },
+    "score": {
+      "title": "Score",
+      "type": "number"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "weights_used": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Weights Used",
+      "type": "object"
+    }
+  },
+  "required": [
+    "rank",
+    "role_id",
+    "title",
+    "score",
+    "band",
+    "feature_scores",
+    "weights_used",
+    "blocking_gaps",
+    "matched",
+    "gaps",
+    "est_gap_hours",
+    "openness_flags",
+    "explanation"
+  ],
+  "title": "RoleRecommendation",
+  "type": "object"
+}

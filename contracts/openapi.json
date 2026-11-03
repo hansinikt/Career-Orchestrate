@@ -1,0 +1,3281 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Career Orchestrator API",
+  "description": "Contract v1.0. Mock and real backend MUST expose identical paths, schemas and status codes.",
+  "version": "1.0.0"
+ },
+ "paths": {
+  "/api/v1/health": {
+   "get": {
+    "tags": [
+     "meta"
+    ],
+    "summary": "Health",
+    "operationId": "health_api_v1_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/meta": {
+   "get": {
+    "tags": [
+     "meta"
+    ],
+    "summary": "Meta",
+    "operationId": "meta_api_v1_meta_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/profiles": {
+   "post": {
+    "tags": [
+     "profiles"
+    ],
+    "summary": "Create Profile",
+    "operationId": "create_profile_api_v1_profiles_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CareerProfileInput"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/CareerProfile"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Content",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/profiles/{profile_id}": {
+   "get": {
+    "tags": [
+     "profiles"
+    ],
+    "summary": "Get Profile",
+    "operationId": "get_profile_api_v1_profiles__profile_id__get",
+    "parameters": [
+     {
+      "name": "profile_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Profile Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/CareerProfile"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   },
+   "put": {
+    "tags": [
+     "profiles"
+    ],
+    "summary": "Update Profile",
+    "operationId": "update_profile_api_v1_profiles__profile_id__put",
+    "parameters": [
+     {
+      "name": "profile_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Profile Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CareerProfileInput"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/CareerProfile"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "profiles"
+    ],
+    "summary": "Delete Profile",
+    "operationId": "delete_profile_api_v1_profiles__profile_id__delete",
+    "parameters": [
+     {
+      "name": "profile_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Profile Id"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   }
+  },
+  "/api/v1/workflows": {
+   "post": {
+    "tags": [
+     "workflows"
+    ],
+    "summary": "Start",
+    "operationId": "start_api_v1_workflows_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/StartWorkflowRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/WorkflowState"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Content",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/workflows/{workflow_id}": {
+   "get": {
+    "tags": [
+     "workflows"
+    ],
+    "summary": "Get Wf",
+    "operationId": "get_wf_api_v1_workflows__workflow_id__get",
+    "parameters": [
+     {
+      "name": "workflow_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Workflow Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/WorkflowState"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   }
+  },
+  "/api/v1/workflows/{workflow_id}/skills/confirmation": {
+   "post": {
+    "tags": [
+     "workflows"
+    ],
+    "summary": "Confirm",
+    "operationId": "confirm_api_v1_workflows__workflow_id__skills_confirmation_post",
+    "parameters": [
+     {
+      "name": "workflow_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Workflow Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SkillConfirmationRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/WorkflowState"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   }
+  },
+  "/api/v1/workflows/{workflow_id}/role-selection": {
+   "post": {
+    "tags": [
+     "workflows"
+    ],
+    "summary": "Select",
+    "operationId": "select_api_v1_workflows__workflow_id__role_selection_post",
+    "parameters": [
+     {
+      "name": "workflow_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Workflow Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RoleSelectionRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/WorkflowState"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   }
+  },
+  "/api/v1/workflows/{workflow_id}/stages/{stage}/retry": {
+   "post": {
+    "tags": [
+     "workflows"
+    ],
+    "summary": "Retry",
+    "operationId": "retry_api_v1_workflows__workflow_id__stages__stage__retry_post",
+    "parameters": [
+     {
+      "name": "workflow_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Workflow Id"
+      }
+     },
+     {
+      "name": "stage",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "enum": [
+        "extract_skills",
+        "confirm_skills",
+        "match_roles",
+        "select_role",
+        "learning_plan",
+        "employer_readiness",
+        "bias_audit",
+        "compose_result"
+       ],
+       "type": "string",
+       "title": "Stage"
+      }
+     }
+    ],
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/WorkflowState"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   }
+  },
+  "/api/v1/workflows/{workflow_id}/results": {
+   "get": {
+    "tags": [
+     "workflows"
+    ],
+    "summary": "Results",
+    "operationId": "results_api_v1_workflows__workflow_id__results_get",
+    "parameters": [
+     {
+      "name": "workflow_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Workflow Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/WorkflowResults"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   }
+  },
+  "/api/v1/audits": {
+   "post": {
+    "tags": [
+     "audits"
+    ],
+    "summary": "Run Audit",
+    "operationId": "run_audit_api_v1_audits_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AuditRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "202": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/BiasAuditResult"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     },
+     "409": {
+      "description": "Conflict",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Unprocessable Content",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/audits/{audit_id}": {
+   "get": {
+    "tags": [
+     "audits"
+    ],
+    "summary": "Get Audit",
+    "operationId": "get_audit_api_v1_audits__audit_id__get",
+    "parameters": [
+     {
+      "name": "audit_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Audit Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/BiasAuditResult"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   }
+  },
+  "/api/v1/audits/{audit_id}/review": {
+   "put": {
+    "tags": [
+     "audits"
+    ],
+    "summary": "Review",
+    "operationId": "review_api_v1_audits__audit_id__review_put",
+    "parameters": [
+     {
+      "name": "audit_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Audit Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReviewRequest"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/BiasAuditResult"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   }
+  },
+  "/api/v1/roles": {
+   "get": {
+    "tags": [
+     "reference"
+    ],
+    "summary": "Roles",
+    "operationId": "roles_api_v1_roles_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/RoleProfile"
+         },
+         "type": "array",
+         "title": "Response Roles Api V1 Roles Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/roles/{role_id}": {
+   "get": {
+    "tags": [
+     "reference"
+    ],
+    "summary": "Role",
+    "operationId": "role_api_v1_roles__role_id__get",
+    "parameters": [
+     {
+      "name": "role_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Role Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RoleProfile"
+        }
+       }
+      }
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Bad Request"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "409": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Conflict"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/APIErrorResponse"
+        }
+       }
+      },
+      "description": "Unprocessable Content"
+     }
+    }
+   }
+  },
+  "/api/v1/skills": {
+   "get": {
+    "tags": [
+     "reference"
+    ],
+    "summary": "Skills",
+    "operationId": "skills_api_v1_skills_get",
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "maxLength": 60,
+       "default": "",
+       "title": "Query"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "APIError": {
+    "properties": {
+     "code": {
+      "type": "string",
+      "enum": [
+       "VALIDATION_ERROR",
+       "CONSENT_REQUIRED",
+       "NOT_FOUND",
+       "CONFLICT_STATE",
+       "STAGE_FAILED",
+       "LLM_UNAVAILABLE",
+       "LLM_SCHEMA_VIOLATION",
+       "TIMEOUT",
+       "RATE_LIMITED",
+       "INTERNAL_ERROR"
+      ],
+      "title": "Code"
+     },
+     "message": {
+      "type": "string",
+      "title": "Message"
+     },
+     "retryable": {
+      "type": "boolean",
+      "title": "Retryable"
+     },
+     "details": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Details"
+     },
+     "request_id": {
+      "type": "string",
+      "title": "Request Id"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "code",
+     "message",
+     "retryable",
+     "request_id"
+    ],
+    "title": "APIError"
+   },
+   "APIErrorResponse": {
+    "properties": {
+     "error": {
+      "$ref": "#/components/schemas/APIError"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "error"
+    ],
+    "title": "APIErrorResponse"
+   },
+   "Achievement": {
+    "properties": {
+     "text": {
+      "type": "string",
+      "title": "Text"
+     },
+     "evidence_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "minItems": 1,
+      "title": "Evidence Ids"
+     },
+     "needs_user_input": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Needs User Input",
+      "default": []
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "text",
+     "evidence_ids"
+    ],
+    "title": "Achievement"
+   },
+   "AddedSkill": {
+    "properties": {
+     "skill_id": {
+      "type": "string",
+      "title": "Skill Id"
+     },
+     "level": {
+      "type": "integer",
+      "maximum": 3.0,
+      "minimum": 1.0,
+      "title": "Level"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 240
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Note"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "skill_id",
+     "level"
+    ],
+    "title": "AddedSkill"
+   },
+   "AuditFlag": {
+    "properties": {
+     "variant_id": {
+      "type": "string",
+      "title": "Variant Id"
+     },
+     "metric": {
+      "type": "string",
+      "title": "Metric"
+     },
+     "observed": {
+      "type": "number",
+      "title": "Observed"
+     },
+     "threshold": {
+      "type": "number",
+      "title": "Threshold"
+     },
+     "message": {
+      "type": "string",
+      "title": "Message"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "variant_id",
+     "metric",
+     "observed",
+     "threshold",
+     "message"
+    ],
+    "title": "AuditFlag"
+   },
+   "AuditRequest": {
+    "properties": {
+     "profile_id": {
+      "type": "string",
+      "title": "Profile Id"
+     },
+     "repeats": {
+      "type": "integer",
+      "maximum": 5.0,
+      "minimum": 1.0,
+      "title": "Repeats",
+      "default": 1
+     },
+     "include_proxy_cues": {
+      "type": "boolean",
+      "title": "Include Proxy Cues",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "profile_id"
+    ],
+    "title": "AuditRequest"
+   },
+   "AuditVariantResult": {
+    "properties": {
+     "variant_id": {
+      "type": "string",
+      "title": "Variant Id"
+     },
+     "cue_set": {
+      "type": "string",
+      "enum": [
+       "baseline",
+       "direct_age_cue",
+       "proxy_experience_years"
+      ],
+      "title": "Cue Set"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label"
+     },
+     "skills_jaccard": {
+      "type": "number",
+      "title": "Skills Jaccard"
+     },
+     "top3_overlap": {
+      "type": "integer",
+      "title": "Top3 Overlap"
+     },
+     "kendall_tau": {
+      "type": "number",
+      "title": "Kendall Tau"
+     },
+     "max_abs_score_delta": {
+      "type": "number",
+      "title": "Max Abs Score Delta"
+     },
+     "plan_hours_delta": {
+      "type": "number",
+      "title": "Plan Hours Delta"
+     },
+     "lexicon_hits": {
+      "type": "integer",
+      "title": "Lexicon Hits"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "variant_id",
+     "cue_set",
+     "label",
+     "skills_jaccard",
+     "top3_overlap",
+     "kendall_tau",
+     "max_abs_score_delta",
+     "plan_hours_delta",
+     "lexicon_hits"
+    ],
+    "title": "AuditVariantResult"
+   },
+   "BiasAuditResult": {
+    "properties": {
+     "audit_id": {
+      "type": "string",
+      "title": "Audit Id"
+     },
+     "profile_id": {
+      "type": "string",
+      "title": "Profile Id"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "RUNNING",
+       "SUCCEEDED",
+       "FAILED"
+      ],
+      "title": "Status"
+     },
+     "created_at": {
+      "type": "string",
+      "title": "Created At"
+     },
+     "mode": {
+      "type": "string",
+      "enum": [
+       "deterministic_only",
+       "llm_extraction",
+       "replay"
+      ],
+      "title": "Mode"
+     },
+     "repeats": {
+      "type": "integer",
+      "title": "Repeats"
+     },
+     "variants": {
+      "items": {
+       "$ref": "#/components/schemas/AuditVariantResult"
+      },
+      "type": "array",
+      "title": "Variants"
+     },
+     "thresholds": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object",
+      "title": "Thresholds"
+     },
+     "flags": {
+      "items": {
+       "$ref": "#/components/schemas/AuditFlag"
+      },
+      "type": "array",
+      "title": "Flags"
+     },
+     "verdict": {
+      "type": "string",
+      "enum": [
+       "pass",
+       "flag",
+       "inconclusive"
+      ],
+      "title": "Verdict"
+     },
+     "reviewer": {
+      "$ref": "#/components/schemas/Reviewer"
+     },
+     "limitations": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Limitations"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "audit_id",
+     "profile_id",
+     "status",
+     "created_at",
+     "mode",
+     "repeats",
+     "variants",
+     "thresholds",
+     "flags",
+     "verdict",
+     "reviewer",
+     "limitations"
+    ],
+    "title": "BiasAuditResult"
+   },
+   "CareerProfile": {
+    "properties": {
+     "consent": {
+      "$ref": "#/components/schemas/Consent"
+     },
+     "language": {
+      "type": "string",
+      "const": "en",
+      "title": "Language",
+      "default": "en"
+     },
+     "display_name": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 80
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Display Name"
+     },
+     "summary_text": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 1500
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Summary Text"
+     },
+     "work_entries": {
+      "items": {
+       "$ref": "#/components/schemas/WorkEntry"
+      },
+      "type": "array",
+      "maxItems": 10,
+      "minItems": 1,
+      "title": "Work Entries"
+     },
+     "preferences": {
+      "$ref": "#/components/schemas/Preferences",
+      "default": {
+       "interest_tags": []
+      }
+     },
+     "profile_id": {
+      "type": "string",
+      "title": "Profile Id"
+     },
+     "created_at": {
+      "type": "string",
+      "title": "Created At"
+     },
+     "updated_at": {
+      "type": "string",
+      "title": "Updated At"
+     },
+     "is_synthetic": {
+      "type": "boolean",
+      "title": "Is Synthetic",
+      "default": false
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "consent",
+     "work_entries",
+     "profile_id",
+     "created_at",
+     "updated_at"
+    ],
+    "title": "CareerProfile"
+   },
+   "CareerProfileInput": {
+    "properties": {
+     "consent": {
+      "$ref": "#/components/schemas/Consent"
+     },
+     "language": {
+      "type": "string",
+      "const": "en",
+      "title": "Language",
+      "default": "en"
+     },
+     "display_name": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 80
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Display Name"
+     },
+     "summary_text": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 1500
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Summary Text"
+     },
+     "work_entries": {
+      "items": {
+       "$ref": "#/components/schemas/WorkEntry"
+      },
+      "type": "array",
+      "maxItems": 10,
+      "minItems": 1,
+      "title": "Work Entries"
+     },
+     "preferences": {
+      "$ref": "#/components/schemas/Preferences",
+      "default": {
+       "interest_tags": []
+      }
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "consent",
+     "work_entries"
+    ],
+    "title": "CareerProfileInput"
+   },
+   "ClarifyingQuestion": {
+    "properties": {
+     "question_id": {
+      "type": "string",
+      "title": "Question Id"
+     },
+     "text": {
+      "type": "string",
+      "title": "Text"
+     },
+     "skill_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Skill Ids"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "question_id",
+     "text",
+     "skill_ids"
+    ],
+    "title": "ClarifyingQuestion"
+   },
+   "Consent": {
+    "properties": {
+     "given": {
+      "type": "boolean",
+      "title": "Given"
+     },
+     "version": {
+      "type": "string",
+      "title": "Version",
+      "default": "2026-10-v1"
+     },
+     "at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "At"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "given"
+    ],
+    "title": "Consent"
+   },
+   "EmployerReadinessResult": {
+    "properties": {
+     "role_id": {
+      "type": "string",
+      "title": "Role Id"
+     },
+     "relevant_achievements": {
+      "items": {
+       "$ref": "#/components/schemas/Achievement"
+      },
+      "type": "array",
+      "title": "Relevant Achievements"
+     },
+     "transferable_experience": {
+      "items": {
+       "$ref": "#/components/schemas/TransferItem"
+      },
+      "type": "array",
+      "title": "Transferable Experience"
+     },
+     "resume_improvements": {
+      "items": {
+       "$ref": "#/components/schemas/ResumeTip"
+      },
+      "type": "array",
+      "title": "Resume Improvements"
+     },
+     "portfolio_suggestions": {
+      "items": {
+       "$ref": "#/components/schemas/PortfolioIdea"
+      },
+      "type": "array",
+      "title": "Portfolio Suggestions"
+     },
+     "interview_prep": {
+      "items": {
+       "$ref": "#/components/schemas/InterviewItem"
+      },
+      "type": "array",
+      "title": "Interview Prep"
+     },
+     "remaining_prep": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Remaining Prep"
+     },
+     "openness_flags": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Openness Flags"
+     },
+     "grounding_report": {
+      "$ref": "#/components/schemas/GroundingReport"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "role_id",
+     "relevant_achievements",
+     "transferable_experience",
+     "resume_improvements",
+     "portfolio_suggestions",
+     "interview_prep",
+     "remaining_prep",
+     "openness_flags",
+     "grounding_report"
+    ],
+    "title": "EmployerReadinessResult"
+   },
+   "FeatureScores": {
+    "properties": {
+     "skill_coverage": {
+      "type": "number",
+      "title": "Skill Coverage"
+     },
+     "preference_fit": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Preference Fit"
+     },
+     "learnability": {
+      "type": "number",
+      "title": "Learnability"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "skill_coverage",
+     "preference_fit",
+     "learnability"
+    ],
+    "title": "FeatureScores"
+   },
+   "GroundingReport": {
+    "properties": {
+     "dropped_claims": {
+      "type": "integer",
+      "title": "Dropped Claims"
+     },
+     "flagged_numbers": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Flagged Numbers"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "dropped_claims",
+     "flagged_numbers"
+    ],
+    "title": "GroundingReport"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "InterviewItem": {
+    "properties": {
+     "question": {
+      "type": "string",
+      "title": "Question"
+     },
+     "star_hint": {
+      "type": "string",
+      "title": "Star Hint"
+     },
+     "evidence_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Evidence Ids"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "question",
+     "star_hint",
+     "evidence_ids"
+    ],
+    "title": "InterviewItem"
+   },
+   "LearningPlan": {
+    "properties": {
+     "plan_id": {
+      "type": "string",
+      "title": "Plan Id"
+     },
+     "role_id": {
+      "type": "string",
+      "title": "Role Id"
+     },
+     "total_est_hours": {
+      "type": "number",
+      "title": "Total Est Hours"
+     },
+     "weeks_at_pace": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Weeks At Pace"
+     },
+     "steps": {
+      "items": {
+       "$ref": "#/components/schemas/PlanStep"
+      },
+      "type": "array",
+      "title": "Steps"
+     },
+     "unresolved_skill_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Unresolved Skill Ids"
+     },
+     "proof_tasks": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Proof Tasks"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "plan_id",
+     "role_id",
+     "total_est_hours",
+     "weeks_at_pace",
+     "steps",
+     "unresolved_skill_ids",
+     "proof_tasks"
+    ],
+    "title": "LearningPlan"
+   },
+   "LearningResource": {
+    "properties": {
+     "resource_id": {
+      "type": "string",
+      "title": "Resource Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "provider": {
+      "type": "string",
+      "title": "Provider"
+     },
+     "url": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Url"
+     },
+     "skill_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Skill Ids"
+     },
+     "level_from": {
+      "type": "integer",
+      "title": "Level From"
+     },
+     "level_to": {
+      "type": "integer",
+      "title": "Level To"
+     },
+     "est_hours": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Est Hours"
+     },
+     "cost": {
+      "type": "string",
+      "enum": [
+       "free",
+       "paid",
+       "unknown"
+      ],
+      "title": "Cost"
+     },
+     "verification_status": {
+      "type": "string",
+      "enum": [
+       "verified",
+       "seed_unverified",
+       "broken"
+      ],
+      "title": "Verification Status"
+     },
+     "last_verified": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last Verified"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "resource_id",
+     "title",
+     "provider",
+     "url",
+     "skill_ids",
+     "level_from",
+     "level_to",
+     "est_hours",
+     "cost",
+     "verification_status"
+    ],
+    "title": "LearningResource"
+   },
+   "MarketSignal": {
+    "properties": {
+     "kind": {
+      "type": "string",
+      "enum": [
+       "demand_note",
+       "salary_range",
+       "vacancy_count"
+      ],
+      "title": "Kind"
+     },
+     "text": {
+      "type": "string",
+      "title": "Text"
+     },
+     "source_url": {
+      "type": "string",
+      "title": "Source Url"
+     },
+     "as_of": {
+      "type": "string",
+      "title": "As Of"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "kind",
+     "text",
+     "source_url",
+     "as_of"
+    ],
+    "title": "MarketSignal"
+   },
+   "MatchedSkill": {
+    "properties": {
+     "skill_id": {
+      "type": "string",
+      "title": "Skill Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "user_level": {
+      "type": "integer",
+      "title": "User Level"
+     },
+     "required_level": {
+      "type": "integer",
+      "title": "Required Level"
+     },
+     "coverage": {
+      "type": "number",
+      "title": "Coverage"
+     },
+     "evidence_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Evidence Ids"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "skill_id",
+     "name",
+     "user_level",
+     "required_level",
+     "coverage",
+     "evidence_ids"
+    ],
+    "title": "MatchedSkill"
+   },
+   "NormalizedSkill": {
+    "properties": {
+     "skill_id": {
+      "type": "string",
+      "title": "Skill Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "origin": {
+      "type": "string",
+      "enum": [
+       "explicit",
+       "inferred",
+       "user_added"
+      ],
+      "title": "Origin"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "pending",
+       "confirmed",
+       "rejected"
+      ],
+      "title": "Status"
+     },
+     "level": {
+      "type": "integer",
+      "maximum": 3.0,
+      "minimum": 0.0,
+      "title": "Level",
+      "description": "0 none,1 foundational,2 working,3 advanced/owned"
+     },
+     "evidence_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Evidence Ids"
+     },
+     "confidence": {
+      "type": "string",
+      "enum": [
+       "low",
+       "medium",
+       "high"
+      ],
+      "title": "Confidence"
+     },
+     "rationale": {
+      "type": "string",
+      "maxLength": 240,
+      "title": "Rationale"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "skill_id",
+     "name",
+     "origin",
+     "status",
+     "level",
+     "evidence_ids",
+     "confidence",
+     "rationale"
+    ],
+    "title": "NormalizedSkill"
+   },
+   "PlanStep": {
+    "properties": {
+     "order": {
+      "type": "integer",
+      "title": "Order"
+     },
+     "skill_id": {
+      "type": "string",
+      "title": "Skill Id"
+     },
+     "skill_name": {
+      "type": "string",
+      "title": "Skill Name"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "resource_found",
+       "no_verified_resource",
+       "already_met"
+      ],
+      "title": "Status"
+     },
+     "resource": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/LearningResource"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "est_hours": {
+      "type": "number",
+      "title": "Est Hours"
+     },
+     "builds_on": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Builds On"
+     },
+     "rationale": {
+      "type": "string",
+      "title": "Rationale"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "order",
+     "skill_id",
+     "skill_name",
+     "status",
+     "resource",
+     "est_hours",
+     "builds_on",
+     "rationale"
+    ],
+    "title": "PlanStep"
+   },
+   "PortfolioIdea": {
+    "properties": {
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "description": {
+      "type": "string",
+      "title": "Description"
+     },
+     "skill_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Skill Ids"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "title",
+     "description",
+     "skill_ids"
+    ],
+    "title": "PortfolioIdea"
+   },
+   "Preferences": {
+    "properties": {
+     "interest_tags": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 3,
+      "title": "Interest Tags",
+      "description": "Ordered, most preferred first (max 3)"
+     },
+     "work_mode": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "onsite",
+         "hybrid",
+         "remote"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Work Mode"
+     },
+     "weekly_learning_hours": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 40.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Weekly Learning Hours"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "title": "Preferences"
+   },
+   "Requirement": {
+    "properties": {
+     "skill_id": {
+      "type": "string",
+      "title": "Skill Id"
+     },
+     "importance": {
+      "type": "integer",
+      "maximum": 5.0,
+      "minimum": 1.0,
+      "title": "Importance"
+     },
+     "required_level": {
+      "type": "integer",
+      "maximum": 3.0,
+      "minimum": 1.0,
+      "title": "Required Level"
+     },
+     "mandatory": {
+      "type": "boolean",
+      "title": "Mandatory"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "skill_id",
+     "importance",
+     "required_level",
+     "mandatory"
+    ],
+    "title": "Requirement"
+   },
+   "ResumeTip": {
+    "properties": {
+     "type": {
+      "type": "string",
+      "enum": [
+       "reword",
+       "quantify_prompt",
+       "add_section"
+      ],
+      "title": "Type"
+     },
+     "suggestion": {
+      "type": "string",
+      "title": "Suggestion"
+     },
+     "evidence_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Evidence Ids"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "type",
+     "suggestion",
+     "evidence_ids"
+    ],
+    "title": "ResumeTip"
+   },
+   "ReviewRequest": {
+    "properties": {
+     "decision": {
+      "type": "string",
+      "enum": [
+       "accept_no_action",
+       "investigate",
+       "block_release"
+      ],
+      "title": "Decision"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 500
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Note"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "decision"
+    ],
+    "title": "ReviewRequest"
+   },
+   "Reviewer": {
+    "properties": {
+     "status": {
+      "type": "string",
+      "enum": [
+       "pending",
+       "reviewed"
+      ],
+      "title": "Status"
+     },
+     "decision": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "accept_no_action",
+         "investigate",
+         "block_release"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Decision"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Note"
+     },
+     "reviewed_at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reviewed At"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "status"
+    ],
+    "title": "Reviewer"
+   },
+   "RoleProfile": {
+    "properties": {
+     "role_id": {
+      "type": "string",
+      "title": "Role Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "summary": {
+      "type": "string",
+      "title": "Summary"
+     },
+     "tags": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Tags"
+     },
+     "requirements": {
+      "items": {
+       "$ref": "#/components/schemas/Requirement"
+      },
+      "type": "array",
+      "title": "Requirements"
+     },
+     "requires_degree": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Requires Degree"
+     },
+     "max_experience_years": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Max Experience Years"
+     },
+     "onet_soc": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Onet Soc"
+     },
+     "provenance": {
+      "type": "string",
+      "enum": [
+       "team_curated_unverified",
+       "team_curated_onet_checked"
+      ],
+      "title": "Provenance"
+     },
+     "market_signals": {
+      "items": {
+       "$ref": "#/components/schemas/MarketSignal"
+      },
+      "type": "array",
+      "title": "Market Signals",
+      "default": []
+     },
+     "proof_templates": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Proof Templates",
+      "default": []
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "role_id",
+     "title",
+     "summary",
+     "tags",
+     "requirements",
+     "provenance"
+    ],
+    "title": "RoleProfile"
+   },
+   "RoleRecommendation": {
+    "properties": {
+     "role_id": {
+      "type": "string",
+      "title": "Role Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "rank": {
+      "type": "integer",
+      "title": "Rank"
+     },
+     "score": {
+      "type": "number",
+      "title": "Score"
+     },
+     "band": {
+      "type": "string",
+      "enum": [
+       "strong_fit",
+       "bridgeable",
+       "stretch"
+      ],
+      "title": "Band"
+     },
+     "feature_scores": {
+      "$ref": "#/components/schemas/FeatureScores"
+     },
+     "weights_used": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object",
+      "title": "Weights Used"
+     },
+     "blocking_gaps": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Blocking Gaps"
+     },
+     "matched": {
+      "items": {
+       "$ref": "#/components/schemas/MatchedSkill"
+      },
+      "type": "array",
+      "title": "Matched"
+     },
+     "gaps": {
+      "items": {
+       "$ref": "#/components/schemas/SkillGap"
+      },
+      "type": "array",
+      "title": "Gaps"
+     },
+     "est_gap_hours": {
+      "type": "number",
+      "title": "Est Gap Hours"
+     },
+     "openness_flags": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Openness Flags"
+     },
+     "explanation": {
+      "type": "string",
+      "title": "Explanation"
+     },
+     "provisional_weights": {
+      "type": "boolean",
+      "title": "Provisional Weights",
+      "default": true
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "role_id",
+     "title",
+     "rank",
+     "score",
+     "band",
+     "feature_scores",
+     "weights_used",
+     "blocking_gaps",
+     "matched",
+     "gaps",
+     "est_gap_hours",
+     "openness_flags",
+     "explanation"
+    ],
+    "title": "RoleRecommendation"
+   },
+   "RoleSelectionRequest": {
+    "properties": {
+     "role_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "maxItems": 2,
+      "minItems": 1,
+      "title": "Role Ids"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "role_ids"
+    ],
+    "title": "RoleSelectionRequest"
+   },
+   "SkillConfirmationRequest": {
+    "properties": {
+     "decisions": {
+      "items": {
+       "$ref": "#/components/schemas/SkillDecision"
+      },
+      "type": "array",
+      "title": "Decisions"
+     },
+     "added_skills": {
+      "items": {
+       "$ref": "#/components/schemas/AddedSkill"
+      },
+      "type": "array",
+      "title": "Added Skills",
+      "default": []
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "decisions"
+    ],
+    "title": "SkillConfirmationRequest"
+   },
+   "SkillDecision": {
+    "properties": {
+     "skill_id": {
+      "type": "string",
+      "title": "Skill Id"
+     },
+     "action": {
+      "type": "string",
+      "enum": [
+       "confirm",
+       "reject",
+       "set_level"
+      ],
+      "title": "Action"
+     },
+     "level": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 3.0,
+        "minimum": 1.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Level"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "skill_id",
+     "action"
+    ],
+    "title": "SkillDecision"
+   },
+   "SkillEvidence": {
+    "properties": {
+     "evidence_id": {
+      "type": "string",
+      "title": "Evidence Id"
+     },
+     "quote": {
+      "type": "string",
+      "title": "Quote",
+      "description": "Verbatim substring of the user's input (whitespace-normalised)"
+     },
+     "source": {
+      "type": "string",
+      "enum": [
+       "summary_text",
+       "work_entry"
+      ],
+      "title": "Source"
+     },
+     "entry_index": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Entry Index"
+     },
+     "level_signal": {
+      "type": "string",
+      "enum": [
+       "mentioned",
+       "performed",
+       "owned_outcome"
+      ],
+      "title": "Level Signal"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "evidence_id",
+     "quote",
+     "source",
+     "level_signal"
+    ],
+    "title": "SkillEvidence"
+   },
+   "SkillExtractionResult": {
+    "properties": {
+     "evidence": {
+      "items": {
+       "$ref": "#/components/schemas/SkillEvidence"
+      },
+      "type": "array",
+      "title": "Evidence"
+     },
+     "skills": {
+      "items": {
+       "$ref": "#/components/schemas/NormalizedSkill"
+      },
+      "type": "array",
+      "title": "Skills"
+     },
+     "clarifying_questions": {
+      "items": {
+       "$ref": "#/components/schemas/ClarifyingQuestion"
+      },
+      "type": "array",
+      "maxItems": 3,
+      "title": "Clarifying Questions"
+     },
+     "dropped_ungrounded": {
+      "type": "integer",
+      "title": "Dropped Ungrounded",
+      "default": 0
+     },
+     "taxonomy_version": {
+      "type": "string",
+      "title": "Taxonomy Version"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "evidence",
+     "skills",
+     "clarifying_questions",
+     "taxonomy_version"
+    ],
+    "title": "SkillExtractionResult"
+   },
+   "SkillGap": {
+    "properties": {
+     "skill_id": {
+      "type": "string",
+      "title": "Skill Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "required_level": {
+      "type": "integer",
+      "title": "Required Level"
+     },
+     "user_level": {
+      "type": "integer",
+      "title": "User Level"
+     },
+     "gap_levels": {
+      "type": "integer",
+      "title": "Gap Levels"
+     },
+     "mandatory": {
+      "type": "boolean",
+      "title": "Mandatory"
+     },
+     "importance": {
+      "type": "integer",
+      "title": "Importance"
+     },
+     "est_hours": {
+      "type": "number",
+      "title": "Est Hours"
+     },
+     "priority": {
+      "type": "number",
+      "title": "Priority"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "skill_id",
+     "name",
+     "required_level",
+     "user_level",
+     "gap_levels",
+     "mandatory",
+     "importance",
+     "est_hours",
+     "priority"
+    ],
+    "title": "SkillGap"
+   },
+   "StageState": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "enum": [
+       "extract_skills",
+       "confirm_skills",
+       "match_roles",
+       "select_role",
+       "learning_plan",
+       "employer_readiness",
+       "bias_audit",
+       "compose_result"
+      ],
+      "title": "Name"
+     },
+     "kind": {
+      "type": "string",
+      "enum": [
+       "llm",
+       "deterministic",
+       "human"
+      ],
+      "title": "Kind"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "PENDING",
+       "RUNNING",
+       "SUCCEEDED",
+       "FAILED",
+       "SKIPPED",
+       "AWAITING_USER"
+      ],
+      "title": "Status"
+     },
+     "attempts": {
+      "type": "integer",
+      "title": "Attempts",
+      "default": 0
+     },
+     "cache_hit": {
+      "type": "boolean",
+      "title": "Cache Hit",
+      "default": false
+     },
+     "started_at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Started At"
+     },
+     "finished_at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Finished At"
+     },
+     "error": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/APIError"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "name",
+     "kind",
+     "status"
+    ],
+    "title": "StageState"
+   },
+   "StartWorkflowRequest": {
+    "properties": {
+     "profile_id": {
+      "type": "string",
+      "title": "Profile Id"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "profile_id"
+    ],
+    "title": "StartWorkflowRequest"
+   },
+   "TransferItem": {
+    "properties": {
+     "skill_id": {
+      "type": "string",
+      "title": "Skill Id"
+     },
+     "role_requirement": {
+      "type": "string",
+      "title": "Role Requirement"
+     },
+     "evidence_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Evidence Ids"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "skill_id",
+     "role_requirement",
+     "evidence_ids"
+    ],
+    "title": "TransferItem"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "ctx": {
+      "type": "object",
+      "title": "Context"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   },
+   "WorkEntry": {
+    "properties": {
+     "title": {
+      "type": "string",
+      "maxLength": 120,
+      "title": "Title"
+     },
+     "organisation": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 120
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Organisation"
+     },
+     "description": {
+      "type": "string",
+      "maxLength": 2500,
+      "title": "Description",
+      "description": "Free text: what the person actually did"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "title",
+     "description"
+    ],
+    "title": "WorkEntry"
+   },
+   "WorkflowResults": {
+    "properties": {
+     "workflow_id": {
+      "type": "string",
+      "title": "Workflow Id"
+     },
+     "skills": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/SkillExtractionResult"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "recommendations": {
+      "anyOf": [
+       {
+        "items": {
+         "$ref": "#/components/schemas/RoleRecommendation"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Recommendations"
+     },
+     "learning_plans": {
+      "anyOf": [
+       {
+        "items": {
+         "$ref": "#/components/schemas/LearningPlan"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Learning Plans"
+     },
+     "employer_readiness": {
+      "anyOf": [
+       {
+        "items": {
+         "$ref": "#/components/schemas/EmployerReadinessResult"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Employer Readiness"
+     },
+     "bias_audit": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/BiasAuditResult"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "disclaimers": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Disclaimers"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "workflow_id",
+     "disclaimers"
+    ],
+    "title": "WorkflowResults"
+   },
+   "WorkflowState": {
+    "properties": {
+     "workflow_id": {
+      "type": "string",
+      "title": "Workflow Id"
+     },
+     "profile_id": {
+      "type": "string",
+      "title": "Profile Id"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "QUEUED",
+       "RUNNING",
+       "AWAITING_USER",
+       "COMPLETED",
+       "COMPLETED_WITH_WARNINGS",
+       "FAILED",
+       "CANCELLED"
+      ],
+      "title": "Status"
+     },
+     "current_stage": {
+      "anyOf": [
+       {
+        "type": "string",
+        "enum": [
+         "extract_skills",
+         "confirm_skills",
+         "match_roles",
+         "select_role",
+         "learning_plan",
+         "employer_readiness",
+         "bias_audit",
+         "compose_result"
+        ]
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Current Stage"
+     },
+     "stages": {
+      "items": {
+       "$ref": "#/components/schemas/StageState"
+      },
+      "type": "array",
+      "title": "Stages"
+     },
+     "selected_role_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Selected Role Ids",
+      "default": []
+     },
+     "warnings": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Warnings",
+      "default": []
+     },
+     "mode": {
+      "type": "string",
+      "enum": [
+       "live",
+       "replay",
+       "mock"
+      ],
+      "title": "Mode"
+     },
+     "created_at": {
+      "type": "string",
+      "title": "Created At"
+     },
+     "updated_at": {
+      "type": "string",
+      "title": "Updated At"
+     }
+    },
+    "additionalProperties": false,
+    "type": "object",
+    "required": [
+     "workflow_id",
+     "profile_id",
+     "status",
+     "current_stage",
+     "stages",
+     "mode",
+     "created_at",
+     "updated_at"
+    ],
+    "title": "WorkflowState"
+   }
+  }
+ }
+}

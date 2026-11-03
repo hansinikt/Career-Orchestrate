@@ -1,0 +1,7 @@
+# Replace @DEV1..@DEV4 with GitHub usernames. Each person edits only their own folders.
+/frontend/                    @DEV1
+/backend/app/                 @DEV2
+/engine/ /data/v2/ /data/*.py @DEV3
+/tests/ /.github/ /docs/      @DEV4
+/contracts/v2/                @DEV1 @DEV2 @DEV3 @DEV4
+/data/v2/resources.json       @DEV4

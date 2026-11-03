@@ -1,0 +1,159 @@
+{
+  "$defs": {
+    "NextMessage": {
+      "additionalProperties": false,
+      "properties": {
+        "event": {
+          "enum": [
+            "start",
+            "step_done",
+            "halfway",
+            "behind",
+            "welcome_back",
+            "plan_done"
+          ],
+          "title": "Event",
+          "type": "string"
+        },
+        "message_id": {
+          "title": "Message Id",
+          "type": "string"
+        },
+        "style": {
+          "enum": [
+            "progress",
+            "goals",
+            "encouragement",
+            "accountability",
+            "challenge"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "suggested_action": {
+          "enum": [
+            "none",
+            "share_summary"
+          ],
+          "title": "Suggested Action",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message_id",
+        "style",
+        "event",
+        "text",
+        "suggested_action"
+      ],
+      "title": "NextMessage",
+      "type": "object"
+    },
+    "StepProgress": {
+      "additionalProperties": false,
+      "properties": {
+        "est_hours": {
+          "title": "Est Hours",
+          "type": "number"
+        },
+        "order": {
+          "title": "Order",
+          "type": "integer"
+        },
+        "percent": {
+          "title": "Percent",
+          "type": "integer"
+        },
+        "skill_name": {
+          "title": "Skill Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "order",
+        "skill_name",
+        "est_hours",
+        "percent"
+      ],
+      "title": "StepProgress",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "hours_done": {
+      "title": "Hours Done",
+      "type": "number"
+    },
+    "hours_total": {
+      "title": "Hours Total",
+      "type": "number"
+    },
+    "last_activity_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Activity At"
+    },
+    "next_message": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NextMessage"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "percent": {
+      "title": "Percent",
+      "type": "integer"
+    },
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/StepProgress"
+      },
+      "title": "Steps",
+      "type": "array"
+    },
+    "steps_done": {
+      "title": "Steps Done",
+      "type": "integer"
+    },
+    "steps_total": {
+      "title": "Steps Total",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "profile_id",
+    "plan_id",
+    "percent",
+    "hours_done",
+    "hours_total",
+    "steps_done",
+    "steps_total",
+    "steps",
+    "last_activity_at",
+    "next_message"
+  ],
+  "title": "ProgressResponse",
+  "type": "object"
+}

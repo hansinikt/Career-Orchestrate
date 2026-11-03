@@ -1,0 +1,12 @@
+{
+ "error": {
+  "code": "VALIDATION_ERROR",
+  "message": "work_entries[0].description exceeds 2500 characters",
+  "retryable": false,
+  "details": {
+   "field": "work_entries[0].description",
+   "max": 2500
+  },
+  "request_id": "req_0001"
+ }
+}

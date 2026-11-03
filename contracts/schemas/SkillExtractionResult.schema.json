@@ -1,0 +1,195 @@
+{
+ "$defs": {
+  "ClarifyingQuestion": {
+   "additionalProperties": false,
+   "properties": {
+    "question_id": {
+     "title": "Question Id",
+     "type": "string"
+    },
+    "text": {
+     "title": "Text",
+     "type": "string"
+    },
+    "skill_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Skill Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "question_id",
+    "text",
+    "skill_ids"
+   ],
+   "title": "ClarifyingQuestion",
+   "type": "object"
+  },
+  "NormalizedSkill": {
+   "additionalProperties": false,
+   "properties": {
+    "skill_id": {
+     "title": "Skill Id",
+     "type": "string"
+    },
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "origin": {
+     "enum": [
+      "explicit",
+      "inferred",
+      "user_added"
+     ],
+     "title": "Origin",
+     "type": "string"
+    },
+    "status": {
+     "enum": [
+      "pending",
+      "confirmed",
+      "rejected"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "level": {
+     "description": "0 none,1 foundational,2 working,3 advanced/owned",
+     "maximum": 3,
+     "minimum": 0,
+     "title": "Level",
+     "type": "integer"
+    },
+    "evidence_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Evidence Ids",
+     "type": "array"
+    },
+    "confidence": {
+     "enum": [
+      "low",
+      "medium",
+      "high"
+     ],
+     "title": "Confidence",
+     "type": "string"
+    },
+    "rationale": {
+     "maxLength": 240,
+     "title": "Rationale",
+     "type": "string"
+    }
+   },
+   "required": [
+    "skill_id",
+    "name",
+    "origin",
+    "status",
+    "level",
+    "evidence_ids",
+    "confidence",
+    "rationale"
+   ],
+   "title": "NormalizedSkill",
+   "type": "object"
+  },
+  "SkillEvidence": {
+   "additionalProperties": false,
+   "properties": {
+    "evidence_id": {
+     "title": "Evidence Id",
+     "type": "string"
+    },
+    "quote": {
+     "description": "Verbatim substring of the user's input (whitespace-normalised)",
+     "title": "Quote",
+     "type": "string"
+    },
+    "source": {
+     "enum": [
+      "summary_text",
+      "work_entry"
+     ],
+     "title": "Source",
+     "type": "string"
+    },
+    "entry_index": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Entry Index"
+    },
+    "level_signal": {
+     "enum": [
+      "mentioned",
+      "performed",
+      "owned_outcome"
+     ],
+     "title": "Level Signal",
+     "type": "string"
+    }
+   },
+   "required": [
+    "evidence_id",
+    "quote",
+    "source",
+    "level_signal"
+   ],
+   "title": "SkillEvidence",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "evidence": {
+   "items": {
+    "$ref": "#/$defs/SkillEvidence"
+   },
+   "title": "Evidence",
+   "type": "array"
+  },
+  "skills": {
+   "items": {
+    "$ref": "#/$defs/NormalizedSkill"
+   },
+   "title": "Skills",
+   "type": "array"
+  },
+  "clarifying_questions": {
+   "items": {
+    "$ref": "#/$defs/ClarifyingQuestion"
+   },
+   "maxItems": 3,
+   "title": "Clarifying Questions",
+   "type": "array"
+  },
+  "dropped_ungrounded": {
+   "default": 0,
+   "title": "Dropped Ungrounded",
+   "type": "integer"
+  },
+  "taxonomy_version": {
+   "title": "Taxonomy Version",
+   "type": "string"
+  }
+ },
+ "required": [
+  "evidence",
+  "skills",
+  "clarifying_questions",
+  "taxonomy_version"
+ ],
+ "title": "SkillExtractionResult",
+ "type": "object"
+}

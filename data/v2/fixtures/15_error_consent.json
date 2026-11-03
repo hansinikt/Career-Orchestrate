@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "CONSENT_REQUIRED",
+    "message": "Consent is required before any text is processed.",
+    "details": null
+  }
+}

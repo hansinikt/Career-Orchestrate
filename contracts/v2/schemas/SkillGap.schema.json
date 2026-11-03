@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "est_hours": {
+      "title": "Est Hours",
+      "type": "number"
+    },
+    "gap_levels": {
+      "title": "Gap Levels",
+      "type": "integer"
+    },
+    "importance": {
+      "title": "Importance",
+      "type": "integer"
+    },
+    "mandatory": {
+      "title": "Mandatory",
+      "type": "boolean"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "priority": {
+      "title": "Priority",
+      "type": "number"
+    },
+    "required_level": {
+      "title": "Required Level",
+      "type": "integer"
+    },
+    "skill_id": {
+      "title": "Skill Id",
+      "type": "string"
+    },
+    "user_level": {
+      "title": "User Level",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "skill_id",
+    "name",
+    "required_level",
+    "user_level",
+    "gap_levels",
+    "mandatory",
+    "importance",
+    "est_hours",
+    "priority"
+  ],
+  "title": "SkillGap",
+  "type": "object"
+}

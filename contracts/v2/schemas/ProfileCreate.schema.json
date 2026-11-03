@@ -1,0 +1,194 @@
+{
+  "$defs": {
+    "DeclaredSkill": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "description": "1 Beginner, 2 Intermediate, 3 Advanced (the worker's own statement)",
+          "maximum": 3,
+          "minimum": 1,
+          "title": "Level",
+          "type": "integer"
+        },
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "level"
+      ],
+      "title": "DeclaredSkill",
+      "type": "object"
+    },
+    "MotivationPrefs": {
+      "additionalProperties": false,
+      "properties": {
+        "check_in": {
+          "default": "weekly",
+          "enum": [
+            "daily",
+            "weekly",
+            "off"
+          ],
+          "title": "Check In",
+          "type": "string"
+        },
+        "paused": {
+          "default": false,
+          "title": "Paused",
+          "type": "boolean"
+        },
+        "styles": {
+          "description": "1 or 2 styles the worker chose; first is primary",
+          "items": {
+            "enum": [
+              "progress",
+              "goals",
+              "encouragement",
+              "accountability",
+              "challenge"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "title": "Styles",
+          "type": "array"
+        }
+      },
+      "required": [
+        "styles"
+      ],
+      "title": "MotivationPrefs",
+      "type": "object"
+    },
+    "Preferences": {
+      "additionalProperties": false,
+      "properties": {
+        "interests": {
+          "description": "Ordered, most wanted first",
+          "items": {
+            "enum": [
+              "people",
+              "data",
+              "operations",
+              "planning",
+              "compliance"
+            ],
+            "type": "string"
+          },
+          "maxItems": 3,
+          "title": "Interests",
+          "type": "array"
+        },
+        "weekly_hours": {
+          "anyOf": [
+            {
+              "maximum": 40,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Weekly Hours"
+        }
+      },
+      "title": "Preferences",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "consent": {
+      "description": "Must be true. Worker agrees to processing of the text they entered.",
+      "title": "Consent",
+      "type": "boolean"
+    },
+    "current_role": {
+      "anyOf": [
+        {
+          "maxLength": 80,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Current Role"
+    },
+    "declared_skills": {
+      "items": {
+        "$ref": "#/$defs/DeclaredSkill"
+      },
+      "maxItems": 30,
+      "title": "Declared Skills",
+      "type": "array"
+    },
+    "display_name": {
+      "maxLength": 60,
+      "minLength": 1,
+      "title": "Display Name",
+      "type": "string"
+    },
+    "motivation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MotivationPrefs"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "preferences": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Preferences"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "stated_goal_role_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Role the worker says they want, e.g. R001. Always shown back to them.",
+      "title": "Stated Goal Role Id"
+    },
+    "work_examples": {
+      "description": "Each 10..1000 chars, in the worker's own words",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 5,
+      "minItems": 1,
+      "title": "Work Examples",
+      "type": "array"
+    }
+  },
+  "required": [
+    "display_name",
+    "work_examples",
+    "consent"
+  ],
+  "title": "ProfileCreate",
+  "type": "object"
+}

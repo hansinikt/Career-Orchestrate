@@ -1,0 +1,53 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "event": {
+      "enum": [
+        "start",
+        "step_done",
+        "halfway",
+        "behind",
+        "welcome_back",
+        "plan_done"
+      ],
+      "title": "Event",
+      "type": "string"
+    },
+    "message_id": {
+      "title": "Message Id",
+      "type": "string"
+    },
+    "style": {
+      "enum": [
+        "progress",
+        "goals",
+        "encouragement",
+        "accountability",
+        "challenge"
+      ],
+      "title": "Style",
+      "type": "string"
+    },
+    "suggested_action": {
+      "enum": [
+        "none",
+        "share_summary"
+      ],
+      "title": "Suggested Action",
+      "type": "string"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "message_id",
+    "style",
+    "event",
+    "text",
+    "suggested_action"
+  ],
+  "title": "NextMessage",
+  "type": "object"
+}

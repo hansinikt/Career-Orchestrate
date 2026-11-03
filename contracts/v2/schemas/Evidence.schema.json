@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "quote": {
+      "description": "Verbatim substring of one of the worker's work examples",
+      "title": "Quote",
+      "type": "string"
+    },
+    "work_example_index": {
+      "minimum": 0,
+      "title": "Work Example Index",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "quote",
+    "work_example_index"
+  ],
+  "title": "Evidence",
+  "type": "object"
+}

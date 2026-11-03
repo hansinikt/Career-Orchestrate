@@ -1,0 +1,1153 @@
+{
+ "workflow_id": "wf_demo",
+ "skills": {
+  "evidence": [
+   {
+    "evidence_id": "EV-1",
+    "quote": "I prepare the monthly MIS report for the operations head using Excel pivot tables",
+    "source": "work_entry",
+    "entry_index": 0,
+    "level_signal": "owned_outcome"
+   },
+   {
+    "evidence_id": "EV-2",
+    "quote": "cross-check figures against the dispatch register before sending",
+    "source": "work_entry",
+    "entry_index": 0,
+    "level_signal": "performed"
+   },
+   {
+    "evidence_id": "EV-3",
+    "quote": "I schedule meetings and site visits for a team of 12",
+    "source": "work_entry",
+    "entry_index": 0,
+    "level_signal": "owned_outcome"
+   },
+   {
+    "evidence_id": "EV-4",
+    "quote": "send follow-up emails to vendors for pending deliveries",
+    "source": "work_entry",
+    "entry_index": 0,
+    "level_signal": "performed"
+   },
+   {
+    "evidence_id": "EV-5",
+    "quote": "I keep the filing system and digital records for purchase and dispatch documents",
+    "source": "work_entry",
+    "entry_index": 0,
+    "level_signal": "owned_outcome"
+   },
+   {
+    "evidence_id": "EV-6",
+    "quote": "I write minutes of meeting after weekly reviews and track action items",
+    "source": "work_entry",
+    "entry_index": 0,
+    "level_signal": "owned_outcome"
+   },
+   {
+    "evidence_id": "EV-7",
+    "quote": "I track monthly petty cash and expense statements for the department",
+    "source": "work_entry",
+    "entry_index": 0,
+    "level_signal": "performed"
+   },
+   {
+    "evidence_id": "EV-8",
+    "quote": "I have entered purchase entries in the company ERP system",
+    "source": "work_entry",
+    "entry_index": 0,
+    "level_signal": "mentioned"
+   }
+  ],
+  "skills": [
+   {
+    "skill_id": "SK-REPORT",
+    "name": "Report preparation",
+    "origin": "explicit",
+    "status": "pending",
+    "level": 3,
+    "evidence_ids": [
+     "EV-1"
+    ],
+    "confidence": "high",
+    "rationale": "Prepares a recurring management report."
+   },
+   {
+    "skill_id": "SK-SPREADSHEET",
+    "name": "Spreadsheet analysis",
+    "origin": "explicit",
+    "status": "pending",
+    "level": 3,
+    "evidence_ids": [
+     "EV-1"
+    ],
+    "confidence": "high",
+    "rationale": "Names Excel pivot tables as the working tool."
+   },
+   {
+    "skill_id": "SK-SCHEDULING",
+    "name": "Scheduling and calendar coordination",
+    "origin": "explicit",
+    "status": "pending",
+    "level": 3,
+    "evidence_ids": [
+     "EV-3"
+    ],
+    "confidence": "high",
+    "rationale": "Schedules meetings and visits for a team."
+   },
+   {
+    "skill_id": "SK-VENDOR",
+    "name": "Vendor coordination",
+    "origin": "explicit",
+    "status": "pending",
+    "level": 2,
+    "evidence_ids": [
+     "EV-4"
+    ],
+    "confidence": "medium",
+    "rationale": "Follows up with vendors on deliveries."
+   },
+   {
+    "skill_id": "SK-RECORDS",
+    "name": "Records management",
+    "origin": "explicit",
+    "status": "pending",
+    "level": 3,
+    "evidence_ids": [
+     "EV-5"
+    ],
+    "confidence": "high",
+    "rationale": "Maintains filing system and digital records."
+   },
+   {
+    "skill_id": "SK-MINUTES",
+    "name": "Meeting coordination and minutes",
+    "origin": "explicit",
+    "status": "pending",
+    "level": 3,
+    "evidence_ids": [
+     "EV-6"
+    ],
+    "confidence": "high",
+    "rationale": "Writes minutes and tracks action items."
+   },
+   {
+    "skill_id": "SK-BUDGET",
+    "name": "Budget and expense tracking",
+    "origin": "explicit",
+    "status": "pending",
+    "level": 2,
+    "evidence_ids": [
+     "EV-7"
+    ],
+    "confidence": "medium",
+    "rationale": "Tracks petty cash and expense statements."
+   },
+   {
+    "skill_id": "SK-ERPBASIC",
+    "name": "ERP transaction basics",
+    "origin": "explicit",
+    "status": "pending",
+    "level": 1,
+    "evidence_ids": [
+     "EV-8"
+    ],
+    "confidence": "low",
+    "rationale": "Single mention of ERP data entry."
+   },
+   {
+    "skill_id": "SK-DATAQUALITY",
+    "name": "Data validation and quality checks",
+    "origin": "inferred",
+    "status": "pending",
+    "level": 2,
+    "evidence_ids": [
+     "EV-2"
+    ],
+    "confidence": "medium",
+    "rationale": "Cross-checks figures against a register before sending."
+   },
+   {
+    "skill_id": "SK-TEAMCOORD",
+    "name": "Team and task coordination",
+    "origin": "inferred",
+    "status": "pending",
+    "level": 2,
+    "evidence_ids": [
+     "EV-3"
+    ],
+    "confidence": "medium",
+    "rationale": "Coordinates schedules for a team of 12."
+   },
+   {
+    "skill_id": "SK-STAKEHOLDER",
+    "name": "Stakeholder communication",
+    "origin": "inferred",
+    "status": "pending",
+    "level": 2,
+    "evidence_ids": [
+     "EV-4"
+    ],
+    "confidence": "medium",
+    "rationale": "Follows up with external parties."
+   },
+   {
+    "skill_id": "SK-BUSWRITING",
+    "name": "Business writing",
+    "origin": "inferred",
+    "status": "pending",
+    "level": 2,
+    "evidence_ids": [
+     "EV-4"
+    ],
+    "confidence": "medium",
+    "rationale": "Writes follow-up emails."
+   },
+   {
+    "skill_id": "SK-PROCESSIMPROVE",
+    "name": "Process improvement",
+    "origin": "inferred",
+    "status": "pending",
+    "level": 2,
+    "evidence_ids": [
+     "EV-2"
+    ],
+    "confidence": "low",
+    "rationale": "Checking before sending may indicate error-reduction habits."
+   }
+  ],
+  "clarifying_questions": [
+   {
+    "question_id": "Q-1",
+    "text": "Have you used any dashboard or BI tool, or written database queries, in your work?",
+    "skill_ids": [
+     "SK-BI",
+     "SK-SQL"
+    ]
+   }
+  ],
+  "dropped_ungrounded": 0,
+  "taxonomy_version": "seed-0.1"
+ },
+ "recommendations": [
+  {
+   "role_id": "R-002",
+   "title": "Operations Coordinator",
+   "rank": 1,
+   "score": 0.7339,
+   "band": "strong_fit",
+   "feature_scores": {
+    "skill_coverage": 0.8621,
+    "preference_fit": 0.3333,
+    "learnability": 0.6667
+   },
+   "weights_used": {
+    "skill_coverage": 0.6,
+    "preference_fit": 0.15,
+    "learnability": 0.25
+   },
+   "blocking_gaps": [],
+   "matched": [
+    {
+     "skill_id": "SK-SCHEDULING",
+     "name": "Scheduling and calendar coordination",
+     "user_level": 3,
+     "required_level": 3,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-3"
+     ]
+    },
+    {
+     "skill_id": "SK-TEAMCOORD",
+     "name": "Team and task coordination",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-3"
+     ]
+    },
+    {
+     "skill_id": "SK-PROCESSDOC",
+     "name": "Process documentation",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": []
+    },
+    {
+     "skill_id": "SK-VENDOR",
+     "name": "Vendor coordination",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-4"
+     ]
+    },
+    {
+     "skill_id": "SK-STAKEHOLDER",
+     "name": "Stakeholder communication",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-4"
+     ]
+    },
+    {
+     "skill_id": "SK-REPORT",
+     "name": "Report preparation",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-1"
+     ]
+    },
+    {
+     "skill_id": "SK-BUDGET",
+     "name": "Budget and expense tracking",
+     "user_level": 2,
+     "required_level": 1,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-7"
+     ]
+    }
+   ],
+   "gaps": [
+    {
+     "skill_id": "SK-PROCESSIMPROVE",
+     "name": "Process improvement",
+     "required_level": 2,
+     "user_level": 0,
+     "gap_levels": 2,
+     "mandatory": false,
+     "importance": 4,
+     "est_hours": 40.0,
+     "priority": 8.0
+    }
+   ],
+   "est_gap_hours": 40.0,
+   "openness_flags": [],
+   "explanation": "Operations Coordinator: skill coverage 86%. Strongest matches: Scheduling and calendar coordination, Team and task coordination, Process documentation. Biggest gaps: Process improvement (~40 h estimated). Band: strong fit. Weights are provisional.",
+   "provisional_weights": true
+  },
+  {
+   "role_id": "R-004",
+   "title": "Project Coordinator",
+   "rank": 2,
+   "score": 0.6608,
+   "band": "bridgeable",
+   "feature_scores": {
+    "skill_coverage": 0.7333,
+    "preference_fit": 0.5,
+    "learnability": 0.5833
+   },
+   "weights_used": {
+    "skill_coverage": 0.6,
+    "preference_fit": 0.15,
+    "learnability": 0.25
+   },
+   "blocking_gaps": [
+    "SK-PROJECTPLAN"
+   ],
+   "matched": [
+    {
+     "skill_id": "SK-SCHEDULING",
+     "name": "Scheduling and calendar coordination",
+     "user_level": 3,
+     "required_level": 3,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-3"
+     ]
+    },
+    {
+     "skill_id": "SK-TEAMCOORD",
+     "name": "Team and task coordination",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-3"
+     ]
+    },
+    {
+     "skill_id": "SK-MINUTES",
+     "name": "Meeting coordination and minutes",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-6"
+     ]
+    },
+    {
+     "skill_id": "SK-STAKEHOLDER",
+     "name": "Stakeholder communication",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-4"
+     ]
+    },
+    {
+     "skill_id": "SK-REPORT",
+     "name": "Report preparation",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-1"
+     ]
+    },
+    {
+     "skill_id": "SK-BUDGET",
+     "name": "Budget and expense tracking",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-7"
+     ]
+    }
+   ],
+   "gaps": [
+    {
+     "skill_id": "SK-PROJECTPLAN",
+     "name": "Project planning",
+     "required_level": 2,
+     "user_level": 0,
+     "gap_levels": 2,
+     "mandatory": true,
+     "importance": 5,
+     "est_hours": 40.0,
+     "priority": 15.0
+    },
+    {
+     "skill_id": "SK-RISK",
+     "name": "Risk and issue tracking",
+     "required_level": 1,
+     "user_level": 0,
+     "gap_levels": 1,
+     "mandatory": false,
+     "importance": 3,
+     "est_hours": 10.0,
+     "priority": 3.0
+    }
+   ],
+   "est_gap_hours": 50.0,
+   "openness_flags": [],
+   "explanation": "Project Coordinator: skill coverage 73%. Strongest matches: Scheduling and calendar coordination, Team and task coordination, Meeting coordination and minutes. Biggest gaps: Project planning, Risk and issue tracking (~50 h estimated). Band: bridgeable. Weights are provisional.",
+   "provisional_weights": true
+  },
+  {
+   "role_id": "R-001",
+   "title": "Reporting Analyst (MIS)",
+   "rank": 3,
+   "score": 0.6007,
+   "band": "bridgeable",
+   "feature_scores": {
+    "skill_coverage": 0.72,
+    "preference_fit": 0.5,
+    "learnability": 0.375
+   },
+   "weights_used": {
+    "skill_coverage": 0.6,
+    "preference_fit": 0.15,
+    "learnability": 0.25
+   },
+   "blocking_gaps": [],
+   "matched": [
+    {
+     "skill_id": "SK-SPREADSHEET",
+     "name": "Spreadsheet analysis",
+     "user_level": 3,
+     "required_level": 3,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-1"
+     ]
+    },
+    {
+     "skill_id": "SK-REPORT",
+     "name": "Report preparation",
+     "user_level": 3,
+     "required_level": 3,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-1"
+     ]
+    },
+    {
+     "skill_id": "SK-DATAQUALITY",
+     "name": "Data validation and quality checks",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-2"
+     ]
+    },
+    {
+     "skill_id": "SK-STAKEHOLDER",
+     "name": "Stakeholder communication",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-4"
+     ]
+    },
+    {
+     "skill_id": "SK-BUSWRITING",
+     "name": "Business writing",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-4"
+     ]
+    }
+   ],
+   "gaps": [
+    {
+     "skill_id": "SK-BI",
+     "name": "Dashboarding and BI tools",
+     "required_level": 2,
+     "user_level": 0,
+     "gap_levels": 2,
+     "mandatory": false,
+     "importance": 4,
+     "est_hours": 50.0,
+     "priority": 8.0
+    },
+    {
+     "skill_id": "SK-SQL",
+     "name": "Basic SQL querying",
+     "required_level": 1,
+     "user_level": 0,
+     "gap_levels": 1,
+     "mandatory": false,
+     "importance": 3,
+     "est_hours": 25.0,
+     "priority": 3.0
+    }
+   ],
+   "est_gap_hours": 75.0,
+   "openness_flags": [],
+   "explanation": "Reporting Analyst (MIS): skill coverage 72%. Strongest matches: Spreadsheet analysis, Report preparation, Data validation and quality checks. Biggest gaps: Dashboarding and BI tools, Basic SQL querying (~75 h estimated). Band: bridgeable. Weights are provisional.",
+   "provisional_weights": true
+  },
+  {
+   "role_id": "R-006",
+   "title": "ERP Master Data Associate",
+   "rank": 4,
+   "score": 0.5557,
+   "band": "bridgeable",
+   "feature_scores": {
+    "skill_coverage": 0.6449,
+    "preference_fit": 0.5,
+    "learnability": 0.375
+   },
+   "weights_used": {
+    "skill_coverage": 0.6,
+    "preference_fit": 0.15,
+    "learnability": 0.25
+   },
+   "blocking_gaps": [],
+   "matched": [
+    {
+     "skill_id": "SK-ERPBASIC",
+     "name": "ERP transaction basics",
+     "user_level": 1,
+     "required_level": 2,
+     "coverage": 0.5,
+     "evidence_ids": [
+      "EV-8"
+     ]
+    },
+    {
+     "skill_id": "SK-DATAQUALITY",
+     "name": "Data validation and quality checks",
+     "user_level": 2,
+     "required_level": 3,
+     "coverage": 0.667,
+     "evidence_ids": [
+      "EV-2"
+     ]
+    },
+    {
+     "skill_id": "SK-RECORDS",
+     "name": "Records management",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-5"
+     ]
+    },
+    {
+     "skill_id": "SK-SPREADSHEET",
+     "name": "Spreadsheet analysis",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-1"
+     ]
+    },
+    {
+     "skill_id": "SK-PROCESSDOC",
+     "name": "Process documentation",
+     "user_level": 2,
+     "required_level": 1,
+     "coverage": 1.0,
+     "evidence_ids": []
+    }
+   ],
+   "gaps": [
+    {
+     "skill_id": "SK-MASTERDATA",
+     "name": "Master data management",
+     "required_level": 2,
+     "user_level": 0,
+     "gap_levels": 2,
+     "mandatory": false,
+     "importance": 4,
+     "est_hours": 40.0,
+     "priority": 8.0
+    },
+    {
+     "skill_id": "SK-ERPBASIC",
+     "name": "ERP transaction basics",
+     "required_level": 2,
+     "user_level": 1,
+     "gap_levels": 1,
+     "mandatory": true,
+     "importance": 5,
+     "est_hours": 20.0,
+     "priority": 7.5
+    },
+    {
+     "skill_id": "SK-DATAQUALITY",
+     "name": "Data validation and quality checks",
+     "required_level": 3,
+     "user_level": 2,
+     "gap_levels": 1,
+     "mandatory": true,
+     "importance": 5,
+     "est_hours": 15.0,
+     "priority": 7.5
+    }
+   ],
+   "est_gap_hours": 75.0,
+   "openness_flags": [],
+   "explanation": "ERP Master Data Associate: skill coverage 64%. Strongest matches: ERP transaction basics, Data validation and quality checks, Records management. Biggest gaps: Master data management, ERP transaction basics (~75 h estimated). Band: bridgeable. Weights are provisional.",
+   "provisional_weights": true
+  },
+  {
+   "role_id": "R-005",
+   "title": "Procurement and Vendor Coordinator",
+   "rank": 5,
+   "score": 0.5307,
+   "band": "bridgeable",
+   "feature_scores": {
+    "skill_coverage": 0.6449,
+    "preference_fit": 0.3333,
+    "learnability": 0.375
+   },
+   "weights_used": {
+    "skill_coverage": 0.6,
+    "preference_fit": 0.15,
+    "learnability": 0.25
+   },
+   "blocking_gaps": [
+    "SK-PROCUREMENT"
+   ],
+   "matched": [
+    {
+     "skill_id": "SK-VENDOR",
+     "name": "Vendor coordination",
+     "user_level": 2,
+     "required_level": 3,
+     "coverage": 0.667,
+     "evidence_ids": [
+      "EV-4"
+     ]
+    },
+    {
+     "skill_id": "SK-BUDGET",
+     "name": "Budget and expense tracking",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-7"
+     ]
+    },
+    {
+     "skill_id": "SK-RECORDS",
+     "name": "Records management",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-5"
+     ]
+    },
+    {
+     "skill_id": "SK-SPREADSHEET",
+     "name": "Spreadsheet analysis",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-1"
+     ]
+    },
+    {
+     "skill_id": "SK-ERPBASIC",
+     "name": "ERP transaction basics",
+     "user_level": 1,
+     "required_level": 2,
+     "coverage": 0.5,
+     "evidence_ids": [
+      "EV-8"
+     ]
+    }
+   ],
+   "gaps": [
+    {
+     "skill_id": "SK-PROCUREMENT",
+     "name": "Procurement basics",
+     "required_level": 2,
+     "user_level": 0,
+     "gap_levels": 2,
+     "mandatory": true,
+     "importance": 5,
+     "est_hours": 40.0,
+     "priority": 15.0
+    },
+    {
+     "skill_id": "SK-VENDOR",
+     "name": "Vendor coordination",
+     "required_level": 3,
+     "user_level": 2,
+     "gap_levels": 1,
+     "mandatory": true,
+     "importance": 5,
+     "est_hours": 15.0,
+     "priority": 7.5
+    },
+    {
+     "skill_id": "SK-ERPBASIC",
+     "name": "ERP transaction basics",
+     "required_level": 2,
+     "user_level": 1,
+     "gap_levels": 1,
+     "mandatory": false,
+     "importance": 3,
+     "est_hours": 20.0,
+     "priority": 3.0
+    }
+   ],
+   "est_gap_hours": 75.0,
+   "openness_flags": [
+    "experience_cap_8_years"
+   ],
+   "explanation": "Procurement and Vendor Coordinator: skill coverage 64%. Strongest matches: Vendor coordination, Budget and expense tracking, Records management. Biggest gaps: Procurement basics, Vendor coordination (~75 h estimated). Band: bridgeable. Weights are provisional.",
+   "provisional_weights": true
+  },
+  {
+   "role_id": "R-003",
+   "title": "HR Operations Coordinator",
+   "rank": 6,
+   "score": 0.3731,
+   "band": "bridgeable",
+   "feature_scores": {
+    "skill_coverage": 0.5385,
+    "preference_fit": 0.0,
+    "learnability": 0.2
+   },
+   "weights_used": {
+    "skill_coverage": 0.6,
+    "preference_fit": 0.15,
+    "learnability": 0.25
+   },
+   "blocking_gaps": [
+    "SK-HRADMIN"
+   ],
+   "matched": [
+    {
+     "skill_id": "SK-RECORDS",
+     "name": "Records management",
+     "user_level": 3,
+     "required_level": 3,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-5"
+     ]
+    },
+    {
+     "skill_id": "SK-STAKEHOLDER",
+     "name": "Stakeholder communication",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-4"
+     ]
+    },
+    {
+     "skill_id": "SK-SCHEDULING",
+     "name": "Scheduling and calendar coordination",
+     "user_level": 3,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-3"
+     ]
+    },
+    {
+     "skill_id": "SK-DATAQUALITY",
+     "name": "Data validation and quality checks",
+     "user_level": 2,
+     "required_level": 2,
+     "coverage": 1.0,
+     "evidence_ids": [
+      "EV-2"
+     ]
+    }
+   ],
+   "gaps": [
+    {
+     "skill_id": "SK-HRADMIN",
+     "name": "HR policy and administration",
+     "required_level": 2,
+     "user_level": 0,
+     "gap_levels": 2,
+     "mandatory": true,
+     "importance": 5,
+     "est_hours": 40.0,
+     "priority": 15.0
+    },
+    {
+     "skill_id": "SK-HRIS",
+     "name": "HR information system usage",
+     "required_level": 2,
+     "user_level": 0,
+     "gap_levels": 2,
+     "mandatory": false,
+     "importance": 4,
+     "est_hours": 40.0,
+     "priority": 8.0
+    },
+    {
+     "skill_id": "SK-CONFIDENTIALITY",
+     "name": "Confidentiality and privacy handling",
+     "required_level": 2,
+     "user_level": 0,
+     "gap_levels": 2,
+     "mandatory": false,
+     "importance": 3,
+     "est_hours": 16.0,
+     "priority": 6.0
+    }
+   ],
+   "est_gap_hours": 96.0,
+   "openness_flags": [
+    "degree_required_check_if_skills_based_alternative_exists"
+   ],
+   "explanation": "HR Operations Coordinator: skill coverage 54%. Strongest matches: Records management, Stakeholder communication, Scheduling and calendar coordination. Biggest gaps: HR policy and administration, HR information system usage (~96 h estimated). Band: bridgeable. Weights are provisional.",
+   "provisional_weights": true
+  }
+ ],
+ "learning_plans": [
+  {
+   "plan_id": "plan_demo_R001",
+   "role_id": "R-001",
+   "total_est_hours": 75.0,
+   "weeks_at_pace": 13,
+   "steps": [
+    {
+     "order": 1,
+     "skill_id": "SK-BI",
+     "skill_name": "Dashboarding and BI tools",
+     "status": "resource_found",
+     "resource": {
+      "resource_id": "RES-001",
+      "title": "Exploring SAP Analytics Cloud",
+      "provider": "SAP Learning Hub (student edition)",
+      "url": null,
+      "skill_ids": [
+       "SK-BI"
+      ],
+      "level_from": 0,
+      "level_to": 1,
+      "est_hours": null,
+      "cost": "unknown",
+      "verification_status": "seed_unverified",
+      "last_verified": null
+     },
+     "est_hours": 25.0,
+     "builds_on": [
+      "SK-SPREADSHEET"
+     ],
+     "rationale": "Moves Dashboarding and BI tools from level 0 to 1 (target 2); builds on your Spreadsheet analysis"
+    },
+    {
+     "order": 2,
+     "skill_id": "SK-BI",
+     "skill_name": "Dashboarding and BI tools",
+     "status": "resource_found",
+     "resource": {
+      "resource_id": "RES-002",
+      "title": "SAP Analytics Cloud: Story Design",
+      "provider": "SAP Learning Hub (student edition)",
+      "url": null,
+      "skill_ids": [
+       "SK-BI"
+      ],
+      "level_from": 1,
+      "level_to": 2,
+      "est_hours": null,
+      "cost": "unknown",
+      "verification_status": "seed_unverified",
+      "last_verified": null
+     },
+     "est_hours": 25.0,
+     "builds_on": [
+      "SK-SPREADSHEET"
+     ],
+     "rationale": "Moves Dashboarding and BI tools from level 1 to 2 (target 2); builds on your Spreadsheet analysis"
+    },
+    {
+     "order": 3,
+     "skill_id": "SK-SQL",
+     "skill_name": "Basic SQL querying",
+     "status": "no_verified_resource",
+     "resource": null,
+     "est_hours": 25.0,
+     "builds_on": [
+      "SK-SPREADSHEET"
+     ],
+     "rationale": "Moves Basic SQL querying from level 0 to 1 (target 1); builds on your Spreadsheet analysis"
+    }
+   ],
+   "unresolved_skill_ids": [
+    "SK-SQL"
+   ],
+   "proof_tasks": [
+    "Rebuild one of your monthly reports as a dashboard and document the data checks you apply"
+   ]
+  }
+ ],
+ "employer_readiness": [
+  {
+   "role_id": "R-001",
+   "relevant_achievements": [
+    {
+     "text": "Prepared the monthly MIS report for the operations head using Excel pivot tables and cross-checked figures against the dispatch register before sending.",
+     "evidence_ids": [
+      "EV-1",
+      "EV-2"
+     ],
+     "needs_user_input": []
+    },
+    {
+     "text": "Tracked monthly petty cash and department expense statements; add the approximate monthly value handled: [add number].",
+     "evidence_ids": [
+      "EV-7"
+     ],
+     "needs_user_input": [
+      "monthly value handled"
+     ]
+    },
+    {
+     "text": "Scheduled meetings and site visits for a team of 12.",
+     "evidence_ids": [
+      "EV-3"
+     ],
+     "needs_user_input": []
+    }
+   ],
+   "transferable_experience": [
+    {
+     "skill_id": "SK-REPORT",
+     "role_requirement": "Recurring management reporting (required level 3)",
+     "evidence_ids": [
+      "EV-1"
+     ]
+    },
+    {
+     "skill_id": "SK-SPREADSHEET",
+     "role_requirement": "Spreadsheet analysis (required level 3)",
+     "evidence_ids": [
+      "EV-1"
+     ]
+    },
+    {
+     "skill_id": "SK-DATAQUALITY",
+     "role_requirement": "Data validation (required level 2)",
+     "evidence_ids": [
+      "EV-2"
+     ]
+    }
+   ],
+   "resume_improvements": [
+    {
+     "type": "reword",
+     "suggestion": "Lead with the outcome: 'Produce the monthly MIS report for the operations head' rather than listing 'administrative duties'.",
+     "evidence_ids": [
+      "EV-1"
+     ]
+    },
+    {
+     "type": "quantify_prompt",
+     "suggestion": "How many report lines or departments does the MIS report cover? Add the number only if you know it.",
+     "evidence_ids": [
+      "EV-1"
+     ]
+    }
+   ],
+   "portfolio_suggestions": [
+    {
+     "title": "Report-to-dashboard rebuild",
+     "description": "Rebuild one anonymised monthly report as a dashboard and document the data checks you apply.",
+     "skill_ids": [
+      "SK-BI",
+      "SK-DATAQUALITY"
+     ]
+    }
+   ],
+   "interview_prep": [
+    {
+     "question": "Tell me about a time you found an error in a report before it went out.",
+     "star_hint": "Use your dispatch-register cross-check as the Situation/Action; state the result you actually observed.",
+     "evidence_ids": [
+      "EV-2"
+     ]
+    }
+   ],
+   "remaining_prep": [
+    "Dashboard/BI tool skills (gap: 2 levels)",
+    "Basic SQL (gap: 1 level) - no verified learning resource yet"
+   ],
+   "openness_flags": [],
+   "grounding_report": {
+    "dropped_claims": 0,
+    "flagged_numbers": []
+   }
+  }
+ ],
+ "bias_audit": {
+  "audit_id": "aud_demo_clean",
+  "profile_id": "prof_anitha_demo",
+  "status": "SUCCEEDED",
+  "created_at": "2026-11-01T09:00:00+05:30",
+  "mode": "replay",
+  "repeats": 1,
+  "variants": [
+   {
+    "variant_id": "A29",
+    "cue_set": "direct_age_cue",
+    "label": "Age 29, graduated 2018",
+    "skills_jaccard": 1.0,
+    "top3_overlap": 3,
+    "kendall_tau": 1.0,
+    "max_abs_score_delta": 0.0,
+    "plan_hours_delta": 0.0,
+    "lexicon_hits": 0
+   },
+   {
+    "variant_id": "A42",
+    "cue_set": "direct_age_cue",
+    "label": "Age 42, graduated 2006",
+    "skills_jaccard": 1.0,
+    "top3_overlap": 3,
+    "kendall_tau": 1.0,
+    "max_abs_score_delta": 0.0,
+    "plan_hours_delta": 0.0,
+    "lexicon_hits": 0
+   },
+   {
+    "variant_id": "A50",
+    "cue_set": "direct_age_cue",
+    "label": "Age 50, graduated 1998",
+    "skills_jaccard": 1.0,
+    "top3_overlap": 3,
+    "kendall_tau": 1.0,
+    "max_abs_score_delta": 0.0,
+    "plan_hours_delta": 0.0,
+    "lexicon_hits": 0
+   },
+   {
+    "variant_id": "A58",
+    "cue_set": "direct_age_cue",
+    "label": "Age 58, graduated 1990",
+    "skills_jaccard": 1.0,
+    "top3_overlap": 3,
+    "kendall_tau": 1.0,
+    "max_abs_score_delta": 0.0,
+    "plan_hours_delta": 0.0,
+    "lexicon_hits": 0
+   },
+   {
+    "variant_id": "P5",
+    "cue_set": "proxy_experience_years",
+    "label": "5 years' experience stated",
+    "skills_jaccard": 1.0,
+    "top3_overlap": 3,
+    "kendall_tau": 1.0,
+    "max_abs_score_delta": 0.0,
+    "plan_hours_delta": 0.0,
+    "lexicon_hits": 0
+   },
+   {
+    "variant_id": "P25",
+    "cue_set": "proxy_experience_years",
+    "label": "25 years' experience stated",
+    "skills_jaccard": 1.0,
+    "top3_overlap": 3,
+    "kendall_tau": 1.0,
+    "max_abs_score_delta": 0.0,
+    "plan_hours_delta": 0.0,
+    "lexicon_hits": 0
+   }
+  ],
+  "thresholds": {
+   "skills_jaccard_min": 0.9,
+   "top3_overlap_min": 3.0,
+   "kendall_tau_min": 0.9,
+   "max_abs_score_delta_max": 0.03,
+   "plan_hours_delta_max": 10.0,
+   "lexicon_hits_max": 0.0
+  },
+  "flags": [],
+  "verdict": "pass",
+  "reviewer": {
+   "status": "pending",
+   "decision": null,
+   "note": null,
+   "reviewed_at": null
+  },
+  "limitations": [
+   "Tests only the listed synthetic cue variants on this profile",
+   "Cannot prove absence of bias; cannot detect proxies not in the cue sets (name, region, institution, gender)",
+   "Does not assess role-dataset coverage or real-world hiring outcomes",
+   "LLM sampling noise can mask or mimic small differences; human review is required"
+  ]
+ },
+ "disclaimers": [
+  "Recommendations are decision support, not a guarantee of employment or a hiring decision.",
+  "Role requirements and scoring weights are provisional prototype data, not validated labour-market statistics.",
+  "Skills marked inferred are only used after you confirm them.",
+  "The fairness check covers specific synthetic test cases and cannot prove the absence of bias."
+ ]
+}

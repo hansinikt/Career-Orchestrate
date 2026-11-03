@@ -1,0 +1,28 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "role_id": {
+      "title": "Role Id",
+      "type": "string"
+    },
+    "weekly_hours": {
+      "anyOf": [
+        {
+          "maximum": 40,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Weekly Hours"
+    }
+  },
+  "required": [
+    "role_id"
+  ],
+  "title": "PlanRequest",
+  "type": "object"
+}

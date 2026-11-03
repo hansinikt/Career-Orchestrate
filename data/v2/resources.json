@@ -1,0 +1,169 @@
+{
+ "catalog_version": "v2-csv-0.1",
+ "note": "Statuses: verified | seed_unverified (homepage only) | sample_placeholder (no provider/URL). Only a human sets 'verified'.",
+ "resources": [
+  {
+   "resource_id": "C001",
+   "title": "Excel for Data Analysis",
+   "provider": "Microsoft Learn",
+   "url": "https://learn.microsoft.com/",
+   "skill_ids": [
+    "SK-EXCEL",
+    "SK-REPORT"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "duration_text": "2-4 weeks",
+   "cost": "unknown",
+   "verification_status": "seed_unverified",
+   "last_verified": null,
+   "note": "homepage only, not a course page"
+  },
+  {
+   "resource_id": "C002",
+   "title": "SQL Basics",
+   "provider": "Khan Academy / SQL practice resources",
+   "url": "https://www.khanacademy.org/",
+   "skill_ids": [
+    "SK-SQL",
+    "SK-DATAANALYSIS"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "duration_text": "2-3 weeks",
+   "cost": "unknown",
+   "verification_status": "seed_unverified",
+   "last_verified": null,
+   "note": "homepage only, not a course page"
+  },
+  {
+   "resource_id": "C003",
+   "title": "Power BI Fundamentals",
+   "provider": "Microsoft Learn",
+   "url": "https://learn.microsoft.com/",
+   "skill_ids": [
+    "SK-VIZ",
+    "SK-REPORT"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "duration_text": "3-5 weeks",
+   "cost": "unknown",
+   "verification_status": "seed_unverified",
+   "last_verified": null,
+   "note": "homepage only, not a course page"
+  },
+  {
+   "resource_id": "C004",
+   "title": "Project Coordination Fundamentals",
+   "provider": "Sample learning path",
+   "url": null,
+   "skill_ids": [
+    "SK-SCHED",
+    "SK-RISK",
+    "SK-COMM"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "duration_text": "2 weeks",
+   "cost": "unknown",
+   "verification_status": "sample_placeholder",
+   "last_verified": null,
+   "note": "no provider or URL in source data"
+  },
+  {
+   "resource_id": "C005",
+   "title": "HR Operations Basics",
+   "provider": "Sample learning path",
+   "url": null,
+   "skill_ids": [
+    "SK-X-HRADMIN",
+    "SK-RECORDS"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "duration_text": "2-3 weeks",
+   "cost": "unknown",
+   "verification_status": "sample_placeholder",
+   "last_verified": null,
+   "note": "no provider or URL in source data"
+  },
+  {
+   "resource_id": "C006",
+   "title": "Business Analysis Fundamentals",
+   "provider": "Sample learning path",
+   "url": null,
+   "skill_ids": [
+    "SK-REQ",
+    "SK-PROCANALYSIS"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "duration_text": "3-4 weeks",
+   "cost": "unknown",
+   "verification_status": "sample_placeholder",
+   "last_verified": null,
+   "note": "no provider or URL in source data"
+  },
+  {
+   "resource_id": "C007",
+   "title": "CRM Data Quality Basics",
+   "provider": "Sample learning path",
+   "url": null,
+   "skill_ids": [
+    "SK-CRM",
+    "SK-DATAQUALITY"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "duration_text": "1-2 weeks",
+   "cost": "unknown",
+   "verification_status": "sample_placeholder",
+   "last_verified": null,
+   "note": "no provider or URL in source data"
+  },
+  {
+   "resource_id": "C008",
+   "title": "Compliance Documentation Essentials",
+   "provider": "Sample learning path",
+   "url": null,
+   "skill_ids": [
+    "SK-COMPDOC",
+    "SK-DOCCONTROL"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "duration_text": "1-2 weeks",
+   "cost": "unknown",
+   "verification_status": "sample_placeholder",
+   "last_verified": null,
+   "note": "no provider or URL in source data"
+  },
+  {
+   "resource_id": "C009",
+   "title": "Communication and Stakeholder Management",
+   "provider": "Sample learning path",
+   "url": null,
+   "skill_ids": [
+    "SK-COMM",
+    "SK-X-STAKEHOLDER"
+   ],
+   "level_from": 0,
+   "level_to": 1,
+   "est_hours": null,
+   "duration_text": "2 weeks",
+   "cost": "unknown",
+   "verification_status": "sample_placeholder",
+   "last_verified": null,
+   "note": "no provider or URL in source data"
+  }
+ ]
+}

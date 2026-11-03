@@ -1,0 +1,42 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "check_in": {
+      "default": "weekly",
+      "enum": [
+        "daily",
+        "weekly",
+        "off"
+      ],
+      "title": "Check In",
+      "type": "string"
+    },
+    "paused": {
+      "default": false,
+      "title": "Paused",
+      "type": "boolean"
+    },
+    "styles": {
+      "description": "1 or 2 styles the worker chose; first is primary",
+      "items": {
+        "enum": [
+          "progress",
+          "goals",
+          "encouragement",
+          "accountability",
+          "challenge"
+        ],
+        "type": "string"
+      },
+      "maxItems": 2,
+      "minItems": 1,
+      "title": "Styles",
+      "type": "array"
+    }
+  },
+  "required": [
+    "styles"
+  ],
+  "title": "MotivationPrefs",
+  "type": "object"
+}

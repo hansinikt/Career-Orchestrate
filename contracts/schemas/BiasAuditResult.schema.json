@@ -1,0 +1,249 @@
+{
+ "$defs": {
+  "AuditFlag": {
+   "additionalProperties": false,
+   "properties": {
+    "variant_id": {
+     "title": "Variant Id",
+     "type": "string"
+    },
+    "metric": {
+     "title": "Metric",
+     "type": "string"
+    },
+    "observed": {
+     "title": "Observed",
+     "type": "number"
+    },
+    "threshold": {
+     "title": "Threshold",
+     "type": "number"
+    },
+    "message": {
+     "title": "Message",
+     "type": "string"
+    }
+   },
+   "required": [
+    "variant_id",
+    "metric",
+    "observed",
+    "threshold",
+    "message"
+   ],
+   "title": "AuditFlag",
+   "type": "object"
+  },
+  "AuditVariantResult": {
+   "additionalProperties": false,
+   "properties": {
+    "variant_id": {
+     "title": "Variant Id",
+     "type": "string"
+    },
+    "cue_set": {
+     "enum": [
+      "baseline",
+      "direct_age_cue",
+      "proxy_experience_years"
+     ],
+     "title": "Cue Set",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "skills_jaccard": {
+     "title": "Skills Jaccard",
+     "type": "number"
+    },
+    "top3_overlap": {
+     "title": "Top3 Overlap",
+     "type": "integer"
+    },
+    "kendall_tau": {
+     "title": "Kendall Tau",
+     "type": "number"
+    },
+    "max_abs_score_delta": {
+     "title": "Max Abs Score Delta",
+     "type": "number"
+    },
+    "plan_hours_delta": {
+     "title": "Plan Hours Delta",
+     "type": "number"
+    },
+    "lexicon_hits": {
+     "title": "Lexicon Hits",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "variant_id",
+    "cue_set",
+    "label",
+    "skills_jaccard",
+    "top3_overlap",
+    "kendall_tau",
+    "max_abs_score_delta",
+    "plan_hours_delta",
+    "lexicon_hits"
+   ],
+   "title": "AuditVariantResult",
+   "type": "object"
+  },
+  "Reviewer": {
+   "additionalProperties": false,
+   "properties": {
+    "status": {
+     "enum": [
+      "pending",
+      "reviewed"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "decision": {
+     "anyOf": [
+      {
+       "enum": [
+        "accept_no_action",
+        "investigate",
+        "block_release"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Decision"
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    },
+    "reviewed_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Reviewed At"
+    }
+   },
+   "required": [
+    "status"
+   ],
+   "title": "Reviewer",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "audit_id": {
+   "title": "Audit Id",
+   "type": "string"
+  },
+  "profile_id": {
+   "title": "Profile Id",
+   "type": "string"
+  },
+  "status": {
+   "enum": [
+    "RUNNING",
+    "SUCCEEDED",
+    "FAILED"
+   ],
+   "title": "Status",
+   "type": "string"
+  },
+  "created_at": {
+   "title": "Created At",
+   "type": "string"
+  },
+  "mode": {
+   "enum": [
+    "deterministic_only",
+    "llm_extraction",
+    "replay"
+   ],
+   "title": "Mode",
+   "type": "string"
+  },
+  "repeats": {
+   "title": "Repeats",
+   "type": "integer"
+  },
+  "variants": {
+   "items": {
+    "$ref": "#/$defs/AuditVariantResult"
+   },
+   "title": "Variants",
+   "type": "array"
+  },
+  "thresholds": {
+   "additionalProperties": {
+    "type": "number"
+   },
+   "title": "Thresholds",
+   "type": "object"
+  },
+  "flags": {
+   "items": {
+    "$ref": "#/$defs/AuditFlag"
+   },
+   "title": "Flags",
+   "type": "array"
+  },
+  "verdict": {
+   "enum": [
+    "pass",
+    "flag",
+    "inconclusive"
+   ],
+   "title": "Verdict",
+   "type": "string"
+  },
+  "reviewer": {
+   "$ref": "#/$defs/Reviewer"
+  },
+  "limitations": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Limitations",
+   "type": "array"
+  }
+ },
+ "required": [
+  "audit_id",
+  "profile_id",
+  "status",
+  "created_at",
+  "mode",
+  "repeats",
+  "variants",
+  "thresholds",
+  "flags",
+  "verdict",
+  "reviewer",
+  "limitations"
+ ],
+ "title": "BiasAuditResult",
+ "type": "object"
+}

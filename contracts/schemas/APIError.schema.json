@@ -1,0 +1,54 @@
+{
+ "additionalProperties": false,
+ "properties": {
+  "code": {
+   "enum": [
+    "VALIDATION_ERROR",
+    "CONSENT_REQUIRED",
+    "NOT_FOUND",
+    "CONFLICT_STATE",
+    "STAGE_FAILED",
+    "LLM_UNAVAILABLE",
+    "LLM_SCHEMA_VIOLATION",
+    "TIMEOUT",
+    "RATE_LIMITED",
+    "INTERNAL_ERROR"
+   ],
+   "title": "Code",
+   "type": "string"
+  },
+  "message": {
+   "title": "Message",
+   "type": "string"
+  },
+  "retryable": {
+   "title": "Retryable",
+   "type": "boolean"
+  },
+  "details": {
+   "anyOf": [
+    {
+     "additionalProperties": true,
+     "type": "object"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Details"
+  },
+  "request_id": {
+   "title": "Request Id",
+   "type": "string"
+  }
+ },
+ "required": [
+  "code",
+  "message",
+  "retryable",
+  "request_id"
+ ],
+ "title": "APIError",
+ "type": "object"
+}

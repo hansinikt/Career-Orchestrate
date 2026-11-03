@@ -1,0 +1,51 @@
+{
+ "additionalProperties": false,
+ "properties": {
+  "evidence_id": {
+   "title": "Evidence Id",
+   "type": "string"
+  },
+  "quote": {
+   "description": "Verbatim substring of the user's input (whitespace-normalised)",
+   "title": "Quote",
+   "type": "string"
+  },
+  "source": {
+   "enum": [
+    "summary_text",
+    "work_entry"
+   ],
+   "title": "Source",
+   "type": "string"
+  },
+  "entry_index": {
+   "anyOf": [
+    {
+     "type": "integer"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Entry Index"
+  },
+  "level_signal": {
+   "enum": [
+    "mentioned",
+    "performed",
+    "owned_outcome"
+   ],
+   "title": "Level Signal",
+   "type": "string"
+  }
+ },
+ "required": [
+  "evidence_id",
+  "quote",
+  "source",
+  "level_signal"
+ ],
+ "title": "SkillEvidence",
+ "type": "object"
+}

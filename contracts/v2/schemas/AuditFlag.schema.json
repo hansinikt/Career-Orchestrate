@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "message": {
+      "title": "Message",
+      "type": "string"
+    },
+    "metric": {
+      "title": "Metric",
+      "type": "string"
+    },
+    "observed": {
+      "title": "Observed",
+      "type": "number"
+    },
+    "threshold": {
+      "title": "Threshold",
+      "type": "number"
+    },
+    "variant_id": {
+      "title": "Variant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "variant_id",
+    "metric",
+    "observed",
+    "threshold",
+    "message"
+  ],
+  "title": "AuditFlag",
+  "type": "object"
+}

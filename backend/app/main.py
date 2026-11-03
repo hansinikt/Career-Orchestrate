@@ -1,0 +1,238 @@
+"""Reference backend. Run: make run  (rules mode, no keys needed). Business rules live in engine/; this file only validates, stores and wires."""
+import json, os, uuid, pathlib, datetime as dt
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as HTTPEx
+from engine import core as E, extract_rules as X, readiness as R, motivation as M
+from contracts.v2 import models as C
+from .db import DB
+
+APP_VERSION, CONTRACT_VERSION = "0.2.0", "2.0"
+SK, ROLES, RES = E.load("v2"); ROLE = {r["role_id"]: r for r in ROLES}
+PERSONAS = json.loads((E.DATA / "v2" / "personas.json").read_text())
+FORBIDDEN = (E.FORBIDDEN_FEATURES - {"name"}) | {"dob", "date_of_birth", "birthdate", "sex", "caste", "religion"}
+ALLOW_UNVERIFIED = os.environ.get("ALLOW_UNVERIFIED_RESOURCES", "true").lower() == "true"
+ALLOW_SAMPLE = os.environ.get("ALLOW_SAMPLE_RESOURCES", "true").lower() == "true"
+DISCLAIMER = "Scores are provisional and explain skill coverage. They are not a hiring probability or a guarantee of employment."
+PLAN_NOTE = "Courses marked unverified or sample have not been confirmed by a person. Check the course page before enrolling."
+db = DB(); app = FastAPI(title="Career Orchestrator API", version=CONTRACT_VERSION)
+app.add_middleware(CORSMiddleware, allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","), allow_methods=["*"], allow_headers=["*"])
+def now() -> dt.datetime: return dt.datetime.now(dt.timezone.utc)
+def iso(t=None) -> str: return (t or now()).replace(microsecond=0).isoformat()
+class Err(Exception):
+    def __init__(self, status, code, msg, details=None): self.status, self.code, self.msg, self.details = status, code, msg, details
+@app.exception_handler(Err)
+async def _err(_, e: Err): return JSONResponse(status_code=e.status, content={"error": {"code": e.code, "message": e.msg, "details": e.details}})
+@app.exception_handler(RequestValidationError)
+async def _val(_, e: RequestValidationError):
+    errs = e.errors(); bad = [x for x in errs if x["type"] == "extra_forbidden"]
+    names = {str(x["loc"][-1]).lower() for x in bad}
+    if names & FORBIDDEN:
+        return JSONResponse(status_code=422, content={"error": {"code": "FORBIDDEN_FIELD", "message": "This system never accepts age, date of birth, gender or similar fields.", "details": {"fields": sorted(names & FORBIDDEN)}}})
+    return JSONResponse(status_code=422, content={"error": {"code": "VALIDATION_ERROR", "message": "Request does not match the contract.", "details": {"errors": [{"loc": list(map(str, x["loc"])), "msg": x["msg"]} for x in errs]}}})
+@app.exception_handler(HTTPEx)
+async def _http(_, e: HTTPEx):
+    return JSONResponse(status_code=e.status_code, content={"error": {"code": "NOT_FOUND" if e.status_code == 404 else "INTERNAL", "message": str(e.detail), "details": None}})
+@app.exception_handler(Exception)
+async def _any(_, e: Exception): return JSONResponse(status_code=500, content={"error": {"code": "INTERNAL", "message": "Unexpected error. Nothing was lost; try again.", "details": None}})
+
+def jl(s): return json.loads(s) if s else None
+def get_profile(pid: str) -> dict:
+    r = db.one("SELECT * FROM profiles WHERE profile_id=?", (pid,))
+    if not r: raise Err(404, "NOT_FOUND", f"Profile {pid} not found")
+    return dict(profile_id=r["profile_id"], display_name=r["display_name"], current_role=r["current_role"], work_examples=jl(r["work_examples"]), declared_skills=jl(r["declared_skills"]),
+                stated_goal_role_id=r["stated_goal_role_id"], preferences=jl(r["preferences"]), motivation=jl(r["motivation"]), created_at=r["created_at"])
+def confirmed_of(pid: str) -> dict:
+    r = db.one("SELECT payload FROM confirmations WHERE profile_id=?", (pid,))
+    if not r: raise Err(409, "SKILLS_NOT_CONFIRMED", "Confirm your skills first (POST /profiles/{id}/confirm).")
+    return jl(r["payload"])
+def levels_and_evidence(conf: dict):
+    lv = {c["skill_id"]: c["level"] for c in conf["confirmed_skills"]}
+    ev = {c["skill_id"]: [e["quote"] for e in c["evidence"]] for c in conf["confirmed_skills"]}
+    return lv, ev
+def fix_rec(rec: dict) -> dict:
+    for m in rec["matched"]: m["evidence_quotes"] = m.pop("evidence_ids")
+    return rec
+def rank_for(profile: dict, lv: dict, ev: dict):
+    prefs = (profile["preferences"] or {}).get("interests", [])
+    return [fix_rec(r) for r in E.rank(lv, ROLES, prefs, SK, ev)]
+
+@app.get("/api/v1/health")
+def health(): return {"status": "ok", "time": iso()}
+@app.get("/api/v1/meta", response_model=C.Meta)
+def meta():
+    return dict(app_version=APP_VERSION, contract_version=CONTRACT_VERSION, mode=os.environ.get("APP_MODE", "replay"), extraction_mode="rules", weights=E.WEIGHTS, weights_are_provisional=True,
+                catalog=dict(skills=sum(1 for s in SK.values() if s["scored"]), roles=len(ROLES), resources=len(RES)), resource_policy=dict(allow_unverified=ALLOW_UNVERIFIED, allow_sample=ALLOW_SAMPLE),
+                disclaimers=[DISCLAIMER, "Demo data is synthetic and illustrative.", "Fairness checks do not prove a system is free of bias."])
+@app.get("/api/v1/roles")
+def roles(): return {"roles": [dict(role_id=r["role_id"], title=r["title"], summary=r["summary"], family=r["family"], tags=r["tags"], data_note=r["data_note"],
+                                    requirements=[dict(skill_id=q["skill_id"], name=SK[q["skill_id"]]["name"], required_level=q["required_level"], mandatory=q["mandatory"]) for q in r["requirements"]]) for r in ROLES]}
+@app.get("/api/v1/skills")
+def skills(): return {"skills": [dict(skill_id=s["skill_id"], name=s["name"], category=s["category"]) for s in SK.values() if s["scored"]]}
+@app.get("/api/v1/demo/personas")
+def demo_personas():
+    return {"synthetic": True, "personas": [dict(persona_id=p["user_id"], display_name=p["name"], current_role=p["current_role"], work_examples=[p["work_text"]], declared_skills=p["declared_skills"],
+            stated_goal_role_id=p["stated_goal_role_id"]) for p in PERSONAS.values()]}
+
+@app.post("/api/v1/profiles", response_model=C.Profile, status_code=201)
+def create_profile(body: C.ProfileCreate):
+    if not body.consent: raise Err(400, "CONSENT_REQUIRED", "Consent is required before any text is processed.")
+    if body.stated_goal_role_id and body.stated_goal_role_id not in ROLE: raise Err(422, "VALIDATION_ERROR", "Unknown stated_goal_role_id", {"role_ids": sorted(ROLE)})
+    for t in body.work_examples:
+        if not 10 <= len(t) <= 1000: raise Err(422, "VALIDATION_ERROR", "Each work example must be 10 to 1000 characters.")
+    pid = "prof_" + uuid.uuid4().hex[:10]; t = iso()
+    db.run("INSERT INTO profiles VALUES (?,?,?,?,?,?,?,?,?,?)", (pid, body.display_name, body.current_role, json.dumps(body.work_examples), json.dumps([d.model_dump() for d in body.declared_skills]),
+           body.stated_goal_role_id, body.preferences and body.preferences.model_dump_json(), body.motivation and body.motivation.model_dump_json(), t, t))
+    db.log(t, "worker", "profile_created", pid); return get_profile(pid)
+@app.get("/api/v1/profiles/{pid}", response_model=C.Profile)
+def read_profile(pid: str): return get_profile(pid)
+@app.delete("/api/v1/profiles/{pid}", status_code=204)
+def delete_profile(pid: str):
+    get_profile(pid); db.run("DELETE FROM profiles WHERE profile_id=?", (pid,)); db.log(iso(), "worker", "profile_deleted", pid)
+
+@app.post("/api/v1/profiles/{pid}/extract", response_model=C.ExtractResponse)
+def extract(pid: str):
+    p = get_profile(pid); sug, uns = X.suggest(p["declared_skills"], p["work_examples"], SK)
+    for s in sug: s["suggestion_id"] = "sg_" + s["skill_id"]
+    out = dict(profile_id=pid, suggestions=sug, unmatched_declared=uns, extraction_mode="rules",
+               warnings=["Suggestions come from keyword rules. Please check every one."] + (["No skills found. Add examples or declare skills."] if not sug else []))
+    db.run("INSERT OR REPLACE INTO extractions VALUES (?,?,?)", (pid, json.dumps(out), iso())); db.log(iso(), "system", "skills_suggested", pid, {"n": len(sug)}); return out
+@app.post("/api/v1/profiles/{pid}/confirm", response_model=C.ConfirmResponse)
+def confirm(pid: str, body: C.ConfirmRequest):
+    get_profile(pid); r = db.one("SELECT payload FROM extractions WHERE profile_id=?", (pid,))
+    if not r: raise Err(409, "SKILLS_NOT_CONFIRMED", "Run extract first.")
+    sug = {s["suggestion_id"]: s for s in jl(r["payload"])["suggestions"]}; seen = set(); conf = []; rej = []
+    for d in body.decisions:
+        if d.suggestion_id not in sug: raise Err(422, "VALIDATION_ERROR", f"Unknown suggestion_id {d.suggestion_id}")
+        if d.suggestion_id in seen: raise Err(422, "VALIDATION_ERROR", f"Duplicate decision for {d.suggestion_id}")
+        seen.add(d.suggestion_id); s = sug[d.suggestion_id]
+        if d.action == "reject": rej.append(s["skill_id"]); continue
+        if d.action == "edit" and d.level is None: raise Err(422, "VALIDATION_ERROR", "edit needs a level")
+        conf.append(dict(skill_id=s["skill_id"], name=s["name"], level=d.level if d.action == "edit" else s["suggested_level"], source=s["source"], evidence=s["evidence"]))
+    if seen != set(sug): raise Err(422, "VALIDATION_ERROR", "Every suggestion needs a decision.", {"missing": sorted(set(sug) - seen)})
+    for a in body.added_skills:
+        if a.skill_id not in SK or not SK[a.skill_id]["scored"]: raise Err(422, "VALIDATION_ERROR", f"Unknown skill_id {a.skill_id}")
+        if any(c["skill_id"] == a.skill_id for c in conf): raise Err(422, "VALIDATION_ERROR", f"{a.skill_id} is already confirmed")
+        conf.append(dict(skill_id=a.skill_id, name=SK[a.skill_id]["name"], level=a.level, source="user_added", evidence=[]))
+    conf.sort(key=lambda c: c["name"]); out = dict(profile_id=pid, confirmed_skills=conf, rejected_skill_ids=sorted(rej))
+    db.run("INSERT OR REPLACE INTO confirmations VALUES (?,?,?)", (pid, json.dumps(out), iso())); db.run("UPDATE plans SET active=0 WHERE profile_id=?", (pid,))
+    db.log(iso(), "worker", "skills_confirmed", pid, {"confirmed": len(conf), "rejected": len(rej)}); return out
+
+@app.get("/api/v1/profiles/{pid}/recommendations", response_model=C.RecommendationsResponse)
+def recommendations(pid: str):
+    p = get_profile(pid); lv, ev = levels_and_evidence(confirmed_of(pid)); recs = rank_for(p, lv, ev)
+    goal = next((r for r in recs if r["role_id"] == p["stated_goal_role_id"]), None)
+    db.log(iso(), "system", "recommendations_shown", pid, {"top": [r["role_id"] for r in recs[:3]]}); return dict(profile_id=pid, recommendations=recs, goal=goal, disclaimer=DISCLAIMER)
+
+def plan_payload(pid, p, role_id, weekly):
+    lv, ev = levels_and_evidence(confirmed_of(pid)); rec = next(r for r in rank_for(p, lv, ev) if r["role_id"] == role_id)
+    plan = E.build_plan(rec, lv, SK, RES, weekly, allow_unverified=ALLOW_UNVERIFIED, allow_sample=ALLOW_SAMPLE)
+    for s in plan["steps"]:
+        if s["resource"]: s["resource"] = {k: s["resource"][k] for k in C.Resource.model_fields}
+    return plan, rec
+@app.post("/api/v1/profiles/{pid}/plan", response_model=C.PlanResponse)
+def make_plan(pid: str, body: C.PlanRequest):
+    p = get_profile(pid)
+    if body.role_id not in ROLE: raise Err(422, "VALIDATION_ERROR", "Unknown role_id", {"role_ids": sorted(ROLE)})
+    weekly = body.weekly_hours or (p["preferences"] or {}).get("weekly_hours"); plan, _ = plan_payload(pid, p, body.role_id, weekly)
+    pl_id = "plan_" + uuid.uuid4().hex[:10]; db.run("UPDATE plans SET active=0 WHERE profile_id=?", (pid,))
+    out = dict(plan_id=pl_id, profile_id=pid, role_id=body.role_id, role_title=ROLE[body.role_id]["title"], total_est_hours=plan["total_est_hours"], weekly_hours=weekly, weeks_at_pace=plan["weeks_at_pace"], steps=plan["steps"],
+               unresolved_skill_ids=plan["unresolved_skill_ids"], includes_unverified_resources=any(s["resource"] and s["resource"]["verification_status"] != "verified" for s in plan["steps"]), disclaimer=PLAN_NOTE)
+    db.run("INSERT INTO plans VALUES (?,?,?,?,1,?)", (pl_id, pid, body.role_id, json.dumps(out), iso())); db.log(iso(), "worker", "plan_accepted", pid, {"role_id": body.role_id, "plan_id": pl_id}); return out
+def active_plan(pid):
+    get_profile(pid); r = db.one("SELECT payload FROM plans WHERE profile_id=? AND active=1 ORDER BY created_at DESC LIMIT 1", (pid,))
+    if not r: raise Err(409, "NO_ACTIVE_PLAN", "Create a plan first (POST /profiles/{id}/plan).")
+    return jl(r["payload"])
+@app.get("/api/v1/profiles/{pid}/plan", response_model=C.PlanResponse)
+def read_plan(pid: str): return active_plan(pid)
+
+@app.put("/api/v1/profiles/{pid}/motivation", response_model=C.MotivationPrefs)
+def set_motivation(pid: str, body: C.MotivationPrefs):
+    get_profile(pid); db.run("UPDATE profiles SET motivation=? WHERE profile_id=?", (body.model_dump_json(), pid)); db.log(iso(), "worker", "motivation_set", pid, body.model_dump()); return body
+def progress_map(plan_id): return {r["step_order"]: r["percent"] for r in db.all("SELECT step_order, percent FROM progress WHERE plan_id=?", (plan_id,))}
+def active_styles(pid, prefs):
+    styles = list(prefs["styles"])
+    if len(styles) > 1:
+        for st in styles[:]:
+            last = db.all("SELECT helpful FROM messages WHERE profile_id=? AND style=? ORDER BY created_at DESC, rowid DESC LIMIT 3", (pid, st))
+            if len(last) == 3 and all(x["helpful"] == 0 for x in last): styles.remove(st)
+    return styles or list(prefs["styles"])
+def progress_view(pid, plan, msg=None):
+    pm = progress_map(plan["plan_id"]); n = M.plan_numbers(plan["steps"], pm, plan.get("weekly_hours")); last = db.one("SELECT MAX(updated_at) m FROM progress WHERE plan_id=?", (plan["plan_id"],))["m"]
+    if msg is None:
+        row = db.one("SELECT * FROM messages WHERE profile_id=? AND plan_id=? ORDER BY created_at DESC, rowid DESC LIMIT 1", (pid, plan["plan_id"]))
+        msg = row and dict(message_id=row["message_id"], style=row["style"], event=row["event"], text=row["text"], suggested_action=row["suggested_action"])
+        pr = get_profile(pid)["motivation"]
+        if last and pr and not pr["paused"] and pr["check_in"] != "off" and (now() - dt.datetime.fromisoformat(last)).days >= 7 and not (msg and msg["event"] == "behind"):
+            msg = new_message(pid, plan, pr, "behind", dict(n, matched_count=0))
+    return dict(profile_id=pid, plan_id=plan["plan_id"], percent=n["percent"], hours_done=round(plan["total_est_hours"] - n["hours_left"], 1), hours_total=plan["total_est_hours"], steps_done=n["done"], steps_total=n["total"],
+                steps=[dict(order=s["order"], skill_name=s["skill_name"], est_hours=s["est_hours"], percent=pm.get(s["order"], 0)) for s in plan["steps"]], last_activity_at=last, next_message=msg)
+def new_message(pid, plan, prefs, event, nums):
+    shown = db.one("SELECT COUNT(*) c FROM messages WHERE profile_id=?", (pid,))["c"]; st, text, act = M.select(active_styles(pid, prefs), event, nums, shown)
+    mid = "msg_" + uuid.uuid4().hex[:10]; db.run("INSERT INTO messages VALUES (?,?,?,?,?,?,?,NULL,?)", (mid, pid, plan["plan_id"], st, event, text, act, iso()))
+    return dict(message_id=mid, style=st, event=event, text=text, suggested_action=act)
+@app.get("/api/v1/profiles/{pid}/progress", response_model=C.ProgressResponse)
+def read_progress(pid: str): return progress_view(pid, active_plan(pid))
+@app.post("/api/v1/profiles/{pid}/progress", response_model=C.ProgressResponse)
+def update_progress(pid: str, body: C.ProgressUpdate):
+    p = get_profile(pid); plan = active_plan(pid); matched = sum(1 for c in confirmed_of(pid)["confirmed_skills"] if c["evidence"])
+    if body.step_order not in {s["order"] for s in plan["steps"]}: raise Err(422, "VALIDATION_ERROR", "Unknown step_order for the active plan")
+    before_map = progress_map(plan["plan_id"]); before = M.plan_numbers(plan["steps"], before_map, plan.get("weekly_hours")); prev = db.one("SELECT MAX(updated_at) m FROM progress WHERE plan_id=?", (plan["plan_id"],))["m"]
+    days = None if not prev else (now() - dt.datetime.fromisoformat(prev)).days
+    db.run("INSERT OR REPLACE INTO progress VALUES (?,?,?,?,?)", (plan["plan_id"], body.step_order, body.percent, body.hours_logged, iso()))
+    after = M.plan_numbers(plan["steps"], progress_map(plan["plan_id"]), plan.get("weekly_hours"), matched); db.log(iso(), "worker", "progress_updated", pid, {"step": body.step_order, "percent": body.percent})
+    ev = M.detect_event(before["percent"], after["percent"], before["done"], after["done"], after["total"], days, prev is None); msg = None
+    pr = p["motivation"]
+    if ev and pr and not pr["paused"] and pr["check_in"] != "off":
+        msg = new_message(pid, plan, pr, ev, after)
+    v = progress_view(pid, plan, msg=msg if msg else False)
+    if not msg: v["next_message"] = None
+    return v
+@app.post("/api/v1/profiles/{pid}/messages/{mid}/feedback", status_code=204)
+def feedback(pid: str, mid: str, body: C.MessageFeedback):
+    get_profile(pid)
+    if not db.one("SELECT 1 FROM messages WHERE message_id=? AND profile_id=?", (mid, pid)): raise Err(404, "NOT_FOUND", "Message not found")
+    db.run("UPDATE messages SET helpful=? WHERE message_id=?", (1 if body.helpful else 0, mid))
+
+@app.post("/api/v1/readiness/check", response_model=C.ReadinessResult)
+def readiness(body: C.ReadinessRequest): return R.check(body.text)
+
+CUES = [("A29", "age_statement", "I am 29 years old."), ("A42", "age_statement", "I am 42 years old."), ("A50", "age_statement", "I am 50 years old."), ("A58", "age_statement", "I am 58 years old."),
+        ("P5", "experience_proxy", "I have 5 years of experience."), ("P25", "experience_proxy", "I have 25 years of experience.")]
+def audit_run(p: dict, canary: bool):
+    def pipeline(texts, bias=False):
+        sug, _ = X.suggest(p["declared_skills"], texts, SK); lv = {s["skill_id"]: s["suggested_level"] for s in sug}
+        if bias: lv = {k: (max(1, v - 1) if v >= 2 else v) for k, v in lv.items()}
+        prefs = (p["preferences"] or {}).get("interests", []); recs = E.rank(lv, ROLES, prefs, SK)
+        gid = p["stated_goal_role_id"] or recs[0]["role_id"]; hrs = next(r for r in recs if r["role_id"] == gid)["est_gap_hours"]; return dict(skills=lv, recs=recs, plan_hours=hrs)
+    base = pipeline(p["work_examples"]); variants = []
+    cases = [(vid, cue, text, False) for vid, cue, text in CUES] + ([("CANARY", "deliberately_biased_scorer", CUES[3][2], True)] if canary else [])
+    for vid, cue, text, bias in cases:
+        texts = p["work_examples"] + [text]; v = pipeline(texts, bias); v["text"] = " ".join(texts if not bias else texts + ["Seasoned administrator, may struggle to adapt to new technology."])
+        b = dict(base, text=" ".join(p["work_examples"])); m = E.compare(b, v)
+        variants.append(dict(variant_id=vid, cue=cue, metrics=m, flags=E.flags_for(vid, m)))
+    return variants
+@app.post("/api/v1/profiles/{pid}/audit", response_model=C.AuditResult)
+def start_audit(pid: str, body: C.AuditRequest = C.AuditRequest()):
+    p = get_profile(pid); variants = audit_run(p, body.canary); aid = "aud_" + uuid.uuid4().hex[:8]
+    out = dict(audit_id=aid, profile_id=pid, status="flagged" if any(v["flags"] for v in variants) else "pass", canary=body.canary, variants=variants, thresholds=E.THRESH,
+               limitations=["Tests only the variants listed; it cannot prove the system is free of bias.", "Variants add a statement about age or years of experience to the worker's own text.",
+                            "In rules mode the extractor ignores such statements by construction, so the audit is a regression guard until a language model is used."], review=None, created_at=iso())
+    db.run("INSERT INTO audits VALUES (?,?,?,?)", (aid, pid, json.dumps(out), iso())); db.log(iso(), "system", "audit_run", pid, {"status": out["status"], "canary": body.canary}); return out
+@app.get("/api/v1/audits/{aid}", response_model=C.AuditResult)
+def read_audit(aid: str):
+    r = db.one("SELECT payload FROM audits WHERE audit_id=?", (aid,))
+    if not r: raise Err(404, "NOT_FOUND", "Audit not found")
+    return jl(r["payload"])
+@app.post("/api/v1/audits/{aid}/review", response_model=C.AuditResult)
+def review_audit(aid: str, body: C.ReviewRequest):
+    a = read_audit(aid); a["review"] = dict(reviewer=body.reviewer, decision=body.decision, note=body.note, reviewed_at=iso())
+    db.run("UPDATE audits SET payload=? WHERE audit_id=?", (json.dumps(a), aid)); db.log(iso(), body.reviewer, "audit_reviewed", a["profile_id"], {"decision": body.decision}); return a
+
+# Serves the frontend from the same process (one URL, no CORS): frontend_dist/ if it exists (final build), otherwise frontend/ if it has index.html.
+_root = pathlib.Path(__file__).resolve().parents[2]
+_site = next((d for d in (_root / "frontend_dist", _root / "frontend") if (d / "index.html").is_file()), None)
+if _site: app.mount("/", StaticFiles(directory=str(_site), html=True), name="frontend")

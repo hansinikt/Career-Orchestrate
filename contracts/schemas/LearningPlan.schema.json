@@ -1,0 +1,223 @@
+{
+ "$defs": {
+  "LearningResource": {
+   "additionalProperties": false,
+   "properties": {
+    "resource_id": {
+     "title": "Resource Id",
+     "type": "string"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    },
+    "provider": {
+     "title": "Provider",
+     "type": "string"
+    },
+    "url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Url"
+    },
+    "skill_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Skill Ids",
+     "type": "array"
+    },
+    "level_from": {
+     "title": "Level From",
+     "type": "integer"
+    },
+    "level_to": {
+     "title": "Level To",
+     "type": "integer"
+    },
+    "est_hours": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Est Hours"
+    },
+    "cost": {
+     "enum": [
+      "free",
+      "paid",
+      "unknown"
+     ],
+     "title": "Cost",
+     "type": "string"
+    },
+    "verification_status": {
+     "enum": [
+      "verified",
+      "seed_unverified",
+      "broken"
+     ],
+     "title": "Verification Status",
+     "type": "string"
+    },
+    "last_verified": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Last Verified"
+    }
+   },
+   "required": [
+    "resource_id",
+    "title",
+    "provider",
+    "url",
+    "skill_ids",
+    "level_from",
+    "level_to",
+    "est_hours",
+    "cost",
+    "verification_status"
+   ],
+   "title": "LearningResource",
+   "type": "object"
+  },
+  "PlanStep": {
+   "additionalProperties": false,
+   "properties": {
+    "order": {
+     "title": "Order",
+     "type": "integer"
+    },
+    "skill_id": {
+     "title": "Skill Id",
+     "type": "string"
+    },
+    "skill_name": {
+     "title": "Skill Name",
+     "type": "string"
+    },
+    "status": {
+     "enum": [
+      "resource_found",
+      "no_verified_resource",
+      "already_met"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "resource": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/LearningResource"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "est_hours": {
+     "title": "Est Hours",
+     "type": "number"
+    },
+    "builds_on": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Builds On",
+     "type": "array"
+    },
+    "rationale": {
+     "title": "Rationale",
+     "type": "string"
+    }
+   },
+   "required": [
+    "order",
+    "skill_id",
+    "skill_name",
+    "status",
+    "resource",
+    "est_hours",
+    "builds_on",
+    "rationale"
+   ],
+   "title": "PlanStep",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "plan_id": {
+   "title": "Plan Id",
+   "type": "string"
+  },
+  "role_id": {
+   "title": "Role Id",
+   "type": "string"
+  },
+  "total_est_hours": {
+   "title": "Total Est Hours",
+   "type": "number"
+  },
+  "weeks_at_pace": {
+   "anyOf": [
+    {
+     "type": "integer"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "title": "Weeks At Pace"
+  },
+  "steps": {
+   "items": {
+    "$ref": "#/$defs/PlanStep"
+   },
+   "title": "Steps",
+   "type": "array"
+  },
+  "unresolved_skill_ids": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Unresolved Skill Ids",
+   "type": "array"
+  },
+  "proof_tasks": {
+   "items": {
+    "type": "string"
+   },
+   "title": "Proof Tasks",
+   "type": "array"
+  }
+ },
+ "required": [
+  "plan_id",
+  "role_id",
+  "total_est_hours",
+  "weeks_at_pace",
+  "steps",
+  "unresolved_skill_ids",
+  "proof_tasks"
+ ],
+ "title": "LearningPlan",
+ "type": "object"
+}

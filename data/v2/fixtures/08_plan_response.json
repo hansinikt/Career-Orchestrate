@@ -1,0 +1,26 @@
+{
+  "plan_id": "plan_230fe857f6",
+  "profile_id": "prof_97d4982679",
+  "role_id": "R001",
+  "role_title": "HR Coordinator",
+  "total_est_hours": 24.0,
+  "weekly_hours": 6,
+  "weeks_at_pace": 4,
+  "steps": [
+    {
+      "order": 1,
+      "skill_id": "SK-CONF",
+      "skill_name": "Confidentiality",
+      "status": "no_verified_resource",
+      "resource": null,
+      "est_hours": 24.0,
+      "rationale": "Moves Confidentiality from level 0 to 2 (target 2) - mandatory",
+      "builds_on": []
+    }
+  ],
+  "unresolved_skill_ids": [
+    "SK-CONF"
+  ],
+  "includes_unverified_resources": false,
+  "disclaimer": "Courses marked unverified or sample have not been confirmed by a person. Check the course page before enrolling."
+}

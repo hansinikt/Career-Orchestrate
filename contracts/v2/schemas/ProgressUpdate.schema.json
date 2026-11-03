@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "hours_logged": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hours Logged"
+    },
+    "percent": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Percent",
+      "type": "integer"
+    },
+    "step_order": {
+      "minimum": 1,
+      "title": "Step Order",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "step_order",
+    "percent"
+  ],
+  "title": "ProgressUpdate",
+  "type": "object"
+}

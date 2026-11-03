@@ -1,0 +1,39 @@
+role_id,skill_name,requirement_type,target_proficiency
+R001,Excel,Required,Intermediate
+R001,Communication,Required,Intermediate
+R001,Record management,Required,Intermediate
+R001,Scheduling,Preferred,Intermediate
+R001,Confidentiality,Required,Intermediate
+R002,Scheduling,Required,Intermediate
+R002,Documentation,Required,Intermediate
+R002,Communication,Required,Intermediate
+R002,Risk tracking,Preferred,Beginner
+R002,Reporting,Required,Intermediate
+R003,Excel,Required,Intermediate
+R003,SQL,Required,Beginner
+R003,Data cleaning,Required,Intermediate
+R003,Statistics,Required,Beginner
+R003,Visualization,Preferred,Beginner
+R004,Communication,Required,Advanced
+R004,Process analysis,Required,Intermediate
+R004,Documentation,Required,Intermediate
+R004,Excel,Preferred,Intermediate
+R004,Requirements gathering,Required,Beginner
+R005,Excel,Required,Intermediate
+R005,Reporting,Required,Intermediate
+R005,Process improvement,Required,Beginner
+R005,Data analysis,Required,Beginner
+R005,Problem solving,Required,Intermediate
+R006,Training coordination,Required,Intermediate
+R006,Scheduling,Required,Intermediate
+R006,Communication,Required,Intermediate
+R006,Learning administration,Preferred,Beginner
+R007,CRM tools,Required,Intermediate
+R007,Excel,Required,Intermediate
+R007,Data quality,Required,Beginner
+R007,Reporting,Required,Intermediate
+R007,Dashboard basics,Preferred,Beginner
+R008,Document control,Required,Intermediate
+R008,Attention to detail,Required,Intermediate
+R008,Compliance documentation,Required,Intermediate
+R008,Communication,Preferred,Intermediate

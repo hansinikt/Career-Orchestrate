@@ -1,0 +1,29 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "est_hours": {
+      "title": "Est Hours",
+      "type": "number"
+    },
+    "order": {
+      "title": "Order",
+      "type": "integer"
+    },
+    "percent": {
+      "title": "Percent",
+      "type": "integer"
+    },
+    "skill_name": {
+      "title": "Skill Name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "order",
+    "skill_name",
+    "est_hours",
+    "percent"
+  ],
+  "title": "StepProgress",
+  "type": "object"
+}

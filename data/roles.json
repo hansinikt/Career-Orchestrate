@@ -1,0 +1,371 @@
+{
+ "dataset_version": "seed-0.1",
+ "roles": [
+  {
+   "role_id": "R-001",
+   "title": "Reporting Analyst (MIS)",
+   "summary": "Prepares recurring management reports and dashboards from operational data.",
+   "tags": [
+    "data",
+    "reporting"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-SPREADSHEET",
+     "importance": 5,
+     "required_level": 3,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-REPORT",
+     "importance": 5,
+     "required_level": 3,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-DATAQUALITY",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-BI",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-SQL",
+     "importance": 3,
+     "required_level": 1,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-STAKEHOLDER",
+     "importance": 2,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-BUSWRITING",
+     "importance": 2,
+     "required_level": 2,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": null,
+   "max_experience_years": null,
+   "proof_templates": [
+    "Rebuild one of your monthly reports as a dashboard and document the data checks you apply"
+   ],
+   "onet_soc": null,
+   "provenance": "team_curated_unverified",
+   "market_signals": []
+  },
+  {
+   "role_id": "R-002",
+   "title": "Operations Coordinator",
+   "summary": "Keeps day-to-day operations on schedule across teams and vendors.",
+   "tags": [
+    "operations",
+    "people"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-SCHEDULING",
+     "importance": 4,
+     "required_level": 3,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-TEAMCOORD",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-PROCESSDOC",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-VENDOR",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-STAKEHOLDER",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-REPORT",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-PROCESSIMPROVE",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-BUDGET",
+     "importance": 2,
+     "required_level": 1,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": null,
+   "max_experience_years": null,
+   "proof_templates": [
+    "Document one workflow end-to-end and propose two measurable improvements"
+   ],
+   "onet_soc": null,
+   "provenance": "team_curated_unverified",
+   "market_signals": []
+  },
+  {
+   "role_id": "R-003",
+   "title": "HR Operations Coordinator",
+   "summary": "Runs HR administration, records and employee queries.",
+   "tags": [
+    "people",
+    "hr"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-RECORDS",
+     "importance": 5,
+     "required_level": 3,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-HRADMIN",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-HRIS",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-STAKEHOLDER",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-SCHEDULING",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-CONFIDENTIALITY",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-DATAQUALITY",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": true,
+   "max_experience_years": null,
+   "proof_templates": [
+    "Prepare an anonymised onboarding checklist and leave-record audit"
+   ],
+   "onet_soc": null,
+   "provenance": "team_curated_unverified",
+   "market_signals": []
+  },
+  {
+   "role_id": "R-004",
+   "title": "Project Coordinator",
+   "summary": "Supports project delivery: plans, schedules, minutes, status reports.",
+   "tags": [
+    "operations",
+    "planning"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-PROJECTPLAN",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-SCHEDULING",
+     "importance": 4,
+     "required_level": 3,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-TEAMCOORD",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-MINUTES",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-STAKEHOLDER",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-REPORT",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-BUDGET",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-RISK",
+     "importance": 3,
+     "required_level": 1,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": null,
+   "max_experience_years": null,
+   "proof_templates": [
+    "Create a project plan, risk log and status report for a small real task"
+   ],
+   "onet_soc": null,
+   "provenance": "team_curated_unverified",
+   "market_signals": []
+  },
+  {
+   "role_id": "R-005",
+   "title": "Procurement and Vendor Coordinator",
+   "summary": "Coordinates purchase requests, quotations and vendor follow-up.",
+   "tags": [
+    "operations",
+    "vendors"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-VENDOR",
+     "importance": 5,
+     "required_level": 3,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-PROCUREMENT",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-BUDGET",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-RECORDS",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-SPREADSHEET",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-ERPBASIC",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": null,
+   "max_experience_years": 8,
+   "proof_templates": [
+    "Build a vendor comparison sheet from three quotations with a recommendation note"
+   ],
+   "onet_soc": null,
+   "provenance": "team_curated_unverified",
+   "market_signals": []
+  },
+  {
+   "role_id": "R-006",
+   "title": "ERP Master Data Associate",
+   "summary": "Maintains accurate master data records in an ERP system.",
+   "tags": [
+    "data",
+    "erp"
+   ],
+   "requirements": [
+    {
+     "skill_id": "SK-ERPBASIC",
+     "importance": 5,
+     "required_level": 2,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-DATAQUALITY",
+     "importance": 5,
+     "required_level": 3,
+     "mandatory": true
+    },
+    {
+     "skill_id": "SK-RECORDS",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-SPREADSHEET",
+     "importance": 3,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-MASTERDATA",
+     "importance": 4,
+     "required_level": 2,
+     "mandatory": false
+    },
+    {
+     "skill_id": "SK-PROCESSDOC",
+     "importance": 2,
+     "required_level": 1,
+     "mandatory": false
+    }
+   ],
+   "requires_degree": null,
+   "max_experience_years": null,
+   "proof_templates": [
+    "Clean a sample vendor list: duplicates, missing fields, naming rules; report error rate before/after"
+   ],
+   "onet_soc": null,
+   "provenance": "team_curated_unverified",
+   "market_signals": []
+  }
+ ]
+}

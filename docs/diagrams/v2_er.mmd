@@ -1,0 +1,30 @@
+erDiagram
+  profiles ||--o| extractions : has
+  profiles ||--o| confirmations : has
+  profiles ||--o{ plans : has
+  plans ||--o{ progress : tracks
+  profiles ||--o{ messages : receives
+  profiles ||--o{ audits : has
+  profiles ||--o{ audit_log : "ids only"
+  profiles { text profile_id PK
+    text display_name
+    text work_examples "JSON"
+    text declared_skills "JSON"
+    text stated_goal_role_id
+    text preferences "JSON"
+    text motivation "JSON"
+    text consent_at }
+  plans { text plan_id PK
+    text role_id
+    text payload "JSON"
+    int active }
+  progress { text plan_id PK
+    int step_order PK
+    int percent
+    real hours_logged
+    text updated_at }
+  messages { text message_id PK
+    text style
+    text event
+    text text
+    int helpful }

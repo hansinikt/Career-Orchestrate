@@ -1,0 +1,42 @@
+{
+  "display_name": "Anitha Raman",
+  "current_role": "Administrative Coordinator",
+  "work_examples": [
+    "Coordinated calendars, maintained records, prepared reports, supported cross-team communication"
+  ],
+  "declared_skills": [
+    {
+      "name": "Excel",
+      "level": 2
+    },
+    {
+      "name": "Communication",
+      "level": 3
+    },
+    {
+      "name": "Team coordination",
+      "level": 3
+    },
+    {
+      "name": "Record management",
+      "level": 3
+    },
+    {
+      "name": "Presentation skills",
+      "level": 2
+    }
+  ],
+  "stated_goal_role_id": "R001",
+  "preferences": {
+    "interests": [],
+    "weekly_hours": 6
+  },
+  "motivation": {
+    "styles": [
+      "progress",
+      "encouragement"
+    ],
+    "check_in": "weekly"
+  },
+  "consent": true
+}

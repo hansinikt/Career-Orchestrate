@@ -1,0 +1,16 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "text": {
+      "maxLength": 5000,
+      "minLength": 20,
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "text"
+  ],
+  "title": "ReadinessRequest",
+  "type": "object"
+}
