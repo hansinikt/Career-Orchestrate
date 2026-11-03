@@ -20,7 +20,7 @@ Build the frontend, copy the build to `frontend_dist/`, then `make demo` and ope
 | `engine/` | Algorithms: suggestions, matching, plan, motivation, openness check | Dev 3 |
 | `backend/app/` | Routes and SQLite | Dev 2 |
 | `data/v2/` | Catalogue from the team's CSVs, fixtures | Dev 3 (`resources.json`: Dev 4) |
-| `frontend/` | SAPUI5/Fiori app (run `npm start` inside it) | Dev 1 |
+| `frontend/` | Plain HTML/CSS/JS app, served by the backend at http://localhost:8000/ | Dev 1 |
 | `database/` | SQL scripts (run in numeric order) | |
 | `tests/` | 41 tests | Dev 4 |
 
