@@ -27,7 +27,7 @@ export function h(tag, props, ...kids) {
   return el;
 }
 export const go = (hash) => { location.hash = hash; };
-export const spinner = (msg) => h("div", { class: "spinner", role: "status" }, (msg || T.loading) + "…");
+export const spinner = (msg) => h("div", { class: "spinner", role: "status", "aria-label": msg || T.loading });
 
 export function errorPanel(err, retry) {
   const msg = err instanceof ApiError ? err.message : "Something went wrong. Nothing was lost.";
@@ -56,7 +56,9 @@ const GLYPH = { strong_fit: "●", bridgeable: "◐", stretch: "○" };
 export const bandChip = (band) => h("span", { class: "band " + band }, h("span", { class: "g", "aria-hidden": "true" }), T.bands[band] || band);
 export const levelWord = (n) => T.levels[n] != null ? T.levels[n] : String(n);
 export const num = (x) => String(Math.round(Number(x) * 10) / 10); // display only: 24.0 shows as 24
-export const field = (label, control, opts = {}) => h("div", { class: "field" }, h("label", { for: control.id }, label), opts.hint ? h("p", { class: "hint", text: opts.hint }) : null, control, opts.after);
+export const field = (label, control, opts = {}) => h("div", { class: "field" }, h("label", { for: control.id }, label, opts.req ? h("span", { class: "req", "aria-hidden": "true", text: " *" }) : null), opts.hint ? h("p", { class: "hint", text: opts.hint }) : null, control, opts.after);
+// A bold question with a short line under it saying what to enter. req adds the red asterisk.
+export const ask = (label, hint, control, opts = {}) => h("div", { class: "field q" }, h(opts.forId !== "none" && (opts.forId || control.id) ? "label" : "p", { class: "qt", for: opts.forId !== "none" ? (opts.forId || control.id || null) : null }, label, opts.req ? h("span", { class: "req", "aria-hidden": "true", text: " *" }) : null), hint ? h("p", { class: "hint", text: hint }) : null, control);
 export function choice(type, name, title, help, checked, onchange, disabled) {
   const input = h("input", { type, name, checked, disabled, onchange });
   return h("label", { class: "choice" }, input, h("span", { class: "box" }, h("b", { text: title }), help ? h("small", { text: help }) : null));
@@ -88,4 +90,11 @@ export const crumb = (text) => h("div", { class: "crumb", text });
 export function pills(name, options, selected, onchange, multi = true) {
   return h("div", { class: "pills", role: "group" }, options.map((o) => h("label", { class: "pill" },
     h("input", { type: multi ? "checkbox" : "radio", name, value: o, checked: selected.includes(o), onchange: (e) => onchange(o, e.target.checked) }), h("span", { text: o }))));
+}
+
+// A small trash-bin button that replaces a text "Remove" link. The label stays for screen readers and the hover tip.
+export function trash(label, onclick) {
+  const b = h("button", { class: "trash", type: "button", "aria-label": label, title: label, onclick });
+  b.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>';
+  return b;
 }

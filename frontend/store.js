@@ -6,8 +6,8 @@ const rd = (k) => { try { return JSON.parse(sessionStorage.getItem(k)); } catch 
 const wr = (k, v) => { try { v == null ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage blocked: fine */ } };
 
 export const blankExtras = () => ({
-  industry: "", tools: [], certsHeld: [{ name: "", issuer: "" }], edu: "", field: "", langs: [], direction: "", situation: "", barriers: [], cvNote: "",
-  finishBy: "", best: [], schedule: {}, formats: [], mail: true, mailTime: "07:30", access: [], lang: "English",
+  industry: "", phone: "", tools: [], certsHeld: [{ name: "", issuer: "" }], eduList: [{ level: "bachelor", field: "", institution: "" }], goalText: "", langs: [], situation: "", situations: [], barriers: [], cvNote: "",
+  best: [], schedule: {}, formats: [], mail: true, mailTime: "07:30", step: 1,
   certs: [],      // certificates the person added: { id, name, link, fileName, added }
   proofs: {},     // mission proof: { [missionId]: { name, at } }
 });

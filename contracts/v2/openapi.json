@@ -317,7 +317,7 @@
               ],
               "type": "string"
             },
-            "maxItems": 3,
+            "maxItems": 7,
             "title": "Barriers",
             "type": "array"
           },
@@ -376,6 +376,22 @@
               }
             ],
             "title": "Situation"
+          },
+          "situations": {
+            "description": "All that apply; situation holds the first",
+            "items": {
+              "enum": [
+                "promotion",
+                "switch_field",
+                "returning",
+                "cv_not_showing_skills",
+                "other"
+              ],
+              "type": "string"
+            },
+            "maxItems": 5,
+            "title": "Situations",
+            "type": "array"
           },
           "tools": {
             "items": {
@@ -918,6 +934,8 @@
           "level": {
             "enum": [
               "school",
+              "grade10",
+              "grade12",
               "diploma",
               "bachelor",
               "master",
@@ -1411,7 +1429,7 @@
             "type": "boolean"
           },
           "styles": {
-            "description": "1 or 2 styles the worker chose; first is primary",
+            "description": "One or more styles the worker chose; first is primary",
             "items": {
               "enum": [
                 "progress",
@@ -1422,7 +1440,7 @@
               ],
               "type": "string"
             },
-            "maxItems": 2,
+            "maxItems": 5,
             "minItems": 1,
             "title": "Styles",
             "type": "array"
@@ -1543,6 +1561,8 @@
               {
                 "enum": [
                   "school",
+                  "grade10",
+                  "grade12",
                   "diploma",
                   "bachelor",
                   "master",
@@ -1689,6 +1709,22 @@
           "title": {
             "title": "Title",
             "type": "string"
+          },
+          "topics": {
+            "description": "Topics as listed on the course page",
+            "items": {
+              "type": "string"
+            },
+            "title": "Topics",
+            "type": "array"
+          },
+          "units": {
+            "description": "Modules or sections as listed on the course page",
+            "items": {
+              "type": "string"
+            },
+            "title": "Units",
+            "type": "array"
           },
           "url": {
             "anyOf": [
@@ -1959,7 +1995,7 @@
               ],
               "type": "string"
             },
-            "maxItems": 3,
+            "maxItems": 5,
             "title": "Interests",
             "type": "array"
           },
@@ -2633,6 +2669,24 @@
             },
             "title": "Blocking Gaps",
             "type": "array"
+          },
+          "build_skills": {
+            "description": "Names of the role's researched requirements the worker does not have yet (empty when the role has no course data)",
+            "items": {
+              "type": "string"
+            },
+            "title": "Build Skills",
+            "type": "array"
+          },
+          "course_count": {
+            "default": 0,
+            "title": "Course Count",
+            "type": "integer"
+          },
+          "course_hours": {
+            "default": 0,
+            "title": "Course Hours",
+            "type": "number"
           },
           "est_gap_hours": {
             "title": "Est Gap Hours",

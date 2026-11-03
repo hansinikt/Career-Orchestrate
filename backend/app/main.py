@@ -1,5 +1,5 @@
 """Reference backend. Run: make run  (rules mode, no keys needed). Business rules live in engine/; this file only validates, stores and wires."""
-import json, os, uuid, pathlib, base64, binascii, time, datetime as dt
+import re, json, os, uuid, pathlib, base64, binascii, time, datetime as dt
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -149,6 +149,9 @@ def confirm(pid: str, body: C.ConfirmRequest):
 @app.get("/api/v1/profiles/{pid}/recommendations", response_model=C.RecommendationsResponse)
 def recommendations(pid: str):
     p = get_profile(pid); lv, ev = levels_and_evidence(confirmed_of(pid)); recs = rank_for(p, lv, ev)
+    for r in recs:
+        pth = PT.build_path(r["role_id"], PATHS, lv)
+        r["build_skills"] = [x["name"] for x in pth["requirements"] if not x["have"]]; r["course_count"] = len(pth["courses"]); r["course_hours"] = round(sum(c["hours"] or 0 for c in pth["courses"]), 1)
     goal = next((r for r in recs if r["role_id"] == p["stated_goal_role_id"]), None)
     db.log(iso(), "system", "recommendations_shown", pid, {"top": [r["role_id"] for r in recs[:3]]})
     O.record(pid, "inclusive_matching", "rules", f"{len(lv)} confirmed skills (no age, gender or years used)", f"{len(recs)} roles ranked; top {recs[0]['role_id']}", dedupe=True); return dict(profile_id=pid, recommendations=recs, goal=goal, disclaimer=DISCLAIMER)
@@ -162,7 +165,7 @@ def role_path(pid: str, role_id: str):
     why, mode = A.path_reasons(ROLE[role_id]["title"], path["courses"], path["requirements"])
     courses = [dict(resource_id=c["course_id"], title=c["title"], provider=c["provider"], url=c["url"], level=c["level"] if c["level"] in PT.LEVEL_RANK else None, level_basis=c["level_basis"], est_hours=c["hours"],
                     duration_text=c["duration_text"], cost=c["cost"], rating=c["rating"], rating_count=c["rating_count"], certificate=c["certificate"], prerequisites=c["prerequisites"],
-                    covers=c["covers"], why=why[c["course_id"]][0], decided_by=why[c["course_id"]][1], verification_status=c["verification_status"]) for c in path["courses"]]
+                    covers=c["covers"], why=why[c["course_id"]][0], decided_by=why[c["course_id"]][1], verification_status=c["verification_status"], units=c.get("units") or [], topics=c.get("topics") or []) for c in path["courses"]]
     O.record(pid, "learning_pathway", mode if courses else "rules", f"requirements for {role_id} checked against {len(PATHS['courses'])} catalogue courses", f"{len(courses)} courses shown, simplest first", dedupe=True)
     return dict(profile_id=pid, role_id=role_id, role_title=ROLE[role_id]["title"], requirements=path["requirements"], courses=courses, mode=mode,
                 source_note=PATHS["note"] if courses else "No courses have been checked for this role yet.")
@@ -201,21 +204,44 @@ def active_styles(pid, prefs):
             last = db.all("SELECT helpful FROM messages WHERE profile_id=? AND style=? ORDER BY created_at DESC, rowid DESC LIMIT 3", (pid, st))
             if len(last) == 3 and all(x["helpful"] == 0 for x in last): styles.remove(st)
     return styles or list(prefs["styles"])
+def course_steps(pid):
+    """When the chosen role has course data, progress is counted per course: the share of that course's missions that have proof. Returns (steps, percent map) or None."""
+    try:
+        plan = active_plan(pid)
+        if db.one("SELECT 1 x FROM progress WHERE plan_id=?", (plan["plan_id"],)): return None   # percentages typed in by hand: keep the older step-by-step counting
+        steps, _ = mission_steps(pid, plan)
+        if not (steps and steps[0].get("course")): return None
+        lv, _ = levels_and_evidence(confirmed_of(pid)); courses = PT.build_path(plan["role_id"], PATHS, lv)["courses"]
+        ms = missions_view(pid)["missions"]; tally = {}
+        for m in ms:
+            mt = re.match(r"Course (\d+):", m.get("source") or "")
+            if mt: t = tally.setdefault(int(mt.group(1)), [0, 0]); t[1] += 1; t[0] += 1 if m["status"] == "done" else 0
+        out = [dict(order=i, skill_name=c["title"], est_hours=float(c["hours"] or 1)) for i, c in enumerate(courses, 1)]
+        return out, {o: (round(100 * tally[o][0] / tally[o][1]) if o in tally and tally[o][1] else 0) for o in range(1, len(out) + 1)}
+    except Exception: return None
+def plan_nums(pid, steps, pm, weekly, matched=0):
+    """The numbers the encouragement templates use. When the role has course data, steps and progress are the courses (not the older skill steps)."""
+    cs = course_steps(pid)
+    if cs: steps, pm = cs
+    n = M.plan_numbers(steps, pm, weekly, matched)
+    if cs: n["next_step"] = next((s["skill_name"] for s in steps if pm.get(s["order"], 0) < 100), ""); n["last_step"] = next((s["skill_name"] for s in reversed(steps) if pm.get(s["order"], 0) >= 100), "")
+    return n
 def progress_view(pid, plan, msg=None):
-    pm = progress_map(plan["plan_id"]); n = M.plan_numbers(plan["steps"], pm, plan.get("weekly_hours")); last = db.one("SELECT MAX(updated_at) m FROM progress WHERE plan_id=?", (plan["plan_id"],))["m"]
+    pm = progress_map(plan["plan_id"]); n = plan_nums(pid, plan["steps"], pm, plan.get("weekly_hours")); last = db.one("SELECT MAX(updated_at) m FROM progress WHERE plan_id=?", (plan["plan_id"],))["m"]
     if msg is None:
         row = db.one("SELECT * FROM messages WHERE profile_id=? AND plan_id=? ORDER BY created_at DESC, rowid DESC LIMIT 1", (pid, plan["plan_id"]))
         msg = row and dict(message_id=row["message_id"], style=row["style"], event=row["event"], text=row["text"], suggested_action=row["suggested_action"])
         pr = get_profile(pid)["motivation"]
         if last and pr and not pr["paused"] and pr["check_in"] != "off" and (now() - dt.datetime.fromisoformat(last)).days >= 7 and not (msg and msg["event"] == "behind"):
             msg = new_message(pid, plan, pr, "behind", dict(n, matched_count=0))
-    return dict(profile_id=pid, plan_id=plan["plan_id"], percent=n["percent"], hours_done=round(plan["total_est_hours"] - n["hours_left"], 1), hours_total=plan["total_est_hours"], steps_done=n["done"], steps_total=n["total"],
-                steps=[dict(order=s["order"], skill_name=s["skill_name"], est_hours=s["est_hours"], percent=pm.get(s["order"], 0)) for s in plan["steps"]], last_activity_at=last, next_message=msg)
+    cs = course_steps(pid); st, pmap = cs if cs else (plan["steps"], pm); tot_h = round(sum(s["est_hours"] for s in st), 1) if cs else plan["total_est_hours"]
+    return dict(profile_id=pid, plan_id=plan["plan_id"], percent=n["percent"], hours_done=round(tot_h - n["hours_left"], 1), hours_total=tot_h, steps_done=n["done"], steps_total=n["total"],
+                steps=[dict(order=s["order"], skill_name=s["skill_name"], est_hours=s["est_hours"], percent=pmap.get(s["order"], 0)) for s in st], last_activity_at=last, next_message=msg)
 def get_background(pid) -> dict:
     r = db.one("SELECT payload FROM background WHERE profile_id=?", (pid,)); return jl(r["payload"]) if r else C.Background().model_dump()
 def new_message(pid, plan, prefs, event, nums):
     shown = db.one("SELECT COUNT(*) c FROM messages WHERE profile_id=?", (pid,))["c"]; st, text, act = M.select(active_styles(pid, prefs), event, nums, shown)
-    bg = get_background(pid); ctx = {k: v for k, v in (("situation", bg.get("situation")), ("barriers", bg.get("barriers"))) if v}
+    bg = get_background(pid); ctx = {k: v for k, v in (("situation", bg.get("situation")), ("situations", bg.get("situations")), ("barriers", bg.get("barriers"))) if v}
     text = A.polish(text, st, ctx)       # the model may only re-word the template; any failed check keeps the template
     mid = "msg_" + uuid.uuid4().hex[:10]; db.run("INSERT INTO messages VALUES (?,?,?,?,?,?,?,NULL,?)", (mid, pid, plan["plan_id"], st, event, text, act, iso()))
     return dict(message_id=mid, style=st, event=event, text=text, suggested_action=act)
@@ -225,10 +251,10 @@ def read_progress(pid: str): return progress_view(pid, active_plan(pid))
 def update_progress(pid: str, body: C.ProgressUpdate):
     p = get_profile(pid); plan = active_plan(pid); matched = sum(1 for c in confirmed_of(pid)["confirmed_skills"] if c["evidence"])
     if body.step_order not in {s["order"] for s in plan["steps"]}: raise Err(422, "VALIDATION_ERROR", "Unknown step_order for the active plan")
-    before_map = progress_map(plan["plan_id"]); before = M.plan_numbers(plan["steps"], before_map, plan.get("weekly_hours")); prev = db.one("SELECT MAX(updated_at) m FROM progress WHERE plan_id=?", (plan["plan_id"],))["m"]
+    before_map = progress_map(plan["plan_id"]); before = plan_nums(pid, plan["steps"], before_map, plan.get("weekly_hours")); prev = db.one("SELECT MAX(updated_at) m FROM progress WHERE plan_id=?", (plan["plan_id"],))["m"]
     days = None if not prev else (now() - dt.datetime.fromisoformat(prev)).days
     db.run("INSERT OR REPLACE INTO progress VALUES (?,?,?,?,?)", (plan["plan_id"], body.step_order, body.percent, body.hours_logged, iso()))
-    after = M.plan_numbers(plan["steps"], progress_map(plan["plan_id"]), plan.get("weekly_hours"), matched); db.log(iso(), "worker", "progress_updated", pid, {"step": body.step_order, "percent": body.percent})
+    after = plan_nums(pid, plan["steps"], progress_map(plan["plan_id"]), plan.get("weekly_hours"), matched); db.log(iso(), "worker", "progress_updated", pid, {"step": body.step_order, "percent": body.percent})
     ev = M.detect_event(before["percent"], after["percent"], before["done"], after["done"], after["total"], days, prev is None); msg = None
     pr = p["motivation"]
     if ev and pr and not pr["paused"] and pr["check_in"] != "off":
@@ -273,10 +299,18 @@ def scout_approve(pid: str, body: C.ScoutApproveRequest):
     O.record(pid, "human_in_the_loop", "gate_3_approve_courses", "course picks shown", f"worker approved {len(body.choices)} course choices", stopped_at_gate=True); return plan
 def chapters_of(step) -> list:
     rid = (step.get("resource") or {}).get("resource_id"); return (CURR.get(rid) or {}).get("chapters", []) if rid else []
+def mission_steps(pid, plan):
+    """Missions follow the courses of the chosen role (the same simplest-first list the person saw). Roles with no course data fall back to the plan's steps."""
+    try:
+        lv, _ = levels_and_evidence(confirmed_of(pid)); courses = PT.build_path(plan["role_id"], PATHS, lv)["courses"]
+    except Exception: courses = []
+    if courses: return [dict(order=i, skill_name=c["title"], course=True, units=c.get("units") or []) for i, c in enumerate(courses, 1)], {}
+    return plan["steps"], {x["order"]: chapters_of(x) for x in plan["steps"] if chapters_of(x)}
 def missions_view(pid):
     plan = active_plan(pid); done = {r["mission_id"]: r["file_name"] for r in db.all("SELECT mission_id, file_name FROM proofs WHERE profile_id=?", (pid,))}
     st = {r["mission_id"]: r["state"] for r in db.all("SELECT mission_id, state FROM mission_state WHERE profile_id=?", (pid,))}
-    ms = MS.build(plan["steps"], set(done), {m for m, v in st.items() if v == "started"}, {m for m, v in st.items() if v == "declined"}, {x["order"]: chapters_of(x) for x in plan["steps"] if chapters_of(x)})
+    steps, chapters = mission_steps(pid, plan)
+    ms = MS.build(steps, set(done), {m for m, v in st.items() if v == "started"}, {m for m, v in st.items() if v == "declined"}, chapters)
     for m in ms: m["proof_name"] = done.get(m["mission_id"])
     today = next((m["mission_id"] for m in ms if m["status"] == "open"), None)
     return dict(profile_id=pid, missions=ms, today_mission_id=today)
@@ -301,7 +335,7 @@ def decline_mission(pid: str, mid: str):
     db.run("INSERT OR REPLACE INTO mission_state VALUES (?,?,?,?)", (pid, mid, "declined", iso())); db.log(iso(), "worker", "mission_declined", pid, {"mission": mid})
     p = get_profile(pid); plan = active_plan(pid); pr = p["motivation"]; msg = None
     if pr and not pr["paused"]:
-        matched = sum(1 for c in confirmed_of(pid)["confirmed_skills"] if c["evidence"]); msg = new_message(pid, plan, pr, "behind", M.plan_numbers(plan["steps"], progress_map(plan["plan_id"]), plan.get("weekly_hours"), matched))
+        matched = sum(1 for c in confirmed_of(pid)["confirmed_skills"] if c["evidence"]); msg = new_message(pid, plan, pr, "behind", plan_nums(pid, plan["steps"], progress_map(plan["plan_id"]), plan.get("weekly_hours"), matched))
     O.record(pid, "human_in_the_loop", "mission_declined", "worker chose not to do a mission now", "mission set aside, encouragement " + ("shown" if msg else "paused"))
     return dict(missions=missions_view(pid), message=msg)
 PROOF_EXT = (".pdf", ".png", ".jpg", ".jpeg", ".txt", ".doc", ".docx")

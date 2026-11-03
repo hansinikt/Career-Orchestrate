@@ -16,28 +16,30 @@ export default async function profile(arg) {
   const kv = (k, v) => h("div", null, h("small", { class: "faint", text: k }), h("div", { style: "font-weight:600", text: v || t.none }));
   const sec = (id, title, editLink, ...kids) => h("section", { class: "card", id }, h("div", { class: "row between" }, h("h3", { style: "font-size:1.25rem", text: title }), editLink), ...kids);
 
-  const work = sec("work", t.work, edit(1), h("div", { class: "cols2" }, kv("Role", p.current_role), kv("Field", X.industry)), h("ul", { style: "margin:0;padding-left:20px" }, p.work_examples.map((e) => h("li", { text: e }))));
-  const skills = sec("skills", t.skills, edit(2), h("div", { class: "pills" }, p.declared_skills.length ? p.declared_skills.map((s) => h("span", { class: "chip" }, s.name, h("i", { text: levelWord(s.level) }))) : h("span", { class: "muted", text: t.none })), X.tools.length ? h("div", { class: "pills" }, X.tools.map((x) => h("span", { class: "chip", text: x }))) : null);
-  const goal = sec("goal", t.goal, edit(5), h("div", { class: "cols2" }, kv(T.wiz.s5.goal, roleTitle(p.stated_goal_role_id) || (plan && plan.role_title)), kv(T.wiz.s5.interests, ((p.preferences && p.preferences.interests) || []).map((k) => T.s2.interests[k]).join(", "))));
-  const more = sec("more", t.more, edit(4), h("div", { class: "cols2" }, kv(T.wiz.s4.edu, X.edu), kv(T.wiz.s4.field, X.field), kv(T.wiz.s4.langs, X.langs.join(", ")), kv(T.wiz.s6.why, (T.wiz.s6.whyOpts.find((o) => o[0] === X.situation) || [])[1]), kv(T.wiz.s8.formats, X.formats.join(", ")), kv(T.wiz.s9.access, X.access.join(", ")), kv(T.wiz.s9.lang, X.lang), kv(T.wiz.s6.barriers, X.barriers.map((k) => (T.wiz.s6.barrierOpts.find((o) => o[0] === k) || [])[1]).filter(Boolean).join(", "))));
-  const schedule = sec("schedule", t.time, edit(7), h("p", { class: "muted", text: p.preferences && p.preferences.weekly_hours ? t.hoursWeek(p.preferences.weekly_hours) : t.none }), scheduleLegend(), scheduleGrid());
+  const work = sec("work", t.work, edit(2), h("div", { class: "cols2" }, kv(T.wiz.s2.role, p.current_role), kv(T.wiz.s2.industry, (S.form || {}).industry || X.industry), kv(T.wiz.s1.phone, (S.form || {}).phone || X.phone), kv(T.wiz.s1.email, X.email)), h("ul", { style: "margin:0;padding-left:20px" }, p.work_examples.map((e) => h("li", { text: e }))));
+  const skills = sec("skills", t.skills, edit(3), h("div", { class: "pills" }, p.declared_skills.length ? p.declared_skills.map((s) => h("span", { class: "chip" }, s.name, h("i", { text: levelWord(s.level) }))) : h("span", { class: "muted", text: t.none })), X.tools.length ? h("div", { class: "pills" }, X.tools.map((x) => h("span", { class: "chip", text: x }))) : null);
+  const goal = sec("goal", t.goal, edit(6), h("div", { class: "cols2" }, kv(T.wiz.s6.goal, (S.form && S.form.goalText) || roleTitle(p.stated_goal_role_id) || (plan && plan.role_title)), kv(T.wiz.s6.interests, ((S.form && S.form.picks) || []).join(", "))));
+  const eduText = X.eduList.filter((e) => e.field || e.institution).map((e) => `${(T.wiz.s5.levels.find((l) => l[0] === e.level) || [])[1] || ""}: ${[e.field, e.institution].filter(Boolean).join(", ")}`).join("; ");
+  const more = sec("more", t.more, edit(5), h("div", { class: "cols2" }, kv(T.wiz.s5.title, eduText), kv(T.wiz.s7.why, (X.situations || []).map((k) => (T.wiz.s7.whyOpts.find((o) => o[0] === k) || [])[1]).filter(Boolean).join(", ")), kv(T.wiz.s9.formats, X.formats.join(", ")), kv(T.wiz.s7.barriers, X.barriers.map((k) => (T.wiz.s7.barrierOpts.find((o) => o[0] === k) || [])[1]).filter(Boolean).join(", "))));
+  const schedule = sec("schedule", t.time, edit(8), h("p", { class: "muted", text: p.preferences && p.preferences.weekly_hours ? t.hoursWeek(p.preferences.weekly_hours) : t.none }), scheduleLegend(), scheduleGrid());
 
   // encouragement: saved to the backend
   const mot = Object.assign({ styles: [], check_in: "weekly", paused: false }, p.motivation || {});
+  const pauseNote = h("p", { class: "hint", role: "status", text: mot.paused ? T.wiz.s9.pauseOn : T.wiz.s9.pauseOff });
   let styles = [...mot.styles]; const out = h("span", { class: "small muted", role: "status" }), grid = h("div", { class: "choices" });
-  const paint = () => grid.replaceChildren(...Object.keys(T.styles).map((k) => choice("checkbox", "mstyle", T.styles[k], T.styleHelp[k], styles.includes(k), (e) => { styles = e.target.checked ? [...styles, k].slice(0, 2) : styles.filter((x) => x !== k); paint(); }, !styles.includes(k) && styles.length >= 2)));
+  const paint = () => grid.replaceChildren(...Object.keys(T.styles).map((k) => choice("checkbox", "mstyle", T.styles[k], T.styleHelp[k], styles.includes(k), (e) => { styles = e.target.checked ? [...styles, k] : styles.filter((x) => x !== k); paint(); })));
   paint();
-  const enc = sec("encourage", t.encourage, null, grid, h("div", null, seg("mcheck", Object.entries(T.checkIn), mot.check_in, (v) => { mot.check_in = v; })), toggle(T.wiz.s8.pause, T.wiz.s8.pauseHelp, mot.paused, (v) => { mot.paused = v; }),
+  const enc = sec("encourage", t.encourage, null, grid, h("div", null, seg("mcheck", Object.entries(T.checkIn), mot.check_in, (v) => { mot.check_in = v; })), toggle(T.wiz.s9.pause, "", mot.paused, (v) => { const was = mot.paused; mot.paused = v; pauseNote.textContent = v ? T.wiz.s9.pauseOn : (was ? T.wiz.s9.resumed : T.wiz.s9.pauseOff); }), pauseNote,
     h("div", { class: "row" }, h("button", { class: "btn small", type: "button", text: t.save, onclick: async () => {
-      if (!styles.length) { out.textContent = T.wiz.s8.needStyle; return; }
+      if (!styles.length) { out.textContent = T.wiz.s9.needStyle; return; }
       try { await api.setMotivation(S.profileId, { styles, check_in: mot.check_in, paused: mot.paused }); S.styles = styles; S.checkIn = mot.check_in; S.paused = mot.paused; out.textContent = t.saved; } catch (e) { out.textContent = e.message; } } }), out));
 
   // email: preferences are kept on this device; the preview is a demo email built from what is on screen
   const today = slots.todayMission(miss), first = slots.courseRows(plan, null)[0];
   const preview = h("div", { class: "card", style: "background:#f7f8fa" }, h("small", { class: "faint", text: `To: ${U.user.email}` }), h("h4", { text: T.prof.mailSubject }),
     h("p", { text: T.prof.mailHello(U.user.name.split(" ")[0]) }), h("p", { text: today ? T.prof.mailMission(today.title) : first ? T.prof.mailCourse(first.title) : T.prof.mailNone }));
-  const email = sec("email", t.email, null, toggle(T.wiz.s9.mail, T.wiz.s9.mailHelp, X.mail, (v) => { X.mail = v; saveExtras(); }),
-    h("div", { style: "max-width:200px" }, h("label", { for: "p-mt", text: T.wiz.s9.mailTime }), h("input", { type: "time", id: "p-mt", value: X.mailTime, onchange: (e) => { X.mailTime = e.target.value; saveExtras(); } })), preview);
+  const email = sec("email", t.email, null, toggle(T.prof.mailToggle, T.prof.mailHelp, X.mail, (v) => { X.mail = v; saveExtras(); }),
+    h("div", { style: "max-width:200px" }, h("label", { for: "p-mt", text: T.prof.mailTime }), h("input", { type: "time", id: "p-mt", value: X.mailTime, onchange: (e) => { X.mailTime = e.target.value; saveExtras(); } })), preview);
 
   // delete my data
   const delBox = h("div"); let armed = false;

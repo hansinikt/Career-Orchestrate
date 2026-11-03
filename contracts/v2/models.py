@@ -19,10 +19,10 @@ class DeclaredSkill(S):
     name: str = Field(min_length=1, max_length=80)
     level: int = Field(ge=1, le=3, description="1 Beginner, 2 Intermediate, 3 Advanced (the worker's own statement)")
 class Preferences(S):
-    interests: list[Interest] = Field(default_factory=list, max_length=3, description="Ordered, most wanted first")
+    interests: list[Interest] = Field(default_factory=list, max_length=5, description="Ordered, most wanted first")
     weekly_hours: Optional[int] = Field(default=None, ge=1, le=40)
 class MotivationPrefs(S):
-    styles: list[Style] = Field(min_length=1, max_length=2, description="1 or 2 styles the worker chose; first is primary")
+    styles: list[Style] = Field(min_length=1, max_length=5, description="One or more styles the worker chose; first is primary")
     check_in: Literal["daily", "weekly", "off"] = "weekly"
     paused: bool = False
 class ProfileCreate(S):
@@ -122,6 +122,9 @@ class RoleRecommendation(S):
     openness_flags: list[str]
     explanation: str
     provisional_weights: bool = True
+    course_count: int = 0
+    course_hours: float = 0
+    build_skills: list[str] = Field(default_factory=list, description="Names of the role's researched requirements the worker does not have yet (empty when the role has no course data)")
 class RecommendationsResponse(S):
     profile_id: str
     recommendations: list[RoleRecommendation]
@@ -168,6 +171,8 @@ class PathCourse(S):
     why: str
     decided_by: Literal["agent", "rules"]
     verification_status: Literal["verified", "seed_unverified", "sample_placeholder"]
+    units: list[str] = Field(default_factory=list, description="Modules or sections as listed on the course page")
+    topics: list[str] = Field(default_factory=list, description="Topics as listed on the course page")
 class RolePathResponse(S):
     profile_id: str
     role_id: str
@@ -368,7 +373,7 @@ class ChaptersResponse(S):
 class ChapterTick(S):
     chapter_id: str
     done: bool
-EduLevel = Literal["school", "diploma", "bachelor", "master", "other"]
+EduLevel = Literal["school", "grade10", "grade12", "diploma", "bachelor", "master", "other"]
 class EducationItem(S):
     level: EduLevel
     field: Optional[str] = Field(default=None, max_length=80)
@@ -381,8 +386,9 @@ class Background(S):
     certifications: list[CertItem] = Field(default_factory=list, max_length=10)
     languages: list[str] = Field(default_factory=list, max_length=8)
     tools: list[str] = Field(default_factory=list, max_length=20)
-    barriers: list[Literal["time", "money", "confidence", "device_internet", "language", "caring_duties", "unsure_start"]] = Field(default_factory=list, max_length=3)
+    barriers: list[Literal["time", "money", "confidence", "device_internet", "language", "caring_duties", "unsure_start"]] = Field(default_factory=list, max_length=7)
     situation: Optional[Literal["promotion", "switch_field", "returning", "cv_not_showing_skills", "other"]] = None
+    situations: list[Literal["promotion", "switch_field", "returning", "cv_not_showing_skills", "other"]] = Field(default_factory=list, max_length=5, description="All that apply; situation holds the first")
     learning_formats: list[Literal["video", "reading", "hands_on", "live"]] = Field(default_factory=list, max_length=4)
 class CVParseRequest(S):
     text: str = Field(min_length=40, max_length=20000, description="Plain text of the CV")

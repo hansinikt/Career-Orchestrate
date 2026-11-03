@@ -36,5 +36,8 @@ def build_path(role_id: str, data: dict, levels: dict[str, int], max_courses: in
     return dict(requirements=reqs_out, courses=out)
 
 def default_reason(c: dict) -> str:
+    # Why a person should take this course: where it fits and how much of the gap it closes. The topics themselves are shown on the "Covers" line, so they are not repeated here.
     n, m = len(c["covers"]), c["missing_total"]
-    return f"Covers {', '.join(c['covers'])}: {n} of the {m} things employers asked for in this role that you do not have yet."
+    start = {"beginner": "Pitched at beginners, so a good place to start", "intermediate": "A step up that builds on the basics"}.get(c.get("level"), "A solid next step")
+    gap = f"all {m}" if n == m else f"{n} of the {m}"
+    return f"{start}. It tackles {gap} skills employers ask for in this role that you do not have yet." + (" You finish with a certificate you can show." if c.get("certificate") else "")

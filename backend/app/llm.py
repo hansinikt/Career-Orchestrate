@@ -32,7 +32,7 @@ def ask_json(task, system, user):
     t = time.time(); _calls[:] = [x for x in _calls if t - x < 60]
     try:
         if live_ready() and t >= _down_until and len(_calls) < int(os.environ.get("RATE_LIMIT_PER_MIN", "40")):
-            _calls.append(t); data = _gemini(system, user)
+            _calls.append(t); data = _gemini(system, user); log.warning("LLM task %s answered live in %.1f s", task, time.time() - t)
             if os.environ.get("LLM_RECORD", "").lower() == "true":
                 REPLAY.mkdir(parents=True, exist_ok=True); f.write_text(json.dumps(data, ensure_ascii=False, indent=1))
             return data, "live"

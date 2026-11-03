@@ -28,6 +28,8 @@
         {
           "enum": [
             "school",
+            "grade10",
+            "grade12",
             "diploma",
             "bachelor",
             "master",

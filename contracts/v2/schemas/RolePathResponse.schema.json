@@ -120,6 +120,22 @@
           "title": "Title",
           "type": "string"
         },
+        "topics": {
+          "description": "Topics as listed on the course page",
+          "items": {
+            "type": "string"
+          },
+          "title": "Topics",
+          "type": "array"
+        },
+        "units": {
+          "description": "Modules or sections as listed on the course page",
+          "items": {
+            "type": "string"
+          },
+          "title": "Units",
+          "type": "array"
+        },
         "url": {
           "anyOf": [
             {

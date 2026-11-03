@@ -13,7 +13,7 @@
         ],
         "type": "string"
       },
-      "maxItems": 3,
+      "maxItems": 5,
       "title": "Interests",
       "type": "array"
     },

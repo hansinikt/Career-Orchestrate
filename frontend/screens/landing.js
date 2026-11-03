@@ -1,38 +1,55 @@
-// Landing page: who we are, what it does, a demo button. Marketing copy lives in strings.js.
+// Landing page: one trail drawn from "where you are" to a goal, then what it does, how it works, screenshots, and a final call.
+// All text lives in strings.js. Motion: the trail draws once on load; sections reveal once on scroll (CSS only, switched off for reduced motion).
 import { T } from "../strings.js";
-import { h, bar } from "../ui.js";
-import { ill } from "../art.js";
+import { h } from "../ui.js";
+import { trail } from "../art.js";
+
+const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export default function landing() {
   const t = T.land;
-  const feat = ([kind, title, text, example]) => {
-    const tryBox = h("div", { class: "try", hidden: true, role: "status", text: example });
-    const btn = h("button", { class: "linkbtn", type: "button", "aria-expanded": "false", text: t.tryIt, onclick: () => { tryBox.hidden = !tryBox.hidden; btn.setAttribute("aria-expanded", String(!tryBox.hidden)); } });
-    return h("article", { class: "card feat" }, ill(kind, 60), h("h3", { text: title }), h("p", { text }), h("div", { style: "margin-top:10px" }, btn), tryBox);
-  };
   const hero = h("section", { class: "hero" }, h("div", { class: "inner" },
-    h("div", null, h("h1", { id: "page-title", tabindex: "-1" }, t.title[0], h("br"), t.title[1]), h("p", { class: "lead", text: t.lead }),
-      h("div", { class: "row" }, h("a", { class: "btn lg", href: "#/signin", text: t.start }), h("a", { class: "btn ghost lg", href: "#/signin", text: t.demo }))),
-    h("div", { class: "demo-card", "aria-hidden": "true" },
-      h("div", { class: "row between" }, h("b", { text: t.cardMission }), h("span", { class: "st amber", text: t.cardDue })),
-      h("div", { class: "mission-box" }, h("small", { text: t.cardTag }), h("div", { class: "t", text: t.cardTitle }), h("span", { class: "btn org small", text: t.cardBtn })),
-      h("small", { class: "faint", text: t.cardBar }), h("div", { style: "margin-top:8px" }, bar(0)))));
+    h("div", { class: "hero-copy" }, h("h1", { id: "page-title", tabindex: "-1" }, t.title[0], h("br"), t.title[1]), h("p", { class: "lead", text: t.lead }),
+      h("div", { class: "row" }, h("a", { class: "btn lg", href: "#/signin", text: t.start }))),
+    h("div", { class: "hero-trail", role: "img", "aria-label": t.trailAlt }, trail(t.trail))));
 
-  const features = h("section", { class: "band-section", id: "features", style: "background:#fff" }, h("div", { class: "inner" },
-    h("h2", { style: "text-align:center", text: t.featTitle }), h("p", { class: "lead", style: "text-align:center;margin:12px auto 36px", text: t.featLead }),
-    h("div", { class: "grid g3" }, t.feats.map(feat))));
+  // the six agents, in the order the work flows (indexes into t.feats)
+  const agent = ([, title, text]) => h("li", { class: "agent rv" }, h("h3", { text: title }), h("p", { text }));
+  const features = h("section", { class: "band-section", id: "features" }, h("div", { class: "inner split-head" },
+    h("div", { class: "rv" }, h("h2", { text: t.agentsTitle }), h("p", { class: "lead", text: t.agentsLead })),
+    h("ol", { class: "agents" }, t.feats.map(agent))));
 
-  const how = h("section", { class: "band-section", id: "how" }, h("div", { class: "inner" }, h("h2", { text: t.howTitle }),
-    h("div", { class: "steps4", style: "margin-top:30px" }, t.how.map(([title, text], i) => h("div", null, h("div", { class: "n", text: String(i + 1) }), h("h4", { text: title }), h("p", { text }))))));
+  const how = h("section", { class: "band-section tint", id: "how" }, h("div", { class: "inner" }, h("h2", { class: "rv", text: t.howTitle }),
+    h("ol", { class: "legs" }, t.how.map(([title, text], i) => h("li", { class: "leg rv", style: `--d:${i * 90}ms` }, h("span", { class: "stop", "aria-hidden": "true" }, String(i + 1)), h("h3", { text: title }), h("p", { text }))))));
 
-  const shots = h("section", { class: "band-section", style: "background:#fff" }, h("div", { class: "inner" }, h("h2", { text: t.shotsTitle, style: "text-align:center;margin-bottom:30px" }),
-    h("div", { class: "shots" }, t.shots.map(([k, cap]) => h("figure", { class: "shot", style: "margin:0" }, h("img", { src: `img/shot-${k}.png`, alt: cap, loading: "lazy", style: "width:100%;display:block" }), h("figcaption", { class: "cap", text: cap }))))));
+  const slides = t.shots, track = h("div", { class: "car-track", tabindex: "0", role: "region", "aria-label": t.shotsTitle });
+  const dots = h("div", { class: "car-dots" });
+  slides.forEach(([k, title, cap], i) => {
+    track.append(h("figure", { class: "car-slide" }, h("img", { src: `img/shot-${k}.jpg`, alt: title, loading: i ? "lazy" : "eager" }), h("figcaption", null, h("b", { text: title }), h("span", { text: cap }))));
+    dots.append(h("button", { class: "car-dot", type: "button", "aria-label": title, onclick: () => track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" }) }));
+  });
+  const cur = () => Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+  const sync = () => {
+    [...dots.children].forEach((d, i) => d.classList.toggle("on", i === cur()));
+    if (reduced()) return;
+    const w = Math.max(1, track.clientWidth);   // light parallax: each picture drifts a little against its frame
+    [...track.children].forEach((s, i) => s.style.setProperty("--p", ((i * w - track.scrollLeft) / w).toFixed(3)));
+  };
+  track.addEventListener("scroll", () => requestAnimationFrame(sync));
+  const step = (d) => track.scrollTo({ left: Math.max(0, Math.min(slides.length - 1, cur() + d)) * track.clientWidth, behavior: "smooth" });
+  track.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") step(1); if (e.key === "ArrowLeft") step(-1); });
+  queueMicrotask(sync);
+  const shots = h("section", { class: "band-section", id: "shots" }, h("div", { class: "inner" }, h("h2", { class: "rv", text: t.shotsTitle }),
+    h("div", { class: "car rv" }, h("div", { class: "car-frame" }, track, h("button", { class: "car-arrow left", type: "button", "aria-label": t.prev, text: "‹", onclick: () => step(-1) }),
+      h("button", { class: "car-arrow right", type: "button", "aria-label": t.next, text: "›", onclick: () => step(1) })), dots)));
 
-  const fair = h("section", { class: "band-section", id: "fairness" }, h("div", { class: "inner", style: "display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center" },
-    h("div", null, h("h2", { text: t.fairTitle }), h("p", { class: "lead", style: "margin-top:14px", text: t.fairLead })),
-    h("div", { class: "card" }, h("b", { text: t.fairCard }), h("div", { class: "small muted", text: t.fairVariants }),
-      h("div", { class: "row" }, ["A29", "A42", "A50", "A58", "P5", "P25"].map((v) => h("span", { class: "st blue", text: v }))), h("small", { text: t.fairLine }))));
+  const cta = h("section", { class: "cta" }, h("div", { class: "inner rv" }, h("h2", { text: t.ctaTitle }), h("p", { text: t.ctaLead }), h("a", { class: "btn white lg", href: "#/signin", text: t.start })));
 
-  const cta = h("section", { class: "cta" }, h("h2", { text: t.ctaTitle }), h("p", { text: t.ctaLead }), h("a", { class: "btn white lg", href: "#/signin", text: t.demo }));
-  return h("div", null, hero, features, how, shots, fair, cta);
+  const page = h("div", { class: "land" }, hero, features, how, shots, cta);
+  if (!reduced() && "IntersectionObserver" in window) {
+    page.classList.add("rv-on");   // content stays visible if this never runs
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.15 });
+    queueMicrotask(() => page.querySelectorAll(".rv").forEach((el) => io.observe(el)));
+  }
+  return page;
 }

@@ -4,13 +4,13 @@ export const S = {
   profileId: read(),
   meta: null,
   // screen 1
-  styles: [], checkIn: "weekly", paused: false, consent: false,
+  styles: [], checkIn: "weekly", paused: false, consent: true,
   // screen 2
   form: null,
   // screen 3
   extract: null, decisions: {}, added: [],
   // screen 4 and 5
-  roleId: null,
+  roleId: null, changeRole: false,
   // one-time message shown at the top of the next screen
   flash: null,
 };

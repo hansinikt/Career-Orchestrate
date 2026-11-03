@@ -3,10 +3,11 @@ import { T } from "../strings.js";
 import { S } from "../state.js";
 import { U, signIn } from "../store.js";
 import { h, go, field } from "../ui.js";
+import { logo } from "../art.js";
 
 export default function signinScreen() {
   const t = T.auth;
-  if (U.user) { go(S.profileId ? "#/dashboard" : "#/onboard"); return null; }
+  if (U.user) { go(S.profileId ? "#/dashboard" : "#/welcome"); return null; }
   let mode = "create";
   const root = h("div", { class: "auth" });
   const draw = () => {
@@ -21,7 +22,7 @@ export default function signinScreen() {
       if (!/^\S+@\S+\.\S+$/.test(m)) { err.textContent = t.needEmail; email.focus(); return; }
       if (pass.value.length < 6) { err.textContent = t.needPass; pass.focus(); return; }
       signIn({ name: n || m.split("@")[0], email: m });
-      go(S.profileId ? "#/dashboard" : "#/onboard");
+      go(S.profileId ? "#/dashboard" : "#/welcome");
     };
     root.replaceChildren(
       h("div", { class: "left" }, h("form", { class: "card", style: "width:100%;max-width:440px;padding:34px", onsubmit: submit, novalidate: true },
@@ -30,8 +31,8 @@ export default function signinScreen() {
           h("input", { type: "radio", name: "mode", checked: mode === id, onchange: () => { mode = id; draw(); } }), h("span", { text: label })))),
         mode === "create" ? field(t.name, name) : null, field(t.email, email), field(t.password, pass), err,
         h("button", { class: "btn lg", type: "submit", style: "width:100%", text: mode === "create" ? t.create : t.signin }),
-        h("p", { class: "small faint", text: t.privacy }))),
-      h("div", { class: "right" }, h("div", { style: "max-width:420px" }, h("h2", { text: t.sideTitle }), h("p", { text: t.sideLead }))));
+        )),
+      h("div", { class: "right" }, h("div", { class: "auth-brand" }, logo(84, "#ffffff"), h("div", { class: "wordmark", text: "Career Orchestrator" }))));
   };
   draw();
   return root;

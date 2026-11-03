@@ -8,6 +8,7 @@ import { logo } from "./art.js";
 import * as slots from "./slots.js";
 import landing from "./screens/landing.js";
 import signin from "./screens/signin.js";
+import welcome from "./screens/welcome.js";
 import wizard from "./screens/wizard.js";
 import { building1, building2 } from "./screens/building.js";
 import screen3 from "./screens/screen3.js";
@@ -18,7 +19,6 @@ import dashboard from "./screens/dashboard.js";
 import courses from "./screens/courses.js";
 import course from "./screens/course.js";
 import missions from "./screens/missions.js";
-import skillcheck from "./screens/skillcheck.js";
 import certs from "./screens/certs.js";
 import profile from "./screens/profile.js";
 import screen7 from "./screens/screen7.js";
@@ -26,14 +26,14 @@ import screenOpenness from "./screens/screen_openness.js";
 
 // layout: "public" (landing, sign in), "flow" (profile questions, gates, loading), "app" (the main site)
 const ROUTES = {
-  "": { fn: landing, layout: "public" }, features: { fn: landing, layout: "public" }, how: { fn: landing, layout: "public" }, fairness: { fn: landing, layout: "public" },
+  "": { fn: landing, layout: "public" }, features: { fn: landing, layout: "public" }, how: { fn: landing, layout: "public" }, shots: { fn: landing, layout: "public" },
   signin: { fn: signin, layout: "public" },
-  onboard: { fn: wizard, layout: "flow", auth: true }, building: { fn: building1, layout: "flow", auth: true },
+  welcome: { fn: welcome, layout: "flow", auth: true }, onboard: { fn: wizard, layout: "flow", auth: true }, building: { fn: building1, layout: "flow", auth: true },
   "3": { fn: screen3, layout: "flow", auth: true, need: true }, "4": { fn: () => { go("#/jobs"); return null; }, layout: "flow", auth: true, need: true }, "5": { fn: building2, layout: "flow", auth: true, need: true },
   jobs: { fn: jobs, layout: "app", auth: true, need: true, tab: "jobs" }, role: { fn: role, layout: "app", auth: true, need: true, tab: "jobs" },
   roadmap: { fn: roadmap, layout: "app", auth: true, need: true, tab: "roadmap" }, dashboard: { fn: dashboard, layout: "app", auth: true, need: true, tab: "dashboard" },
   courses: { fn: courses, layout: "app", auth: true, need: true, tab: "courses" }, course: { fn: course, layout: "app", auth: true, need: true, tab: "courses" },
-  missions: { fn: missions, layout: "app", auth: true, need: true, tab: "missions" }, skillcheck: { fn: skillcheck, layout: "app", auth: true, need: true, tab: "skillcheck" },
+  missions: { fn: missions, layout: "app", auth: true, need: true, tab: "missions" },
   certs: { fn: certs, layout: "app", auth: true, tab: "certs" }, profile: { fn: profile, layout: "app", auth: true, need: true },
   "7": { fn: screen7, layout: "app", auth: true }, openness: { fn: screenOpenness, layout: "public" },
 };
@@ -46,8 +46,8 @@ const link = (href, text, on) => h("a", { href, class: on ? "on" : null, "aria-c
 const brand = () => h("a", { class: "brand", href: U.user ? "#/dashboard" : "#/" }, logo(30), h("b", { text: T.appName }));
 
 // ---- search (pages, courses, missions) ----
-const PAGES = () => [[T.nav.dashboard, "#/dashboard"], [T.nav.roadmap, "#/roadmap"], [T.nav.jobs, "#/jobs"], [T.nav.courses, "#/courses"], [T.nav.missions, "#/missions"], [T.nav.skillcheck, "#/skillcheck"], [T.nav.certs, "#/certs"],
-  [T.menu.profile, "#/profile"], [T.menu.schedule, "#/profile/schedule"], [T.menu.encourage, "#/profile/encourage"], [T.menu.email, "#/profile/email"], [T.menu.fairness, "#/7"], [T.menu.advert, "#/openness"]];
+const PAGES = () => [[T.nav.dashboard, "#/dashboard"], [T.nav.roadmap, "#/roadmap"], [T.nav.jobs, "#/jobs"], [T.nav.courses, "#/courses"], [T.nav.missions, "#/missions"], [T.nav.certs, "#/certs"],
+  [T.menu.profile, "#/profile"], [T.menu.schedule, "#/profile/schedule"], [T.menu.encourage, "#/profile/encourage"], [T.menu.email, "#/profile/email"]];
 function searchBox() {
   const input = h("input", { type: "search", "aria-label": T.search.label, placeholder: T.search.placeholder, autocomplete: "off" });
   const out = h("div", { class: "results", hidden: true, role: "listbox" });
@@ -55,8 +55,9 @@ function searchBox() {
   const load = async () => {
     if (extra) return extra; extra = [];
     try {
-      const p = await slots.plan(); const rows = slots.courseRows(p, null);
-      rows.forEach((r) => extra.push([r.title, `#/course/${r.order}`, T.nav.courses]));
+      const p = await slots.plan(); const rc = await slots.chosenCourses(p);
+      if (rc.length) rc.forEach((c) => extra.push([c.title, "#/courses", T.nav.courses]));
+      else slots.courseRows(p, null).forEach((r) => extra.push([r.title, `#/course/${r.order}`, T.nav.courses]));
       (await slots.missions()).forEach((m) => extra.push([m.title, "#/missions", T.nav.missions]));
     } catch (e) { /* search still works for pages */ }
     return extra;
@@ -82,7 +83,6 @@ function meMenu() {
     h("a", { href: "#/profile", role: "menuitem", text: T.menu.profile }), h("a", { href: "#/profile/schedule", role: "menuitem", text: T.menu.schedule }),
     h("a", { href: "#/certs", role: "menuitem", text: T.menu.certs }), h("a", { href: "#/profile/encourage", role: "menuitem", text: T.menu.encourage }),
     h("a", { href: "#/profile/email", role: "menuitem", text: T.menu.email }), h("hr"),
-    h("a", { href: "#/7", role: "menuitem", text: T.menu.fairness }), h("a", { href: "#/openness", role: "menuitem", text: T.menu.advert }), h("hr"),
     h("button", { type: "button", role: "menuitem", text: T.menu.logout, onclick: () => { signOut(); setProfileId(null); resetJourney(); S.form = null; go("#/"); } }));
   const btn = h("button", { type: "button", "aria-haspopup": "menu", "aria-expanded": "false", onclick: () => { dd.hidden = !dd.hidden; btn.setAttribute("aria-expanded", String(!dd.hidden)); } },
     h("span", { class: "av", text: initials(U.user.name) }), h("b", { text: U.user.name.split(" ")[0] }), h("span", { "aria-hidden": "true", text: "▾" }));
@@ -95,12 +95,12 @@ function meMenu() {
 function drawChrome(r) {
   let inner;
   if (r.layout === "public" || !U.user) {
-    inner = [brand(), h("nav", { class: "nav", "aria-label": "Main" }, link("#/features", T.pub.features), link("#/how", T.pub.how), link("#/fairness", T.pub.fairness), link("#/openness", T.pub.advert, r.fn === screenOpenness)),
-      h("div", { class: "grow" }), U.user ? meMenu() : [h("a", { class: "btn ghost small", href: "#/signin", text: T.pub.signin }), h("a", { class: "btn small", href: "#/signin", text: T.pub.demo })]];
+    inner = [brand(), h("nav", { class: "nav", "aria-label": "Main" }, link("#/features", T.pub.features), link("#/how", T.pub.how), link("#/shots", T.pub.shots)),
+      h("div", { class: "grow" }), U.user ? meMenu() : h("a", { class: "btn small", href: "#/signin", text: T.pub.signin })];
   } else if (r.layout === "flow") {
-    inner = [brand(), h("div", { class: "grow" }), h("span", { class: "proto", text: T.wiz.saved }), meMenu()];
+    inner = [brand(), h("div", { class: "grow" }), meMenu()];
   } else {
-    const tabs = [["dashboard", T.nav.dashboard], ["roadmap", T.nav.roadmap], ["jobs", T.nav.jobs], ["courses", T.nav.courses], ["missions", T.nav.missions], ["skillcheck", T.nav.skillcheck], ["certs", T.nav.certs]];
+    const tabs = [["dashboard", T.nav.dashboard], ["roadmap", T.nav.roadmap], ["jobs", T.nav.jobs], ["courses", T.nav.courses], ["missions", T.nav.missions], ["certs", T.nav.certs]];
     inner = [brand(), h("nav", { class: "nav", "aria-label": "Main" }, tabs.map(([k, t]) => link(`#/${k}`, t, r.tab === k))), h("div", { class: "grow" }), searchBox(), meMenu()];
   }
   chrome.replaceChildren(h("div", { class: "top-in" }, inner));
@@ -120,7 +120,7 @@ async function route() {
   if (my !== routeId || !node) return;
   const flash = S.flash ? h("div", { class: "page", style: "padding-bottom:0" }, h("div", { class: "note warn", role: "status", text: S.flash })) : null; S.flash = null;
   main.replaceChildren(...(flash ? [flash, node] : [node]));
-  const anchor = ["features", "how", "fairness"].includes(key) ? document.getElementById(key) : null;
+  const anchor = ["features", "how", "shots"].includes(key) ? document.getElementById(key) : null;
   if (anchor) anchor.scrollIntoView(); else window.scrollTo(0, 0);
   const t = document.getElementById("page-title"); if (t && !anchor) t.focus({ preventScroll: true });
 }

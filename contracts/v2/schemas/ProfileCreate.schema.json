@@ -43,7 +43,7 @@
           "type": "boolean"
         },
         "styles": {
-          "description": "1 or 2 styles the worker chose; first is primary",
+          "description": "One or more styles the worker chose; first is primary",
           "items": {
             "enum": [
               "progress",
@@ -54,7 +54,7 @@
             ],
             "type": "string"
           },
-          "maxItems": 2,
+          "maxItems": 5,
           "minItems": 1,
           "title": "Styles",
           "type": "array"
@@ -81,7 +81,7 @@
             ],
             "type": "string"
           },
-          "maxItems": 3,
+          "maxItems": 5,
           "title": "Interests",
           "type": "array"
         },

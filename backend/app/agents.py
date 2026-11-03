@@ -107,13 +107,18 @@ def cv_parse(text: str, sk: dict):
 # ---- Job options: the model may only write the one-sentence reason for each course. Which courses show, and their order, is decided in engine/paths.py. ----
 PATH_SYSTEM = ("You explain, in plain words for a clerical worker, why each listed course is on the path to a job role. "
                "Use ONLY facts in the course record and the requirements list. Never change the order, never add or remove a course, never invent numbers, prices or ratings. "
-               "Each reason is at most 25 words. "
+               "Each reason says why a learner should take this course: where it fits on the way to the role (its level, a certificate if it has one) and how many of the missing skills it tackles. Do not list the topics it covers, they are shown separately. Each reason is at most 30 words. "
                'Return JSON only: {"reasons":[{"resource_id":"...","reason":"..."}]}')
+import pathlib
+BLURBS = json.loads((pathlib.Path(__file__).resolve().parents[2] / "data" / "v2" / "course_blurbs.json").read_text())["blurbs"]
 def path_reasons(role_title: str, courses: list, requirements: list):
     """-> (reasons by resource_id, mode). Falls back to a rule sentence for any course whose reason fails a check."""
     from engine import paths as PT
+    own = {c["course_id"]: BLURBS[c["course_id"]] for c in courses if c["course_id"] in BLURBS}
+    if courses and len(own) == len(courses): return {k: (v, "rules") for k, v in own.items()}, "rules"     # every course has its own written summary: no model call needed
+    courses_all, courses = courses, [c for c in courses if c["course_id"] not in own]
     payload = dict(role=role_title, requirements=[r["name"] for r in requirements if not r["have"]],
-                   courses=[dict(resource_id=c["course_id"], title=c["title"], provider=c["provider"], covers=c["covers"], level=c["level"], hours=c["hours"], prerequisites=c["prerequisites"]) for c in courses])
+                   courses=[dict(resource_id=c["course_id"], title=c["title"], provider=c["provider"], covers=c["covers"], level=c["level"], hours=c["hours"], prerequisites=c["prerequisites"], certificate=bool(c.get("certificate")), missing_skills_tackled=len(c["covers"]), missing_skills_total=c["missing_total"]) for c in courses])
     data, _ = llm.ask_json("path", PATH_SYSTEM, json.dumps(payload, ensure_ascii=False, sort_keys=True)) if courses else (None, None)
     got = {}
     if isinstance(data, dict) and isinstance(data.get("reasons"), list):
@@ -125,4 +130,5 @@ def path_reasons(role_title: str, courses: list, requirements: list):
         if isinstance(r, str) and 0 < len(r) <= 240 and not E.ungrounded_numbers(r, [src]) and not any(b in r.lower() for b in BANNED):
             out[c["course_id"]] = (r.strip(), "agent"); used = True
         else: out[c["course_id"]] = (PT.default_reason(c), "rules")
+    out.update({k: (v, "rules") for k, v in own.items()})
     return out, ("agent" if used else "rules")

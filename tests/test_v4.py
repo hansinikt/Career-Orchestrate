@@ -46,6 +46,7 @@ def test_chapter_ticks_deleted_with_profile(monkeypatch):
 
 # ---- missions: tied to chapters, own progress, start, decline ----
 def test_missions_follow_chapters(monkeypatch):
+    monkeypatch.setitem(M.PATHS, "courses", [])   # a role with no role-course data keeps the chapter-based missions
     pid, plan, st = journey_with_course(monkeypatch, 3); ms = c.get(f"/api/v1/profiles/{pid}/missions").json()["missions"]
     assert [m["chapter_title"] for m in ms if m["chapter_title"]] == ["Chapter 1 title", "Chapter 2 title", "Chapter 3 title"] and all("Chapter" in m["title"] for m in ms if m["chapter_title"])
     assert [m["status"] for m in ms[:3]] == ["open", "open", "locked"] and all(m["percent"] == 0 for m in ms)
@@ -55,6 +56,7 @@ def test_mission_progress_stages(monkeypatch):
     assert got()["percent"] == 0; c.post(f"/api/v1/profiles/{pid}/missions/{mid}/start"); assert got()["percent"] == 50 and got()["status"] == "open"
     c.post(f"/api/v1/profiles/{pid}/missions/{mid}/proof", json=dict(file_name="a.txt", content_base64=base64.b64encode(b"hello world").decode())); assert got()["percent"] == 100 and got()["status"] == "done"
 def test_decline_returns_encouragement_and_unlocks_next(monkeypatch):
+    monkeypatch.setitem(M.PATHS, "courses", [])   # legacy plan-step missions (two open at a time)
     pid, plan, st = journey_with_course(monkeypatch); ms = c.get(f"/api/v1/profiles/{pid}/missions").json()["missions"]; mid = ms[0]["mission_id"]
     r = c.post(f"/api/v1/profiles/{pid}/missions/{mid}/decline"); assert r.status_code == 200; j = r.json()
     assert j["message"]["event"] == "behind" and j["message"]["text"] and next(m for m in j["missions"]["missions"] if m["mission_id"] == mid)["status"] == "declined"

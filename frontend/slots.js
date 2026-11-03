@@ -4,14 +4,12 @@
 // Shapes the backend should return (the screens already draw them; empty list = empty state):
 //   courses():   [{ order, title, sub, text, hours, url, provider, duration, cost, percent, hasCourse, skill_name }]   <- built from GET /plan and GET /progress (exists today)
 //   missions():  [{ id, title, source, brief, status: "open"|"done"|"locked" }]                                        <- GET /profiles/{id}/missions (exists)
-//   questions(): [{ id, text, options: [string], answer_index?: number }]                                                <- NO endpoint yet (returns [] unless config DEMO_EXTRAS)
 //   proofs are saved on the server (POST /missions/{id}/proof). Certificates are kept on this device until the backend has an endpoint.
 import { api, ApiError } from "./api.js";
 import { S } from "./state.js";
 import { T } from "./strings.js";
 import { U, saveExtras } from "./store.js";
 
-const DEMO = !!window.DEMO_EXTRAS;
 const quiet = (e, codes) => e instanceof ApiError && codes.includes(e.code);
 
 export async function plan() {
@@ -45,10 +43,6 @@ export async function missions() {
   } catch (e) { if (quiet(e, ["NO_ACTIVE_PLAN", "SKILLS_NOT_CONFIRMED"])) return []; throw e; }
 }
 export function todayMission(list) { return list.find((m) => m.status === "open") || null; }
-export async function questions() {
-  if (!DEMO) return [];   // TODO(backend): GET /profiles/{id}/skillcheck
-  return [{ id: "q1", text: "A colleague asks for a copy of another person's record. What do you do first?", options: ["Share it with the whole team", "Ask the person who owns the record before sharing", "Keep a copy on your own computer", "Send it to whoever asks first"], answer_index: 1 }];
-}
 export async function saveProof(id, file) {
   if (file.size > 2000000) throw new ApiError("VALIDATION_ERROR", T.mis.tooBig, null, 422);
   const buf = new Uint8Array(await file.arrayBuffer()); let bin = ""; for (let i = 0; i < buf.length; i += 8192) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 8192));
@@ -68,21 +62,32 @@ export async function readCvText(file) {
   const buf = new Uint8Array(await file.arrayBuffer()); let bin = ""; for (let i = 0; i < buf.length; i += 8192) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 8192));
   return (await api.cvFile(file.name, btoa(bin))).text;
 }
-// What the roadmap boxes and dashboard tiles say under the heading. Fallbacks when the backend has nothing yet.
-export function roadmapItems(courses, missionList, questionList, planInfo) {
-  const c = courses[0], m = todayMission(missionList) || missionList[0], q = questionList[0];
+// What the roadmap boxes and dashboard tiles say under the heading, and whether each part is finished.
+export function roadmapItems(courses, missionList, planInfo, prog) {
+  const c = courses[0], m = todayMission(missionList) || missionList[0];
   return [
-    { key: "jobs", kind: "goal", title: T.nav.jobs, sub: planInfo ? planInfo.role_title : T.road.fallback.jobs, text: T.road.text.jobs, href: "#/jobs" },
-    { key: "courses", kind: "course", title: T.nav.courses, sub: c ? c.title : T.road.fallback.courses, text: T.road.text.courses, href: "#/courses" },
-    { key: "missions", kind: "mission", title: T.nav.missions, sub: m ? m.title : T.road.fallback.missions, text: T.road.text.missions, href: "#/missions" },
-    { key: "skillcheck", kind: "check", title: T.nav.skillcheck, sub: q ? q.text.slice(0, 40) + (q.text.length > 40 ? "…" : "") : T.road.fallback.skillcheck, text: T.road.text.skillcheck, href: "#/skillcheck" },
-    { key: "certs", kind: "cert", title: T.nav.certs, sub: T.road.fallback.certs, text: T.road.text.certs, href: "#/certs" },
+    { key: "jobs", kind: "goal", title: T.nav.jobs, sub: planInfo ? planInfo.role_title : T.road.fallback.jobs, href: "#/jobs", done: !!planInfo },
+    { key: "courses", kind: "course", title: T.nav.courses, sub: c ? c.title : T.road.fallback.courses, href: "#/courses", done: !!(prog && prog.percent >= 100) },
+    { key: "missions", kind: "mission", title: T.nav.missions, sub: m ? m.title : T.road.fallback.missions, href: "#/missions", done: missionList.length > 0 && missionList.every((x) => x.status === "done") },
+    { key: "certs", kind: "cert", title: T.nav.certs, sub: T.road.fallback.certs, href: "#/certs", done: false },
   ];
 }
+// The courses of the role the person chose (empty when there is no plan yet or the role has no course data). Never throws, so pages can fall back.
+export async function chosenCourses(p) {
+  if (!p || !p.role_id) return [];
+  try { return await roleCourses(p.role_id); } catch (e) { return []; }
+}
 // Courses for one job option, simplest first. The back end (engine/paths.py) chooses and orders them; this only reshapes them for the screen.
-export async function roleCourses(roleId) {
-  if (!S.profileId) return [];
+export async function rolePath(roleId) {
+  if (!S.profileId) return { courses: [], requirements: [] };
   const r = await api.rolePath(S.profileId, roleId);
-  return r.courses.map((c) => ({ resource_id: c.resource_id, title: c.title, provider: c.provider, level: c.level, duration_text: c.duration_text, hours: c.est_hours, cost: c.cost,
-    rating: c.rating, rating_count: c.rating_count, certificate: c.certificate, prerequisites: c.prerequisites, url: c.url, why: c.why, covers: c.covers, verified: c.verification_status === "verified" }));
+  return { requirements: r.requirements, courses: r.courses.map((c) => ({ resource_id: c.resource_id, title: c.title, provider: c.provider, level: c.level, duration_text: c.duration_text, hours: c.est_hours, cost: c.cost,
+    rating: c.rating, rating_count: c.rating_count, certificate: c.certificate, prerequisites: c.prerequisites, url: c.url, why: c.why, covers: c.covers, units: c.units || [], topics: c.topics || [], verified: c.verification_status === "verified" })) };
+}
+export async function roleCourses(roleId) { return (await rolePath(roleId)).courses; }
+
+// Hours a week the person said they can study (from the profile), or null.
+export async function weeklyHours() {
+  if (!S.profileId) return null;
+  try { const p = await api.getProfile(S.profileId); const w = p.preferences && p.preferences.weekly_hours; return w >= 1 ? w : null; } catch (e) { return null; }
 }

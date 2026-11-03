@@ -1,4 +1,4 @@
-// Panels that show the agents' own work: the trace ("Which agents worked on this"), the market view, and the Course Scout.
+// Panels that show the agents' own work: the trace ("What ran for you"), what is left to build for the chosen role, and the Course Scout.
 // Everything shown comes from the API and is inserted as text. Nothing is computed here.
 import { api, ApiError } from "./api.js";
 import { T } from "./strings.js";
@@ -18,11 +18,14 @@ export async function agentsCard() {
           h("div", { class: "small", text: s.output_summary }), s.stopped_at_gate ? h("div", { class: "small", style: "color:var(--brand);font-weight:600", text: t.decided }) : null)))) : h("p", { class: "muted", text: t.empty }));
 }
 
-export async function marketCard() {
-  const t = T.market; let m = null;
-  try { m = await api.getMarket(S.profileId); } catch (e) { if (!quiet(e)) throw e; }
-  return h("div", { class: "card" }, h("h3", { style: "font-size:1.2rem", text: t.title }), h("p", { class: "muted small", text: t.lead }),
-    m && m.next_skills.length ? h("div", { class: "stack", style: "gap:8px" }, m.next_skills.map((x) => h("div", { class: "row between" }, h("b", { text: x.name }), h("small", { class: "faint", text: t.asked(x.roles_asking, m.roles_in_catalogue) }))), h("small", { class: "faint", text: m.source_note })) : h("p", { class: "muted", text: t.empty }));
+// What is left to build for the role the person chose. The list comes from the role's requirements (GET /paths/{role}); nothing is computed here.
+export async function gapsCard(plan) {
+  const t = T.market; let r = null;
+  try { if (plan && plan.role_id) r = await api.rolePath(S.profileId, plan.role_id); } catch (e) { if (!quiet(e)) throw e; }
+  const todo = r ? r.requirements.filter((x) => !x.have) : [], have = r ? r.requirements.filter((x) => x.have) : [];
+  return h("div", { class: "card" }, h("h3", { style: "font-size:1.2rem", text: t.title(plan && plan.role_title) }), h("p", { class: "muted small", text: t.lead }),
+    todo.length ? h("div", { class: "stack", style: "gap:10px" }, todo.map((x) => h("div", null, h("b", { text: x.name }), h("div", { class: "small faint", text: x.evidence })))) : h("p", { class: "muted", text: t.empty }),
+    have.length ? h("div", { style: "margin-top:14px" }, h("small", { class: "faint", text: t.have }), h("div", { class: "pills", style: "margin-top:4px" }, have.map((x) => h("span", { class: "chip", text: x.name })))) : null);
 }
 
 // Course Scout: proposes a catalogue course per step. The person approves; only then does the plan change.
@@ -54,18 +57,3 @@ export function showEncouragement(text, primary) {
   document.addEventListener("keydown", esc); document.body.append(over); return over;
 }
 
-// The updated CV: plain text for applicant tracking systems.
-export function cvCard() {
-  const t = T.cvx, out = h("div", { class: "stack" }), msg = h("p", { class: "small", role: "status" });
-  const make = h("button", { class: "btn org", type: "button", text: t.make, onclick: async () => {
-    make.disabled = true; msg.textContent = t.making;
-    try {
-      const d = await api.getCv(S.profileId); msg.textContent = "";
-      const url = URL.createObjectURL(new Blob([d.text], { type: "text/plain" }));
-      out.replaceChildren(h("pre", { class: "cvpre", style: "white-space:pre-wrap;background:var(--line-2);border-radius:10px;padding:16px;max-height:340px;overflow:auto;font-size:.88rem", text: d.text }),
-        h("div", { class: "row" }, h("a", { class: "btn", href: url, download: d.file_name, text: t.download }),
-          h("button", { class: "btn ghost", type: "button", text: t.copy, onclick: async (e) => { try { await navigator.clipboard.writeText(d.text); e.target.textContent = t.copied; } catch (_) { /* clipboard may be blocked */ } } })));
-    } catch (e) { msg.textContent = e.code === "SKILLS_NOT_CONFIRMED" ? t.empty : e.message; } finally { make.disabled = false; }
-  } });
-  return h("div", { class: "card" }, h("h3", { style: "font-size:1.2rem", text: t.title }), h("p", { class: "muted small", text: t.lead }), make, msg, out);
-}

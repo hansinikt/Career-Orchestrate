@@ -40,11 +40,13 @@ def test_unknown_role_and_unconfirmed_profile():
     r = c.get(f"/api/v1/profiles/{pid2}/paths/R001"); assert r.status_code == 409 and r.json()["error"]["code"] == "SKILLS_NOT_CONFIRMED"
 def _fake(monkeypatch, data): monkeypatch.setattr(llm, "ask_json", lambda task, system, user: (data, "live"))
 def test_agent_reason_is_used_when_it_passes_checks(monkeypatch):
+    from backend.app import agents as A; monkeypatch.setattr(A, "BLURBS", {})     # a course with no written summary falls back to the model, then to rules
     pid = journey(); first = c.get(f"/api/v1/profiles/{pid}/paths/R001").json()["courses"][0]
     _fake(monkeypatch, dict(reasons=[dict(resource_id=first["resource_id"], reason="Covers onboarding and payroll basics for HR work.")]))
     j = c.get(f"/api/v1/profiles/{pid}/paths/R001").json(); got = {x["resource_id"]: x for x in j["courses"]}
     assert got[first["resource_id"]]["decided_by"] == "agent" and j["mode"] == "agent" and all(x["decided_by"] == "rules" for k, x in got.items() if k != first["resource_id"])
 def test_agent_cannot_add_reorder_or_invent_numbers(monkeypatch):
+    from backend.app import agents as A; monkeypatch.setattr(A, "BLURBS", {})
     pid = journey(); base = c.get(f"/api/v1/profiles/{pid}/paths/R001").json(); ids = [x["resource_id"] for x in base["courses"]]
     _fake(monkeypatch, dict(reasons=[dict(resource_id="PC-INVENTED", reason="great"), dict(resource_id=ids[0], reason="Rated 4.99 by 88888 learners and takes 777 hours"), dict(resource_id=ids[1], reason="You will be hired for sure")]))
     j = c.get(f"/api/v1/profiles/{pid}/paths/R001").json()

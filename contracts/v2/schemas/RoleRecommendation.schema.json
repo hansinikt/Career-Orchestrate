@@ -147,6 +147,24 @@
       "title": "Blocking Gaps",
       "type": "array"
     },
+    "build_skills": {
+      "description": "Names of the role's researched requirements the worker does not have yet (empty when the role has no course data)",
+      "items": {
+        "type": "string"
+      },
+      "title": "Build Skills",
+      "type": "array"
+    },
+    "course_count": {
+      "default": 0,
+      "title": "Course Count",
+      "type": "integer"
+    },
+    "course_hours": {
+      "default": 0,
+      "title": "Course Hours",
+      "type": "number"
+    },
     "est_gap_hours": {
       "title": "Est Gap Hours",
       "type": "number"

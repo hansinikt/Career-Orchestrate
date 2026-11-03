@@ -24,7 +24,18 @@ export default async function missions() {
       h("div", { class: "grow" }, h("h4", { text: m.title }), m.chapter_title ? h("div", { class: "sub", text: t.chapter(m.chapter_title) }) : h("div", { class: "sub", text: t.from(m.source) }), h("p", { text: m.brief }),
         h("div", { style: "max-width:380px;margin-top:8px" }, bar(m.percent, m.title), h("small", { class: "faint", text: stage })), act ? h("div", { style: "margin-top:14px" }, act) : null));
   };
-  const how = h("div", { class: "card" }, h("h3", { style: "font-size:1.2rem", text: t.howTitle }), t.how.map((s, i) => h("div", { class: "item" }, h("span", { class: "chip", text: String(i + 1) }), h("span", { text: s }))));
+  // Missions of a course that is not open yet are shown as one greyed, locked box per course. Inside the open course, the next missions are greyed one by one.
+  const courseOf = (m) => { const x = /^Course (\d+): (.*)$/.exec(m.source || ""); return x ? [Number(x[1]), x[2]] : null; };
+  const active = new Set(list.filter((m) => m.status !== "locked").map((m) => (courseOf(m) || [])[0]));
+  const nodes = []; let n = 0;
+  for (let k = 0; k < list.length; k++) {
+    const m = list[k], c = courseOf(m);
+    if (m.status !== "locked" || !c) { nodes.push(row(m, n++)); continue; }
+    if (active.has(c[0])) { n++; nodes.push(h("div", { class: "card item lockedbox", "aria-label": m.title }, h("span", { class: "mnum", "aria-hidden": "true", text: "🔒" }), h("div", { class: "grow" }, h("h4", { text: m.title }), h("p", { text: t.nextText })))); continue; }
+    while (k + 1 < list.length && list[k + 1].status === "locked" && (list[k + 1].source || "").startsWith(`Course ${c[0]}:`)) k++;
+    nodes.push(h("div", { class: "card item lockedbox", "aria-label": t.lockedTitle(c[0]) }, h("span", { class: "mnum", "aria-hidden": "true", text: "🔒" }),
+      h("div", { class: "grow" }, h("h4", { text: t.lockedTitle(c[0]) }), h("div", { class: "sub", text: c[1] }), h("p", { text: t.lockedText(c[0]) }))));
+  }
   return h("div", { class: "page" }, crumb(t.crumb), h("div", { class: "head" }, h("div", null, h("h1", { id: "page-title", tabindex: "-1", text: t.title }), h("p", { class: "lead", text: t.lead }))),
-    h("div", { class: "split" }, h("div", { class: "stack" }, list.length ? list.map(row) : emptyState("mission", t.emptyTitle, t.emptyText)), how));
+    h("div", { class: "stack" }, nodes.length ? nodes : emptyState("mission", t.emptyTitle, t.emptyText)));
 }
