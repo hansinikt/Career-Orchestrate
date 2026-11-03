@@ -14,7 +14,7 @@ export default async function courses() {
   const draw = () => {
     const needle = q.value.trim().toLowerCase();
     const shown = rows.filter((r) => !needle || r.title.toLowerCase().includes(needle) || r.skill_name.toLowerCase().includes(needle));
-    if (!rows.length) { list.replaceChildren(emptyState("course", t.emptyTitle, t.emptyText, h("a", { class: "btn", href: "#/4", text: t.makePlan }))); return; }
+    if (!rows.length) { list.replaceChildren(emptyState("course", t.emptyTitle, t.emptyText, h("a", { class: "btn", href: "#/jobs", text: t.makePlan }))); return; }
     list.replaceChildren(...shown.map((r) => h("div", { class: "card item", style: "padding:22px 26px;gap:22px" }, ill("course", 64),
       h("div", { class: "grow" }, h("h4", { style: "font-size:1.15rem", text: r.title }), h("div", { class: "sub", text: r.sub }), h("p", { text: r.text }),
         r.hasCourse ? null : h("p", { class: "small", style: "color:var(--ink-3)", text: t.noCourse }), h("div", { style: "margin-top:10px;max-width:420px" }, bar(r.percent, r.title))),

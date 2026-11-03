@@ -44,7 +44,7 @@ export function handleError(err, retry) {
   const redirect = (hash, msg) => { S.flash = msg; go(hash); return null; };
   if (code === "CONSENT_REQUIRED") return redirect("#/onboard/9", err.message);
   if (code === "SKILLS_NOT_CONFIRMED") return redirect("#/3", err.message);
-  if (code === "NO_ACTIVE_PLAN") return redirect("#/4", err.message);
+  if (code === "NO_ACTIVE_PLAN") return redirect("#/jobs", err.message);
   if (code === "NOT_FOUND") { setProfileId(null); return redirect("#/onboard", err.message); }
   return errorPanel(err, retry);
 }

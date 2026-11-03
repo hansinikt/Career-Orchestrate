@@ -51,7 +51,7 @@ export async function building1() {
   });
 }
 export async function building2() {
-  if (!S.roleId) { go("#/4"); return null; }
+  if (!S.roleId) { go("#/jobs"); return null; }
   const t = T.load, hrs = S.form && parseInt(S.form.hours, 10), weekly = hrs >= 1 && hrs <= 40 ? hrs : undefined;
   return stage({
     hash: "5", title: t.title2, lead: t.lead2, rows: t.rows2,

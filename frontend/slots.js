@@ -66,12 +66,20 @@ export async function readCvText(file) {
   return (await file.text()).slice(0, 20000);
 }
 // What the roadmap boxes and dashboard tiles say under the heading. Fallbacks when the backend has nothing yet.
-export function roadmapItems(courses, missionList, questionList) {
+export function roadmapItems(courses, missionList, questionList, planInfo) {
   const c = courses[0], m = todayMission(missionList) || missionList[0], q = questionList[0];
   return [
+    { key: "jobs", kind: "goal", title: T.nav.jobs, sub: planInfo ? planInfo.role_title : T.road.fallback.jobs, text: T.road.text.jobs, href: "#/jobs" },
     { key: "courses", kind: "course", title: T.nav.courses, sub: c ? c.title : T.road.fallback.courses, text: T.road.text.courses, href: "#/courses" },
     { key: "missions", kind: "mission", title: T.nav.missions, sub: m ? m.title : T.road.fallback.missions, text: T.road.text.missions, href: "#/missions" },
     { key: "skillcheck", kind: "check", title: T.nav.skillcheck, sub: q ? q.text.slice(0, 40) + (q.text.length > 40 ? "…" : "") : T.road.fallback.skillcheck, text: T.road.text.skillcheck, href: "#/skillcheck" },
     { key: "certs", kind: "cert", title: T.nav.certs, sub: T.road.fallback.certs, text: T.road.text.certs, href: "#/certs" },
   ];
+}
+// Courses for one job option, simplest first. The Course Scout (back end) chooses and orders them; this screen only draws what it gets.
+// Shape of each item: { resource_id, title, provider, level: "beginner"|"intermediate"|"advanced"|null, duration_text, cost, rating, rating_count,
+//   certificate: true|false|null, prerequisites, url, why, covers: [skill names], verified: boolean }
+// TODO(backend): GET /profiles/{id}/paths/{role_id}. Until it exists the list is empty and the role page shows the "being prepared" state.
+export async function roleCourses(roleId) {
+  return [];
 }

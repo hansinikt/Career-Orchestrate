@@ -121,6 +121,23 @@ export const T = {
     modeNote: "Suggestions come from keyword rules. Please check every one.",
   },
   // screen 4
+  jobs: {
+    crumb: "Dashboard / Job options", title: "Job options",
+    lead: "Roles that fit what you already do, closest fit first. Pick one to see the courses that build what it asks for.",
+    goalTag: "YOUR DESIRED ROLE", have: "You already have", build: "Still to build (estimated hours)", nothingToBuild: "Nothing missing found",
+    hoursTotal: (h) => `About ${h} hours of learning`, seeCourses: "See courses for this role", more: "More roles", less: "Show fewer roles", moreCount: (n) => `More roles (${n})`,
+    empty: "No roles to show yet. Confirm your skills first.", toSkills: "Confirm my skills",
+  },
+  role: {
+    crumb: (t) => `Dashboard / Job options / ${t}`, back: "← All job options", have: "You already have", build: "Still to build",
+    coursesTitle: "Courses for this role", coursesLead: "Simplest first, then harder. Each one is listed with what its own page says.",
+    levels: { beginner: "Start with the basics", intermediate: "Build on it", advanced: "Level up", unknown: "Level not stated" },
+    waitTitle: "Courses for this role are being prepared", waitText: "The Course Scout lists them here, simplest first, once they are ready.",
+    choose: "Choose this path", chooseHelp: "You decide. Your plan is built only after you choose.", notFound: "We could not find that role.", 
+    hours: "Time", open: "Open the course page", why: "Why this course", covers: "Covers", step: (n) => `Step ${n}`,
+    rating: (r, n) => n ? `Rated ${r} from ${n} reviews` : `Rated ${r}`, noRating: "No rating shown", cost: (c) => `Cost: ${c}`, costNone: "Cost: not stated", cert: { yes: "Certificate", no: "No certificate", unknown: "Certificate: not stated" },
+    prereq: (p) => `Needs first: ${p}`, unverified: "Not checked by a person yet",
+  },
   s4: {
     title: "Choose a role to work towards",
     lead: "Roles are ordered by how well your confirmed skills match. Open “Why” on any role to see the reasons.",
@@ -136,12 +153,10 @@ export const T = {
     needed: "Needed",
     required: "Required",
     hours: (h) => `about ${h} hours`,
-    scoreLabel: "Match score (provisional)",
     choose: "Choose this role",
     chooseGoal: "Work towards this goal",
     allRoles: "All roles, best match first",
     empty: "No roles to show yet. Confirm your skills first.",
-    provisional: "Weights behind these scores are provisional and have not been validated.",
   },
   // screen 5
   s5: {
@@ -226,7 +241,7 @@ export const T = {
     needReviewer: "Enter your name to save the review.",
   },
   // ---- v3 app shell and new screens ----
-  nav: { dashboard: "Dashboard", roadmap: "Roadmap", courses: "Courses", missions: "Missions", skillcheck: "Skill Check", certs: "Certifications" },
+  nav: { dashboard: "Dashboard", roadmap: "Roadmap", jobs: "Job options", courses: "Courses", missions: "Missions", skillcheck: "Skill Check", certs: "Certifications" },
   pub: { features: "Features", how: "How it works", fairness: "Fairness", advert: "Advert check", signin: "Sign in", demo: "Watch the demo" },
   search: { placeholder: "Search the app", none: "Nothing found", pages: "Pages", label: "Search" },
   menu: { profile: "My profile", schedule: "My schedule", certs: "My certifications", encourage: "Encouragement settings", email: "Email preferences", fairness: "Fairness check (adviser)", advert: "Job advert check (adviser)", logout: "Log out" },
@@ -296,9 +311,9 @@ export const T = {
     note: "Nothing is decided without you. You review each result next.",
   },
   road: {
-    title: (role) => role ? `Your roadmap to ${role}` : "Your roadmap", lead: "Each step is a part of the app. Click a box to open it.", toDash: "Go to my dashboard", open: (t) => `Open ${t}`,
-    fallback: { courses: "Your coursework", missions: "Your missions", skillcheck: "Your questions", certs: "Proof and certificates" },
-    text: { courses: "Coursework that closes your gaps.", missions: "Do the task, then upload proof.", skillcheck: "Questions beyond the course.", certs: "Upload what you have earned." },
+    title: (role) => role ? `Your roadmap to ${role}` : "Your roadmap", lead: "Start with your job options, then follow the road. Click a box to open it.", toDash: "Go to my dashboard", open: (t) => `Open ${t}`,
+    fallback: { jobs: "Roles that fit you", courses: "Your coursework", missions: "Your missions", skillcheck: "Your questions", certs: "Proof and certificates" },
+    text: { jobs: "Pick a role to see its courses.", courses: "Coursework that closes your gaps.", missions: "Do the task, then upload proof.", skillcheck: "Questions beyond the course.", certs: "Upload what you have earned." },
   },
   dash: {
     todayTag: "TODAY'S MISSION", idleTitle: "Your first mission will appear here", idleText: "When the agents add missions to your plan, today's mission shows in this box.", proofTitle: "Submit your proof", proofDrop: "Choose a file", proofBtn: "Upload proof", proofDone: "Proof saved.",

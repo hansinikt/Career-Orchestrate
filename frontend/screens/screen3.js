@@ -60,7 +60,7 @@ export default async function screen3() {
     const body = { decisions: X.suggestions.map((s) => { const d = D[s.suggestion_id]; return d.action === "edit" ? { suggestion_id: s.suggestion_id, action: "edit", level: d.level || s.suggested_level } : { suggestion_id: s.suggestion_id, action: d.action }; }),
       added_skills: S.added.map((a) => ({ skill_id: a.skill_id, level: a.level })) };
     bar.out.replaceChildren(spinner()); bar.btn.disabled = true;
-    try { await api.confirm(S.profileId, body); go("#/4"); }
+    try { await api.confirm(S.profileId, body); go("#/jobs"); }
     catch (e) { bar.btn.disabled = false; bar.out.replaceChildren(errorPanel(e, submit)); }
   }
 

@@ -11,7 +11,8 @@ import signin from "./screens/signin.js";
 import wizard from "./screens/wizard.js";
 import { building1, building2 } from "./screens/building.js";
 import screen3 from "./screens/screen3.js";
-import screen4 from "./screens/screen4.js";
+import jobs from "./screens/jobs.js";
+import role from "./screens/role.js";
 import roadmap from "./screens/roadmap.js";
 import dashboard from "./screens/dashboard.js";
 import courses from "./screens/courses.js";
@@ -28,7 +29,8 @@ const ROUTES = {
   "": { fn: landing, layout: "public" }, features: { fn: landing, layout: "public" }, how: { fn: landing, layout: "public" }, fairness: { fn: landing, layout: "public" },
   signin: { fn: signin, layout: "public" },
   onboard: { fn: wizard, layout: "flow", auth: true }, building: { fn: building1, layout: "flow", auth: true },
-  "3": { fn: screen3, layout: "flow", auth: true, need: true }, "4": { fn: screen4, layout: "flow", auth: true, need: true }, "5": { fn: building2, layout: "flow", auth: true, need: true },
+  "3": { fn: screen3, layout: "flow", auth: true, need: true }, "4": { fn: () => { go("#/jobs"); return null; }, layout: "flow", auth: true, need: true }, "5": { fn: building2, layout: "flow", auth: true, need: true },
+  jobs: { fn: jobs, layout: "app", auth: true, need: true, tab: "jobs" }, role: { fn: role, layout: "app", auth: true, need: true, tab: "jobs" },
   roadmap: { fn: roadmap, layout: "app", auth: true, need: true, tab: "roadmap" }, dashboard: { fn: dashboard, layout: "app", auth: true, need: true, tab: "dashboard" },
   courses: { fn: courses, layout: "app", auth: true, need: true, tab: "courses" }, course: { fn: course, layout: "app", auth: true, need: true, tab: "courses" },
   missions: { fn: missions, layout: "app", auth: true, need: true, tab: "missions" }, skillcheck: { fn: skillcheck, layout: "app", auth: true, need: true, tab: "skillcheck" },
@@ -44,7 +46,7 @@ const link = (href, text, on) => h("a", { href, class: on ? "on" : null, "aria-c
 const brand = () => h("a", { class: "brand", href: U.user ? "#/dashboard" : "#/" }, logo(30), h("b", { text: T.appName }));
 
 // ---- search (pages, courses, missions) ----
-const PAGES = () => [[T.nav.dashboard, "#/dashboard"], [T.nav.roadmap, "#/roadmap"], [T.nav.courses, "#/courses"], [T.nav.missions, "#/missions"], [T.nav.skillcheck, "#/skillcheck"], [T.nav.certs, "#/certs"],
+const PAGES = () => [[T.nav.dashboard, "#/dashboard"], [T.nav.roadmap, "#/roadmap"], [T.nav.jobs, "#/jobs"], [T.nav.courses, "#/courses"], [T.nav.missions, "#/missions"], [T.nav.skillcheck, "#/skillcheck"], [T.nav.certs, "#/certs"],
   [T.menu.profile, "#/profile"], [T.menu.schedule, "#/profile/schedule"], [T.menu.encourage, "#/profile/encourage"], [T.menu.email, "#/profile/email"], [T.menu.fairness, "#/7"], [T.menu.advert, "#/openness"]];
 function searchBox() {
   const input = h("input", { type: "search", "aria-label": T.search.label, placeholder: T.search.placeholder, autocomplete: "off" });
@@ -98,7 +100,7 @@ function drawChrome(r) {
   } else if (r.layout === "flow") {
     inner = [brand(), h("div", { class: "grow" }), h("span", { class: "proto", text: T.wiz.saved }), meMenu()];
   } else {
-    const tabs = [["dashboard", T.nav.dashboard], ["roadmap", T.nav.roadmap], ["courses", T.nav.courses], ["missions", T.nav.missions], ["skillcheck", T.nav.skillcheck], ["certs", T.nav.certs]];
+    const tabs = [["dashboard", T.nav.dashboard], ["roadmap", T.nav.roadmap], ["jobs", T.nav.jobs], ["courses", T.nav.courses], ["missions", T.nav.missions], ["skillcheck", T.nav.skillcheck], ["certs", T.nav.certs]];
     inner = [brand(), h("nav", { class: "nav", "aria-label": "Main" }, tabs.map(([k, t]) => link(`#/${k}`, t, r.tab === k))), h("div", { class: "grow" }), searchBox(), meMenu()];
   }
   chrome.replaceChildren(h("div", { class: "top-in" }, inner));
@@ -124,6 +126,6 @@ async function route() {
 }
 window.addEventListener("hashchange", route);
 (async () => {
-  try { S.meta = await api.meta(); document.getElementById("disclaimer").textContent = S.meta.disclaimers.slice(0, 2).join(" "); } catch (e) { /* the screens show connection problems */ }
+  try { S.meta = await api.meta(); } catch (e) { /* the screens show connection problems */ }
   route();
 })();

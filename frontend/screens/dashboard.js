@@ -12,7 +12,7 @@ export default async function dashboard() {
   const t = T.dash;
   const [plan, prog, miss, qs, profile] = await Promise.all([slots.plan(), slots.progress(), slots.missions(), slots.questions(), api.getProfile(S.profileId)]);
   const courses = slots.courseRows(plan, prog), today = slots.todayMission(miss);
-  const items = slots.roadmapItems(courses, miss, qs);
+  const items = slots.roadmapItems(courses, miss, qs, plan);
   const root = h("div", { class: "page" });
 
   const proofBox = () => {
