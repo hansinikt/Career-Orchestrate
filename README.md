@@ -1,4 +1,4 @@
-# Career Orchestrator (SAP Hackfest 2026, Theme 2: Inclusive Workforce)
+# Career Orchestrator 
 
 An evidence-led career-transition assistant for experienced administrative workers. Read `docs/PRD_v2.pdf` first (sections 1 to 4, 13 and 14), then `AGENTS.md`.
 
